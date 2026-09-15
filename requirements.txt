@@ -9,3 +9,4 @@ tqdm
 open3d
 trimesh
 zmq
+tensorboard

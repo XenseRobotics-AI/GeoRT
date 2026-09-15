@@ -5,7 +5,6 @@
 # LICENSE file in the root directory of this source tree.
 
 import torch
-import os 
 from pathlib import Path
 from geort.formatter import HandFormatter
 from geort.model import IKModel
@@ -19,6 +18,7 @@ class GeoRTRetargetingModel:
     '''
     def __init__(self, model_path, config_path):
         config = load_json(config_path)
+        self.config = config
         keypoint_info = parse_config_keypoint_info(config)
         joint_lower_limit, joint_upper_limit = parse_config_joint_limit(config)
         print(keypoint_info["joint"])
@@ -36,26 +36,39 @@ class GeoRTRetargetingModel:
         return joint_raw[0]
 
 
-def load_model(tag='', epoch=0):
+def resolve_checkpoint(tag):
+    root = Path(get_checkpoint_root())
+    exact = root / tag
+    if tag and exact.is_dir() and (exact / 'config.json').is_file():
+        return exact
+    matches = sorted(p for p in root.iterdir()
+                     if p.is_dir() and tag in p.name and (p / 'config.json').is_file())
+    if not matches:
+        raise FileNotFoundError(f'No checkpoint matches {tag!r} in {root}')
+    if len(matches) != 1:
+        raise ValueError(f'Ambiguous checkpoint {tag!r}; use a full name: '
+                         + ', '.join(p.name for p in matches))
+    return matches[0]
+
+
+def load_model(tag='', epoch=0, weights='last'):
     '''
         Loading API.
     '''
-    checkpoint_root = get_checkpoint_root()
-    all_checkpoints = os.listdir(checkpoint_root)
-    
-    checkpoint_name = ''
-    for checkpoint in all_checkpoints:
-        if tag in checkpoint:
-            checkpoint_name = checkpoint
-            break 
-
-    checkpoint_root = Path(checkpoint_root) / checkpoint_name
+    checkpoint_root = resolve_checkpoint(tag)
+    if weights not in ('last', 'best'):
+        raise ValueError('weights must be last or best')
+    if epoch > 0 and weights != 'last':
+        raise ValueError('Choose either a numbered epoch or best weights')
     if epoch > 0:
         model_path = checkpoint_root / f"epoch_{epoch}.pth"
     else:
-        model_path = checkpoint_root / f"last.pth"
+        model_path = checkpoint_root / f"{weights}.pth"
+    if not model_path.is_file():
+        raise FileNotFoundError(f'Checkpoint weights not found: {model_path}')
     
     config_path = checkpoint_root / "config.json"
+    print(f'Loading checkpoint: {model_path.resolve()}')
     return GeoRTRetargetingModel(model_path=model_path, config_path=config_path)
 
 if __name__ == '__main__':

@@ -6,6 +6,21 @@
 
 import torch 
 
+def pinch_distance_loss(human_points, robot_points, threshold=0.015, paper=False):
+    # Both tensors use the same sample and finger order.
+    loss = robot_points.sum() * 0
+    for i in range(human_points.size(1)):
+        for j in range(i + 1, human_points.size(1)):
+            mask = (torch.linalg.vector_norm(human_points[:, i] - human_points[:, j], dim=-1)
+                    < threshold).to(robot_points.dtype)
+            distance = ((robot_points[:, i] - robot_points[:, j]) ** 2).sum(dim=-1)
+            if paper:
+                # Eq. 7: expectation over ALL gestures and ordered pairs i != j.
+                loss = loss + 2 * (mask * distance).mean()
+            else:
+                loss = loss + (mask * distance).sum() / mask.sum().clamp_min(1)
+    return loss
+
 def chamfer_distance(input_points, target_points):
     """
     Args:

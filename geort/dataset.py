@@ -9,7 +9,9 @@ import open3d as o3d
 
 def upsample_array(x, K=50000):
     n = x.shape[0]
-    ind = np.random.randint(0, n - 1, K)
+    if n == 0:
+        raise ValueError('Cannot resample an empty point cloud')
+    ind = np.random.randint(0, n, K)
     return x[ind]
 
 
