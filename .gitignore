@@ -1,1 +1,26 @@
-*.pyc
+# Python caches, local environments and build metadata.
+__pycache__/
+*.py[cod]
+/.venv*/
+/venv/
+/geort.egg-info/
+/build/
+/dist/
+/.vscode/
+
+# Local model outputs; retain the upstream pretrained FK input.
+/checkpoint/*
+!/checkpoint/fk_model_allegro_right.pth
+
+# Local recordings and generated FK caches; retain the upstream example.
+/data/*
+!/data/human_alex.npy
+
+# Training curves, isolated experiments and recovery archives.
+/runs/
+/experiments/
+
+# Local investigation reports and generated figures.
+/reports/
+
+# Robot assets, source code, scripts and tests are intentionally NOT ignored.
