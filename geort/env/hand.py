@@ -36,7 +36,19 @@ class HandKinematicModel:
                  kd=10):
         
         self.engine = None
-        if scene is None:
+        renderer = None
+        if scene is None and hasattr(sapien, 'physx'):
+            sapien.physx.set_scene_config(enable_pcm=False)
+            sapien.physx.set_default_material(1.0, 1.0, 0.0)
+            sapien.physx.set_shape_config(contact_offset=0.02)
+            sapien.physx.set_body_config(solver_position_iterations=25, solver_velocity_iterations=1)
+            systems = [sapien.physx.PhysxCpuSystem()]
+            if render:
+                renderer = sapien.SapienRenderer()
+                systems.append(sapien.render.RenderSystem())
+                print("Enable Render Mode.")
+            scene = sapien.Scene(systems)
+        elif scene is None:
             engine = sapien.Engine()
             
             if render:
@@ -64,7 +76,14 @@ class HandKinematicModel:
 
         else:
             loader = scene.create_urdf_loader()
-            self.hand = loader.load(hand_urdf)
+            if hasattr(sapien, 'physx') and not render:
+                builder = loader.load_file_as_articulation_builder(hand_urdf)
+                # SAPIEN 3 builds render components even in a physics-only scene.
+                for link_builder in builder.link_builders:
+                    link_builder.visual_records.clear()
+                self.hand = builder.build()
+            else:
+                self.hand = loader.load(hand_urdf)
             self.hand.set_root_pose(sapien.Pose([0, 0, 0.35], [0.695, 0, -0.718, 0]))
 
         self.pmodel = self.hand.create_pinocchio_model()
@@ -95,10 +114,6 @@ class HandKinematicModel:
         for i, joint in enumerate(self.all_joints):
             print(i, self.joint_names[i], joint, self.joint_lower_limit[i], self.joint_upper_limit[i])
             joint.set_drive_property(kp, kd, force_limit=10)
-
-    def __del__(self):
-        del self.engine 
-        del self.scene 
 
     def get_n_dof(self):
         '''
@@ -178,11 +193,11 @@ class HandKinematicModel:
             This function is only used during visualization
         '''
         qpos = np.clip(qpos, self.joint_lower_limit + 1e-3, self.joint_upper_limit - 1e-3)
-        qpos = self.convert_user_order_to_sim_order(qpos)
-        self.qpos_target = qpos 
+        self.qpos_target = self.convert_user_order_to_sim_order(qpos)
 
-        for i in range(len(qpos)):
-            self.all_joints[i].set_drive_target(self.qpos_target[i])
+        # all_joints is in user order; articulation qpos_target is in simulator order.
+        for joint, target in zip(self.all_joints, qpos):
+            joint.set_drive_target(target)
 
 class HandViewerEnv:
     def __init__(self, model):
