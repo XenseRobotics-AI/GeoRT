@@ -1,0 +1,23 @@
+{
+  "source_urdf": "/home/xense-wufan/xense-description/taccap/slave/urdf/taccap_g1_slave.urdf",
+  "source_urdf_sha256": "2132c1b8f205e4fc4901e6856cd6d0ff7b34e25b79ee31f92ba81901d048a023",
+  "adaptation": "Added fixed geort_base only; original geometry, joints, limits, inertias and mimic retained.",
+  "meshes": [
+    {
+      "path": "urdf/../meshes/base_link.STL",
+      "sha256": "a208a872b8f3c47420bb7466ecf7e43113da06aaade5253b3be63786de09b66f"
+    },
+    {
+      "path": "urdf/../meshes/grip_left.STL",
+      "sha256": "9e14cf420497cd065271d5acb5be96e80c5e1759de85b396f1babb0b1635d594"
+    },
+    {
+      "path": "urdf/../meshes/grip_right.STL",
+      "sha256": "27822304badd4078e85e96a55be886266ea7439b6861151eaa5bcec99cb490c3"
+    },
+    {
+      "path": "urdf/../meshes/viusal_link.STL",
+      "sha256": "09596831011ef50fe35a2f33a5fd88c6e0d5b22036d9974b1e9456c4e260cb2b"
+    }
+  ]
+}

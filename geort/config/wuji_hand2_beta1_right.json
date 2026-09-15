@@ -1,0 +1,109 @@
+{
+    "name": "wuji_hand2_beta1_right",
+    "urdf_path": "./assets/wuji_hand2_beta1_right/urdf/wuji_hand2_beta1_right.urdf",
+    "base_link": "geort_base",
+    "joint_order": [
+        "r_thumb_cmc_flex",
+        "r_thumb_cmc_abd",
+        "r_thumb_mcp",
+        "r_thumb_ip",
+        "r_index_finger_mcp_flex",
+        "r_index_finger_mcp_abd",
+        "r_index_finger_pip",
+        "r_index_finger_dip",
+        "r_middle_finger_mcp_flex",
+        "r_middle_finger_mcp_abd",
+        "r_middle_finger_pip",
+        "r_middle_finger_dip",
+        "r_ring_finger_mcp_flex",
+        "r_ring_finger_mcp_abd",
+        "r_ring_finger_pip",
+        "r_ring_finger_dip",
+        "r_pinky_mcp_flex",
+        "r_pinky_mcp_abd",
+        "r_pinky_pip",
+        "r_pinky_dip"
+    ],
+    "fingertip_link": [
+        {
+            "name": "thumb",
+            "link": "r_thumb_tip",
+            "joint": [
+                "r_thumb_cmc_flex",
+                "r_thumb_cmc_abd",
+                "r_thumb_mcp",
+                "r_thumb_ip"
+            ],
+            "center_offset": [
+                0,
+                0,
+                0
+            ],
+            "human_hand_id": 4
+        },
+        {
+            "name": "index",
+            "link": "r_index_finger_tip",
+            "joint": [
+                "r_index_finger_mcp_flex",
+                "r_index_finger_mcp_abd",
+                "r_index_finger_pip",
+                "r_index_finger_dip"
+            ],
+            "center_offset": [
+                0,
+                0,
+                0
+            ],
+            "human_hand_id": 8
+        },
+        {
+            "name": "middle",
+            "link": "r_middle_finger_tip",
+            "joint": [
+                "r_middle_finger_mcp_flex",
+                "r_middle_finger_mcp_abd",
+                "r_middle_finger_pip",
+                "r_middle_finger_dip"
+            ],
+            "center_offset": [
+                0,
+                0,
+                0
+            ],
+            "human_hand_id": 12
+        },
+        {
+            "name": "ring",
+            "link": "r_ring_finger_tip",
+            "joint": [
+                "r_ring_finger_mcp_flex",
+                "r_ring_finger_mcp_abd",
+                "r_ring_finger_pip",
+                "r_ring_finger_dip"
+            ],
+            "center_offset": [
+                0,
+                0,
+                0
+            ],
+            "human_hand_id": 16
+        },
+        {
+            "name": "little",
+            "link": "r_pinky_tip",
+            "joint": [
+                "r_pinky_mcp_flex",
+                "r_pinky_mcp_abd",
+                "r_pinky_pip",
+                "r_pinky_dip"
+            ],
+            "center_offset": [
+                0,
+                0,
+                0
+            ],
+            "human_hand_id": 20
+        }
+    ]
+}

@@ -1,0 +1,92 @@
+{
+  "source_urdf": "/home/xense-wufan/wuji-description/hand2/hand2_beta1/body/urdf/right.urdf",
+  "source_urdf_sha256": "5093e4de1e36e2840720f7c2154339c870a060825ef2aac29b023f5b814e86b8",
+  "adaptation": "Added fixed geort_base only; original geometry, joints, limits, inertias and mimic retained.",
+  "meshes": [
+    {
+      "path": "urdf/../meshes/right/r_index_finger_distal.STL",
+      "sha256": "778ca04891678c9d124817cb66d74c5deb0d00bff78d927f15fa26a8a2585a1b"
+    },
+    {
+      "path": "urdf/../meshes/right/r_index_finger_middle.STL",
+      "sha256": "dc42d5c512f1d124fe7160f78e72c11161053e794036a80963a8f4a4492f01cf"
+    },
+    {
+      "path": "urdf/../meshes/right/r_index_finger_proximal.STL",
+      "sha256": "0f924f11cf7ce9a431ca3f2395762e65cc44a036128a2ccb80638996b64c8a06"
+    },
+    {
+      "path": "urdf/../meshes/right/r_index_finger_proximal_abd.STL",
+      "sha256": "f46cf96ed29ab98143a43eb4aee0cc727a739b8f2e104e54896f8d2c5570927c"
+    },
+    {
+      "path": "urdf/../meshes/right/r_middle_finger_distal.STL",
+      "sha256": "e3097f0b48ccc87ea371b71a4fca9a94f09f84aff25a3fd0f757699eaeacf787"
+    },
+    {
+      "path": "urdf/../meshes/right/r_middle_finger_middle.STL",
+      "sha256": "f9294d81a3795fd63a55abf0c00ca43326a09b8e43b8308fc92135e0ae9fdb07"
+    },
+    {
+      "path": "urdf/../meshes/right/r_middle_finger_proximal.STL",
+      "sha256": "9b552c22b645272ed0f2a3728cbf3fd5c2cb9541c2d6970521e94394cf17bc29"
+    },
+    {
+      "path": "urdf/../meshes/right/r_middle_finger_proximal_abd.STL",
+      "sha256": "ff459d71637c3a5fddac62f85f86c485f273ab079092233a9a29d0affb9db502"
+    },
+    {
+      "path": "urdf/../meshes/right/r_pinky_distal.STL",
+      "sha256": "1ffc4d7591623a895d81de76c0db30af2199d64e4506371dd561829989461390"
+    },
+    {
+      "path": "urdf/../meshes/right/r_pinky_middle.STL",
+      "sha256": "12466b870cf8cc47aacdc02a535474d65bce3bf128840a8e471c4fede43d57ee"
+    },
+    {
+      "path": "urdf/../meshes/right/r_pinky_proximal.STL",
+      "sha256": "6a5696573c69e37467e3ba3b722d92ecd0078f0e18ae8e1e2c49ad118800ea8b"
+    },
+    {
+      "path": "urdf/../meshes/right/r_pinky_proximal_abd.STL",
+      "sha256": "321e9e615166eab4cd87ad4bc8609a7c19944fd7200f957d11bb020fa255bb72"
+    },
+    {
+      "path": "urdf/../meshes/right/r_ring_finger_distal.STL",
+      "sha256": "8659910ddc8b5275576363946a337f13cd60cde3abdda091adf58a7948547be3"
+    },
+    {
+      "path": "urdf/../meshes/right/r_ring_finger_middle.STL",
+      "sha256": "c7cbabcc9dfe6eba74af3255554757b4d18d49566711eb6717f7e656ac882002"
+    },
+    {
+      "path": "urdf/../meshes/right/r_ring_finger_proximal.STL",
+      "sha256": "650b7aac177e26a2d42cc7f14aee79d3e4a9d344e8de688e2b6fb18ba5bdf50b"
+    },
+    {
+      "path": "urdf/../meshes/right/r_ring_finger_proximal_abd.STL",
+      "sha256": "1a90fcaa2aae3569d8343d4be31a489d630d302f3a0feebc531fc60a9dd2a2fb"
+    },
+    {
+      "path": "urdf/../meshes/right/r_thumb_distal.STL",
+      "sha256": "f19c6077ca17e52f2801593880684c0347370669e9661d47c163f0b56eea99e4"
+    },
+    {
+      "path": "urdf/../meshes/right/r_thumb_middle.STL",
+      "sha256": "a3e9851cd3aed770fb0ed2b05b2ceca86980af1bfef2fbc8e1925e9a6110f56f"
+    },
+    {
+      "path": "urdf/../meshes/right/r_thumb_proximal.STL",
+      "sha256": "e5f4c7dbffeddf626e5d6c7883e10a6c1de0e2d8213a9122dba5ee29a488345f"
+    },
+    {
+      "path": "urdf/../meshes/right/r_thumb_proximal_abd.STL",
+      "sha256": "d9e28b15b054ede554f23524c32f430fefa3622eb9fa10016c39fec10a2638e8"
+    },
+    {
+      "path": "urdf/../meshes/right/r_wrist.STL",
+      "sha256": "748cf6a16bc5bfedf9c7e2ee489459f726740680db1449221133be570f9ee505"
+    }
+  ],
+  "source_revision": "06e5f14cdd1d5fad0a666ca463a668bf609f9534"
+}
