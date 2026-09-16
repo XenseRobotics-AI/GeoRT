@@ -53,6 +53,22 @@ class ReplayController:
         self.previous_target = target.copy()
 
 
+def build_direct_comparison(hand, config, root_pose):
+    """Visual comparison with no collision shapes; reset its pose after PD steps."""
+    loader = hand.scene.create_urdf_loader()
+    loader.fix_root_link = True
+    builder = loader.load_file_as_articulation_builder(config['urdf_path'])
+    for link in builder.link_builders:
+        link.collision_records.clear()
+    direct = builder.build()
+    direct.set_root_pose(root_pose)
+    # Both articulations must expose exactly the same simulator joint order.
+    if [j.name for j in direct.get_active_joints()] != [j.name for j in hand.hand.get_active_joints()]:
+        raise ValueError('Comparison articulation joint order differs')
+    direct.set_qpos(hand.hand.get_qpos())
+    return direct
+
+
 class HumanHandViewer:
     """Display the recorded 21-point hand without changing the model input."""
     def __init__(self, scene, viewer, offset):
@@ -91,9 +107,9 @@ class HumanHandViewer:
             self.viewer.renderer_context.create_line_set(vertices, colors))
 
 
-def reset_camera(viewer, frame_pose=None):
+def reset_camera(viewer, frame_pose=None, distance=0.65):
     # SAPIEN camera axes: +X forward, +Y left, +Z up. Keep world +Z upright.
-    position = np.array([0.65, 0, 0.36])
+    position = np.array([distance, 0, 0.36])
     target = np.array([0, 0, 0.20])
     forward = target - position
     forward /= np.linalg.norm(forward)
@@ -158,7 +174,10 @@ def main():
     parser.add_argument('-ckpt_tag', default='allegro_right_last')
     parser.add_argument('-data', default='human_alex')
     parser.add_argument('--weights', choices=['last', 'best'], default='last')
-    parser.add_argument('--direct-qpos', action='store_true',
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument('--compare-pd', action='store_true',
+                       help='Show human, raw model output and PD result side by side')
+    modes.add_argument('--direct-qpos', action='store_true',
                         help='Set model joint positions directly without physics/PD steps')
     parser.add_argument('--fps', type=float, help='Data/playback Hz; default: 100 for replay, 60 for preview')
     parser.add_argument('--pd-timing', choices=['official', 'realtime'], default='official',
@@ -225,18 +244,22 @@ def main():
     # Preserve the official robot pose and gravity/contact geometry. Rotate
     # the camera and skeleton into its frame instead of rotating the robot.
     robot_pose = hand.hand.get_root_pose()
-    center_pose = robot_pose * sapien.Pose([0, -0.15, -0.16])
-    human_pose = robot_pose * sapien.Pose([0, -0.30, 0])
+    direct = (build_direct_comparison(hand, config, robot_pose * sapien.Pose([0, -0.30, 0]))
+              if args.compare_pd else None)
+    center_pose = robot_pose * sapien.Pose([0, -0.30 if args.compare_pd else -0.15, -0.16])
+    camera_distance = 1.05 if args.compare_pd else 0.65
+    human_pose = robot_pose * sapien.Pose([0, -0.60 if args.compare_pd else -0.30, 0])
     transform = human_pose.to_transformation_matrix()
     human = HumanHandViewer(hand.scene, viewer, [0, 0, 0])
     hand.scene.set_ambient_light([0.7, 0.7, 0.7])
     direction = robot_pose.to_transformation_matrix()[:3, :3] @ np.array([-1, 0, -1])
     hand.scene.add_directional_light(direction, [0.7, 0.7, 0.7], shadow=False)
-    reset_camera(viewer, frame_pose=center_pose)
+    reset_camera(viewer, frame_pose=center_pose, distance=camera_distance)
     if args.direct_qpos:
         print('Left: recorded human skeleton. Right: model joint positions, without physics/PD.')
     else:
-        print('Left: recorded human skeleton. Right: robot under PD control; tracking may lag.')
+        print('Left: human skeleton. Center: raw model output. Right: PD result.' if args.compare_pd else
+              'Left: recorded human skeleton. Right: robot under PD control; tracking may lag.')
         print(f'PD timing: {args.pd_timing}; playback {args.fps:g} FPS, simulated frame {1 / simulation_fps:g} s; '
               f'control {args.control_hz:g} Hz, physics {args.physics_hz:g} Hz; '
               f'command limit {args.max_joint_velocity:g} rad/s (0=off).')
@@ -256,9 +279,14 @@ def main():
                     hand.hand.set_qpos(hand.convert_user_order_to_sim_order(qpos))
                 else:
                     controller.advance(qpos)
+                if direct is not None:
+                    # Physics may move this collision-free display articulation between
+                    # frames; overwrite it only after stepping, with the raw model output.
+                    direct.set_qpos(hand.convert_user_order_to_sim_order(qpos))
+                    direct.set_qvel(np.zeros_like(qpos))
                 human.update(points @ transform[:3, :3].T + transform[:3, 3])
             if viewer.window.key_press('r'):
-                reset_camera(viewer, frame_pose=center_pose)
+                reset_camera(viewer, frame_pose=center_pose, distance=camera_distance)
             hand.scene.update_render()
             viewer.render()
             if args.fps is not None:

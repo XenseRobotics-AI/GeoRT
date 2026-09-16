@@ -52,6 +52,18 @@ python -m geort.mocap.replay_evaluation \
   -data human_alex --weights best --direct-qpos --fps 100
 ```
 
+同一窗口同时比较 **人手骨骼 / 模型直接输出 / PD 结果**（从左到右）：
+
+```bash
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag wuji_hand2_beta1_right_last \
+  -data human_alex --weights best --fps 100 --compare-pd
+```
+
+每帧只推理一次，两只手共享同一模型输出。中间的显示副本不加载碰撞形状，
+在 PD 步进后设置原始关节角，不会与右侧手或地面发生碰撞。
+`--compare-pd` 与 `--direct-qpos` 互斥；Allegro 替换手型与 checkpoint 即可。
+
 对比 **PD 回放**时，去掉 `--direct-qpos` 即可，其余参数保持相同。PD 是默认模式，
 默认 `--pd-timing official`：每个目标保持 10 个 0.01 秒物理步（共 0.1 秒），
 沿用官方的步长和目标保持时间，不插值、不限速。为对齐人手骨骼，先设置当前目标，
