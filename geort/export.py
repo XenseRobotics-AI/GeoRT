@@ -7,7 +7,7 @@
 import torch
 from pathlib import Path
 from geort.formatter import HandFormatter
-from geort.model import IKModel
+from geort.model import build_ik_model, ik_input
 from geort.utils.path import to_package_root, get_checkpoint_root
 from geort.utils.config_utils import load_json, parse_config_keypoint_info, parse_config_joint_limit
 
@@ -16,22 +16,26 @@ class GeoRTRetargetingModel:
     '''
         Used by external programs.
     '''
-    def __init__(self, model_path, config_path):
+    def __init__(self, model_path, config_path, device=None):
         config = load_json(config_path)
         self.config = config
         keypoint_info = parse_config_keypoint_info(config)
         joint_lower_limit, joint_upper_limit = parse_config_joint_limit(config)
         print(keypoint_info["joint"])
         self.human_ids = keypoint_info["human_id"]
-        self.model = IKModel(keypoint_joints=keypoint_info["joint"]).cuda()
-        self.model.load_state_dict(torch.load(model_path))
+        self.device = torch.device(device or ('cuda' if torch.cuda.is_available() else 'cpu'))
+        self.model = build_ik_model(config).to(self.device)
+        self.model.load_state_dict(torch.load(model_path, map_location=self.device, weights_only=True))
         self.model.eval()
         self.qpos_normalizer = HandFormatter(joint_lower_limit, joint_upper_limit) # GeoRT will do normalization.
 
     def forward(self, keypoints):
         # keypoints: [N, 3]
-        keypoints = keypoints[self.human_ids] # extract.
-        joint_normalized = self.model.forward(torch.from_numpy(keypoints).unsqueeze(0).reshape(1, -1, 3).float().cuda())
+        points = torch.as_tensor(keypoints, dtype=torch.float32, device=self.device).unsqueeze(0)
+        if points.ndim != 3 or points.shape[2] != 3 or points.shape[1] <= max(self.human_ids) or not torch.isfinite(points).all():
+            raise ValueError('Expected finite (N, 3) keypoints covering configured human IDs')
+        with torch.inference_mode():
+            joint_normalized = self.model(ik_input(self.config, points))
         joint_raw = self.qpos_normalizer.unnormalize(joint_normalized.detach().cpu().numpy())
         return joint_raw[0]
 

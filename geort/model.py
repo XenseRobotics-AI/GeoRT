@@ -101,3 +101,49 @@ class CollisionModel(nn.Sequential):
             nn.Linear(256, 256), nn.SiLU(),
             nn.Linear(256, 256), nn.SiLU(),
             nn.Linear(256, 1))
+
+
+class PostureIKModel(IKModel):
+    """Wuji v1: retain tip-only mapping for four fingers, add little-finger bones."""
+    def __init__(self, keypoint_joints, human_ids):
+        super().__init__(keypoint_joints)
+        if len(keypoint_joints) != 5 or human_ids != [4, 8, 12, 16, 20]:
+            raise ValueError('Wuji posture v1 requires five fingers in thumb-to-little order')
+        self.human_ids = human_ids
+        self.nets[4][0] = nn.Linear(12, 128)
+
+    def forward(self, points):
+        if points.ndim != 3 or points.shape[1:] != (21, 3):
+            raise ValueError('Posture model requires the full (B, 21, 3) skeleton')
+        values = []
+        for i, net in enumerate(self.nets):
+            features = points[:, self.human_ids[i]]
+            if i == 4:
+                bones = points[:, 18:21] - points[:, 17:20]
+                bones = torch.nn.functional.normalize(bones, dim=-1, eps=1e-8)
+                features = torch.cat([features, .05 * bones.flatten(1)], dim=1)
+            values.append(net(features))
+        result = points.new_zeros((len(points), self.n_total_joint))
+        for ids, value in zip(self.keypoint_joints, values):
+            result[:, ids] = value
+        return result
+
+
+def build_ik_model(config):
+    from geort.utils.config_utils import parse_config_keypoint_info
+    info = parse_config_keypoint_info(config)
+    kind = config.get('model_type', 'fingertip_v1')
+    if kind == 'fingertip_v1':
+        return IKModel(info['joint'])
+    if kind == 'wuji_posture_v1' and config['name'] == 'wuji_hand2_beta1_right':
+        return PostureIKModel(info['joint'], info['human_id'])
+    raise ValueError(f'Unsupported model type: {kind}')
+
+
+def ik_input(config, human):
+    from geort.utils.config_utils import parse_config_keypoint_info
+    if config.get('model_type', 'fingertip_v1') == 'fingertip_v1':
+        return human[:, parse_config_keypoint_info(config)['human_id']]
+    if config.get('model_type') == 'wuji_posture_v1':
+        return human
+    raise ValueError('Unsupported model input format')
