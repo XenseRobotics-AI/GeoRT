@@ -105,5 +105,47 @@
             ],
             "human_hand_id": 20
         }
+    ],
+    "collision_exclusions": [
+        [
+            "r_thumb_proximal",
+            "r_wrist"
+        ],
+        [
+            "r_thumb_proximal_abd",
+            "r_wrist"
+        ],
+        [
+            "r_index_finger_proximal",
+            "r_wrist"
+        ],
+        [
+            "r_index_finger_proximal_abd",
+            "r_wrist"
+        ],
+        [
+            "r_middle_finger_proximal",
+            "r_wrist"
+        ],
+        [
+            "r_middle_finger_proximal_abd",
+            "r_wrist"
+        ],
+        [
+            "r_ring_finger_proximal",
+            "r_wrist"
+        ],
+        [
+            "r_ring_finger_proximal_abd",
+            "r_wrist"
+        ],
+        [
+            "r_pinky_proximal",
+            "r_wrist"
+        ],
+        [
+            "r_pinky_proximal_abd",
+            "r_wrist"
+        ]
     ]
 }

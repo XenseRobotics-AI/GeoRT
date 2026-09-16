@@ -165,6 +165,38 @@ class HandKinematicModel:
             return np.array(vec_result)
         return result
 
+    def exclude_collision_pairs(self, pairs):
+        """Apply explicit asset exclusions without disabling other self contacts."""
+        if not pairs:
+            return
+        links = {link.name: link for link in self.hand.get_links()}
+        for pair in pairs:
+            if len(pair) != 2 or pair[0] == pair[1] or any(name not in links for name in pair):
+                raise ValueError(f'Invalid collision exclusion: {pair}')
+        # Reserve distinct ignore bits across the scene, so another hand cannot
+        # accidentally inherit these pair exclusions through the same group ID.
+        bodies = list(self.scene.get_all_actors())
+        for articulation in self.scene.get_all_articulations():
+            bodies.extend(articulation.get_links())
+        used = 0
+        for body in bodies:
+            for shape in body.get_collision_shapes():
+                used |= shape.get_collision_groups()[2]
+        bits = [1 << i for i in range(32) if not used & (1 << i)]
+        if len(pairs) > len(bits):
+            raise ValueError('Not enough collision filter bits for explicit exclusions')
+        for pair, bit in zip(pairs, bits):
+            shapes = [shape for name in pair for shape in links[name].get_collision_shapes()]
+            if len({shape.get_collision_groups()[3] & 0xffff for shape in shapes}) > 1:
+                raise ValueError(f'Collision group IDs differ for {pair}')
+            for shape in shapes:
+                groups = list(shape.get_collision_groups())
+                groups[2] |= bit
+                if hasattr(sapien, 'physx'):
+                    shape.set_collision_groups(groups)
+                else:
+                    shape.set_collision_groups(*groups)
+
     @staticmethod
     def build_from_config(config, **kwargs):
         '''
@@ -177,6 +209,7 @@ class HandKinematicModel:
         joint_order = config["joint_order"]
 
         model = HandKinematicModel(hand_urdf=urdf_path, render=render, n_hand_dof=n_hand_dof,base_link=base_link, joint_names=joint_order)
+        model.exclude_collision_pairs(config.get('collision_exclusions', []))
         return model 
 
     def get_viewer_env(self):

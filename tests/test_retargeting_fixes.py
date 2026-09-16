@@ -17,6 +17,27 @@ from geort.env.hand import HandKinematicModel
 
 
 class RetargetingFixTest(unittest.TestCase):
+    def test_collision_exclusions_preserve_other_pairs(self):
+        class Shape:
+            def __init__(self): self.groups = [1, 1, 0, 0]
+            def get_collision_groups(self): return self.groups.copy()
+            def set_collision_groups(self, *args):
+                self.groups = list(args[0]) if len(args) == 1 else list(args)
+        shapes = {name: Shape() for name in ('wrist', 'ring', 'little', 'tip')}
+        links = [SimpleNamespace(name=name, get_collision_shapes=lambda shape=shape: [shape])
+                 for name, shape in shapes.items()]
+        articulation = SimpleNamespace(get_links=lambda: links)
+        hand = SimpleNamespace(hand=articulation, scene=SimpleNamespace(
+            get_all_actors=lambda: [], get_all_articulations=lambda: [articulation]))
+        HandKinematicModel.exclude_collision_pairs(hand, [('wrist', 'ring'), ('wrist', 'little')])
+        self.assertTrue(shapes['wrist'].groups[2] & shapes['ring'].groups[2])
+        self.assertTrue(shapes['wrist'].groups[2] & shapes['little'].groups[2])
+        self.assertFalse(shapes['ring'].groups[2] & shapes['little'].groups[2])
+        self.assertEqual(shapes['tip'].groups, [1, 1, 0, 0])
+        for shape in shapes.values(): self.assertEqual(shape.groups[:2], [1, 1])
+        with self.assertRaises(ValueError):
+            HandKinematicModel.exclude_collision_pairs(hand, [('wrist', 'missing')])
+
     def test_drive_targets_stay_in_user_order(self):
         targets = np.zeros(4)
         joints = [SimpleNamespace(set_drive_target=lambda v, i=i: targets.__setitem__(i, v))

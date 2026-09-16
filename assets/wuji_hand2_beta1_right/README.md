@@ -17,3 +17,10 @@ links with zero additional offset. Human point IDs are 4, 8, 12, 16, 20.
 The source joint limits are retained, including hyperextension. The default
 preview sweeps only part of the flexion range. Training uses the full configured
 range; this import is not a claim of good retargeting quality or hardware validation.
+
+Collision filtering: `geort/config/wuji_hand2_beta1_right.json` carries the ten
+explicit wrist/proximal and wrist/proximal_abd exclusions from the corresponding
+Wuji Beta1 `body/mjcf/right.xml` contact section. URDF alone does not carry these
+MuJoCo exclusions. GeoRT applies them when building a hand model, including PD replay;
+other collisions remain enabled. Existing checkpoints remain kinematically
+compatible.

@@ -88,5 +88,12 @@
       "sha256": "748cf6a16bc5bfedf9c7e2ee489459f726740680db1449221133be570f9ee505"
     }
   ],
-  "source_revision": "06e5f14cdd1d5fad0a666ca463a668bf609f9534"
+  "source_revision": "06e5f14cdd1d5fad0a666ca463a668bf609f9534",
+  "collision_exclusions_source": {
+    "path": "/home/xense-wufan/wuji-description/hand2/hand2_beta1/body/mjcf/right.xml",
+    "sha256": "ee860215e6ae0b2f6ded7fa69d3b7ced36ab6d8a72aace99d20259aa78dc1742",
+    "section": "contact/exclude",
+    "count": 10,
+    "url": "https://github.com/wuji-technology/wuji-description/blob/06e5f14cdd1d5fad0a666ca463a668bf609f9534/hand2/hand2_beta1/body/mjcf/right.xml#L184-L195"
+  }
 }

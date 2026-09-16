@@ -140,7 +140,9 @@ def main():
     if not np.isfinite(mocap.human_points).all():
         parser.error('Replay data must contain only finite coordinates')
     config = get_config(args.hand)
-    if any(model.config.get(key) != value for key, value in config.items()):
+    # Collision filters change physical feasibility, not model/FK joint semantics.
+    if any(model.config.get(key) != value for key, value in config.items()
+           if key != 'collision_exclusions'):
         parser.error('Checkpoint and -hand configuration differ')
     hand = HandKinematicModel.build_from_config(config, render=True)
     env = hand.get_viewer_env()
