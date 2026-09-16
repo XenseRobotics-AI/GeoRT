@@ -15,6 +15,55 @@ from geort.dataset import upsample_array
 from geort.loss import pinch_distance_loss, collision_penalty
 from geort.model import CollisionModel
 from geort.env.hand import HandKinematicModel
+from geort.mocap.replay_evaluation import ReplayController
+
+
+class ReplayControllerTest(unittest.TestCase):
+    def make_hand(self):
+        self.commands = []
+        self.steps = 0
+        def step():
+            self.steps += 1
+        return SimpleNamespace(
+            hand=SimpleNamespace(get_qpos=lambda: np.array([.2, .1])), user_idx_to_sim_idx=[1, 0],
+            joint_lower_limit=np.full(2, -2.), joint_upper_limit=np.full(2, 2.),
+            scene=SimpleNamespace(set_timestep=lambda dt: setattr(self, 'dt', dt), step=step),
+            set_qpos_target=lambda q: self.commands.append(q.copy()))
+
+    def test_interpolation_and_simulated_time(self):
+        c = ReplayController(self.make_hand(), 100, 500, 1000, max_velocity=0)
+        c.advance(np.array([.6, .7]))
+        np.testing.assert_allclose(self.commands, [[.2, .3], [.3, .4], [.4, .5], [.5, .6], [.6, .7]])
+        self.assertEqual(self.steps, 10)
+        self.assertAlmostEqual(self.steps * self.dt, .01)
+
+    def test_official_target_hold_and_duration(self):
+        c = ReplayController(self.make_hand(), 10, 10, 100, interpolate=False)
+        c.advance(np.array([.6, .7]))
+        np.testing.assert_allclose(self.commands, [[.6, .7]])
+        self.assertEqual(self.steps, 10)
+        self.assertAlmostEqual(self.steps * self.dt, .1)
+
+    def test_slew_limit_across_frames_and_reversal(self):
+        c = ReplayController(self.make_hand(), 100, 500, 1000, max_velocity=3)
+        c.advance(np.array([1., -1.]))
+        c.advance(np.array([-1., 1.]))
+        delta = np.diff(np.vstack([[.1, .2], self.commands]), axis=0)
+        self.assertLessEqual(abs(delta).max(), .006 + 1e-12)
+        self.assertEqual(self.steps, 20)
+
+    def test_hold_mode_and_invalid_inputs(self):
+        c = ReplayController(self.make_hand(), 100, 500, 1000, max_velocity=0, interpolate=False)
+        c.advance(np.array([.6, .7]))
+        np.testing.assert_allclose(self.commands, [[.6, .7]] * 5)
+        for target in ([float('nan'), 0], [0]):
+            with self.assertRaises(ValueError):
+                c.advance(target)
+        for rates in ((0, 500, 1000), (100, 50, 1000), (60, 500, 1000), (100, 500, float('nan'))):
+            with self.assertRaises(ValueError):
+                ReplayController(None, *rates)
+        with self.assertRaises(ValueError):
+            ReplayController(None, 100, 500, 1000, max_velocity=-1)
 
 
 class RetargetingFixTest(unittest.TestCase):

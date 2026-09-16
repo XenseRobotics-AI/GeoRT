@@ -53,9 +53,14 @@ python -m geort.mocap.replay_evaluation \
 ```
 
 对比 **PD 回放**时，去掉 `--direct-qpos` 即可，其余参数保持相同。PD 是默认模式，
-每个数据帧之间执行 10 个物理步（每步 0.01 秒）；跟踪滞后和碰撞会影响显示姿势。
-`--fps 100` 控制目标数据播放速率，不改变仿真步长，也不保证实际达到 100 FPS。
-省略 `--fps` 时回放不额外限速。按 **R** 重置视角，关闭窗口或 **Ctrl+C** 退出。
+默认 `--pd-timing official`：每个目标保持 10 个 0.01 秒物理步（共 0.1 秒），
+沿用官方的步长和目标保持时间，不插值、不限速。为对齐人手骨骼，先设置当前目标，
+步进后只渲染一次；这并非逐行复现官方先渲染上一目标的循环。
+`--fps 100` 仅设定目标播放速率，不表示官方模式按真实时间仿真。
+实验选项 `--pd-timing realtime` 每帧只推进 `1/fps` 秒，默认控制/物理频率为 500/1000 Hz，
+启用插值。100 FPS 下目标保持时间缩短到 0.01 秒，可能明显增加 PD 滞后。
+算力不足时播放会变慢，不会跳帧或偷偷增大仿真步长。按 **R** 重置视角，
+关闭窗口或 **Ctrl+C** 退出。
 
 ### 查看本地训练曲线
 
@@ -94,7 +99,12 @@ TacCap 当前只支持资产与开合预览，不支持这里的手指重定向�
 | 训练 | `--log-dir runs` | 训练日志目录 |
 | 回放 | `--weights best` / `--weights last` | 默认 last；best 按该次训练的最低加权总 loss 选择 |
 | 回放 | `--direct-qpos` | 直接显示关节输出；省略则使用 PD |
-| 回放 | `--fps 100` | 目标数据帧率，必须为正数 |
+| 回放 | `--fps 100` | 目标播放帧率；回放默认 100，资产预览默认 60 |
+| PD 回放 | `--pd-timing official` / `--pd-timing realtime` | 默认 official，沿用官方每目标 0.1 秒；realtime 按 1/fps 推进 |
+| PD 回放 | `--control-hz 500 --physics-hz 1000` | 仅 realtime； 控制频率必须是 fps 的整数倍，物理频率必须是控制频率的整数倍 |
+| PD 回放 | `--max-joint-velocity 0` | 仅 realtime：指令变化速度限制，rad/s；默认 0 关闭。不是物理关节速度的硬限制 |
+| PD 回放 | `--no-interpolation` | realtime 模式禁用线性插值，每帧直接更新目标；限速仍独立生效 |
+| PD 回放 | `--kp 400 --kd 10 --force-limit 10` | 仿真增益和旋转关节力矩上限（N·m），不是 SDK 的电流参数 |
 
 每次训练输出 `checkpoint/<hand>_<timestamp>_<tag>/`，默认保存 `best.pth`、
 `last.pth`、`config.json` 和 `checkpoint.json`。**best 是训练 loss 最优，不是验证集最优。**
@@ -119,6 +129,24 @@ python -m geort.mocap.replay_evaluation \
 python -m geort.trainer --help
 python -m geort.mocap.replay_evaluation --help
 ```
+
+### PD 控制对照
+
+```bash
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag wuji_hand2_beta1_right_last \
+  -data human_alex --weights best --fps 100 \
+  --pd-timing realtime --control-hz 500 --physics-hz 1000 --max-joint-velocity 0 \
+  --kp 400 --kd 10 --force-limit 10
+```
+
+用 `--max-joint-velocity 0 --no-interpolation` 对比同频率下的阶跃目标。
+改变数据帧率时注意整除关系，例如 60 FPS 可配 `--control-hz 300 --physics-hz 1200`。
+可用 `--max-joint-velocity 3` 试验限速，但会引入额外滞后，因此默认关闭。
+400/10/10 保留原 drive 参数，不是 Wuji 硬件标定值。
+默认 official 每帧推进 0.1 秒；实验性 realtime 在 100 FPS 每帧推进 0.01 秒，不能将两者的跟踪误差直接比较。
+3498 帧 Wuji 对照中，插值没有明显改善碰撞导致的误差；限速 3 rad/s 降低速度但加重目标滞后。
+直接模式 `--direct-qpos` 不受插值、限速或 PD 参数影响。
 
 ### 实验性碰撞 loss
 
@@ -360,14 +388,16 @@ shape `(T, 21, 3)`, ordered as wrist, then four points each for thumb, index,
 middle, ring, and little finger. These are the stored hand-frame coordinates,
 not camera images; no MediaPipe installation or live camera is needed.
 
-Both sides use the same input frame and scale. The robot follows the target
-through ten physics/PD steps per frame, so tracking lag is visible. Press **R**
+Both sides use the same input frame and scale. Default PD timing holds each target
+for ten 0.01-second physics steps, following the official dwell time. The experimental
+`--pd-timing realtime` mode interpolates targets and advances 1/fps simulated seconds
+per frame, which can increase tracking lag. Press **R**
 to restore the camera; close the window or press **Ctrl+C** to exit.
 
 Add `--direct-qpos` to display the model's joint positions directly, without
 physics steps or collision response. PD replay remains the default. Both modes
 support `--fps 100` to target 100 data frames per second, subject to processing
-and rendering speed. For example:
+and rendering speed. Direct mode ignores the PD rate, gain and slew settings. For example:
 
 ```bash
 python -m geort.mocap.replay_evaluation -hand wuji_hand2_beta1_right \
