@@ -21,6 +21,6 @@ range; this import is not a claim of good retargeting quality or hardware valida
 Collision filtering: `geort/config/wuji_hand2_beta1_right.json` carries the ten
 explicit wrist/proximal and wrist/proximal_abd exclusions from the corresponding
 Wuji Beta1 `body/mjcf/right.xml` contact section. URDF alone does not carry these
-MuJoCo exclusions. GeoRT applies them when building a hand model, including PD replay;
+MuJoCo exclusions. GeoRT applies them to both label generation and PD replay;
 other collisions remain enabled. Existing checkpoints remain kinematically
-compatible.
+compatible, while the collision-classifier cache is invalidated.

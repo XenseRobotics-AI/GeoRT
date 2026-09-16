@@ -6,6 +6,12 @@
 
 import torch 
 
+
+def collision_penalty(model, joint):
+    # GeoRT Eq. (8): -log(1 - sigmoid(logit)) = softplus(logit).
+    # Keep the classifier frozen, but preserve gradients through its joint input.
+    return torch.nn.functional.softplus(model(joint)).mean()
+
 def pinch_distance_loss(human_points, robot_points, threshold=0.015, paper=False):
     # Both tensors use the same sample and finger order.
     loss = robot_points.sum() * 0

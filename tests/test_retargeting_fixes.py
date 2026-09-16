@@ -12,11 +12,33 @@ import numpy as np
 import torch
 from geort import export
 from geort.dataset import upsample_array
-from geort.loss import pinch_distance_loss
+from geort.loss import pinch_distance_loss, collision_penalty
+from geort.model import CollisionModel
 from geort.env.hand import HandKinematicModel
 
 
 class RetargetingFixTest(unittest.TestCase):
+    def test_collision_loss_backpropagates_through_frozen_surrogate(self):
+        torch.manual_seed(0)
+        model = CollisionModel(4).eval().requires_grad_(False)
+        joint = torch.zeros(3, 4, requires_grad=True)
+        loss = collision_penalty(model, joint)
+        loss.backward()
+        self.assertGreater(loss.item(), 0)
+        self.assertTrue(torch.isfinite(joint.grad).all())
+        self.assertGreater(joint.grad.abs().sum().item(), 0)
+        self.assertTrue(all(p.grad is None for p in model.parameters()))
+
+    def test_collision_loss_matches_paper_and_is_stable(self):
+        logits = torch.tensor([-1000., -2., 0., 2., 1000.], requires_grad=True)
+        loss = collision_penalty(torch.nn.Identity(), logits)
+        self.assertTrue(torch.isfinite(loss))
+        loss.backward()
+        torch.testing.assert_close(logits.grad, logits.detach().sigmoid() / logits.numel())
+        moderate = torch.tensor([-2., 0., 2.])
+        expected = -torch.log1p(-moderate.sigmoid()).mean()
+        torch.testing.assert_close(collision_penalty(torch.nn.Identity(), moderate), expected)
+
     def test_collision_exclusions_preserve_other_pairs(self):
         class Shape:
             def __init__(self): self.groups = [1, 1, 0, 0]
@@ -37,6 +59,39 @@ class RetargetingFixTest(unittest.TestCase):
         for shape in shapes.values(): self.assertEqual(shape.groups[:2], [1, 1])
         with self.assertRaises(ValueError):
             HandKinematicModel.exclude_collision_pairs(hand, [('wrist', 'missing')])
+
+    def test_collision_labels_ignore_external_contacts_and_restore_pose(self):
+        state = {'q': np.array([.1, .2]), 'v': np.array([.3, .4]), 'dt': .01}
+        contacts = [SimpleNamespace(bodies=('a', 'b'), points=[SimpleNamespace(separation=-.003)]),
+                    SimpleNamespace(bodies=('a', 'ground'), points=[SimpleNamespace(separation=-.1)]),
+                    SimpleNamespace(bodies=('a', 'b'), points=[SimpleNamespace(separation=.02)])]
+        articulation = SimpleNamespace(
+            get_qpos=lambda: state['q'], get_qvel=lambda: state['v'], get_links=lambda: ['a', 'b'],
+            set_qpos=lambda q: state.update(q=q), set_qvel=lambda v: state.update(v=v))
+        scene = SimpleNamespace(get_timestep=lambda: state['dt'],
+                                set_timestep=lambda dt: state.update(dt=dt),
+                                step=lambda: None, get_contacts=lambda: contacts)
+        hand = SimpleNamespace(hand=articulation, scene=scene, get_n_dof=lambda: 2,
+                               convert_user_order_to_sim_order=lambda q: q[::-1])
+        depth = HandKinematicModel.self_collision_depth(hand, [[.5, .6]])
+        np.testing.assert_allclose(depth, [.003])
+        np.testing.assert_array_equal(state['q'], [.1, .2])
+        np.testing.assert_array_equal(state['v'], [.3, .4])
+        self.assertEqual(state['dt'], .01)
+        with patch.object(scene, 'step', side_effect=RuntimeError('contact failure')):
+            with self.assertRaises(RuntimeError):
+                HandKinematicModel.self_collision_depth(hand, [[.5, .6]])
+        np.testing.assert_array_equal(state['q'], [.1, .2])
+        self.assertEqual(state['dt'], .01)
+        for invalid in ([[float('nan'), 0]], [[0, 0, 0]], [0, 0]):
+            with self.assertRaises(ValueError):
+                HandKinematicModel.self_collision_depth(hand, invalid)
+
+    def test_negative_collision_weight_rejected_before_training(self):
+        for value in (-1, float('nan'), float('inf')):
+            with self.assertRaisesRegex(ValueError, 'w_collision'):
+                from geort.trainer import GeoRTTrainer
+                GeoRTTrainer.train(SimpleNamespace(), 'unused.npy', w_collision=value)
 
     def test_drive_targets_stay_in_user_order(self):
         targets = np.zeros(4)

@@ -86,6 +86,7 @@ TacCap 当前只支持资产与开合预览，不支持这里的手指重定向�
 |---|---|---|
 | 训练 | `--epochs 200 --seed 0` | 训练轮数、随机种子 |
 | 训练 | `--w_chamfer 80 --w_curvature 1 --w_pinch 1000` | 覆盖、平滑、捏合权重；显式参数覆盖默认值 |
+| 训练 | `--w_collision 0.01` | 启用论文二值自碰撞惩罚；默认 0，关闭 |
 | 训练 | `--no-paper-loss` | 关闭 paper 归约及统一 BN 处理；未显式指定的 Flatness / Pinch 权重变为 0.1 / 1 |
 | 训练 | `--no-paired-sampling` | 关闭同帧采样，各 loss 使用独立手指点云；与 paper loss 开关独立 |
 | 训练 | `--no-update-last` | 不移动 `<hand>_last` 别名，便于保留当前回放模型 |
@@ -119,7 +120,39 @@ python -m geort.trainer --help
 python -m geort.mocap.replay_evaluation --help
 ```
 
-同帧采样是本地扩展，`--paper-loss` 也不是完整论文复现：碰撞 loss 尚未实现。
+### 实验性碰撞 loss
+
+```bash
+python -m geort.trainer \
+  -hand wuji_hand2_beta1_right -human_data human_alex \
+  -ckpt_tag wuji_collision_paper --w_collision 0.01 --no-update-last
+```
+
+正的 `--w_collision` 会启用碰撞项；0 保留原训练行为。建议保留默认同帧采样，
+让碰撞项约束真实手势对应的整手关节姿势。该命令不会移动现有回放别名，
+回放新模型时请使用训练输出的完整目录名。
+
+按照 [GeoRT 论文 §II-F、式 (8)](https://arxiv.org/html/2503.07541v1#S2.SS6)：
+首次启用时，用 SAPIEN 对 32768 个随机关节姿势生成二值标签（任一手内接触点
+穿透深度大于 0 为碰撞；外部物体不计），以 BCEWithLogitsLoss 训练碰撞分类器。
+按类别划分 90% 训练、10% 验证，训练 200 epochs。冻结分类器后，IK 的碰撞项为
+`mean(softplus(C_logits(q))) * w_collision`，数值稳定地实现 `-log(1-C(q))`。
+论文给出的权重范围为 `1e-4..1e-2`，示例取 0.01；默认仍为 0，便于保持基线。
+这替换了此前本地的最大穿透深度平方惩罚，两种 loss 的数值与权重不可直接比较。
+
+预测网络缓存在 `checkpoint/collision_model_<hand>.pth`；算法版本、配置、URDF、mesh 或
+SAPIEN 版本变化会使缓存失效。TensorBoard 的 `collision` 分组记录 BCE、按类别平均 BCE、
+碰撞召回率和无碰撞召回率；按类别平均 BCE 选择最佳分类器，避免多数类准确率误导。
+`ik/raw/collision` 和 `ik/weighted/collision` 记录 IK 的原始与加权碰撞项。
+类别极度不平衡会给出警告；任一类别少于 10 个样本时中止，先排查碰撞几何。
+
+论文未指定这里使用的网络宽度、采样数量、验证划分和具体穿透容差，这些是本地实现选择。
+Wuji 配置已补齐官方 Beta1 MJCF 的 10 对腕部/手指根部碰撞排除关系，
+同时作用于标签生成与回放；其他碰撞保持开启。旧 checkpoint 可直接回放，
+无需重训即可验证过滤修复；旧碰撞分类器需重建。
+分类器不是无碰撞硬约束，也不会修复错误碰撞几何。必须检查真实穿透及 PD 回放。
+官方公开代码的碰撞项是占位零值；这里补上的是论文方法，并非声称完整复现官方实验。
+同帧采样仍是本地扩展。
 以下保留原项目的安装、手型接入与数据采集说明。
 
 ## Installation

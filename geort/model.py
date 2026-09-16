@@ -91,3 +91,13 @@ class IKModel(nn.Module):
             joint = self.nets[i](x[:, i])
             out[:, self.keypoint_joints[i]] = joint 
         return out 
+
+
+class CollisionModel(nn.Sequential):
+    """Predict self-collision logits; sigmoid gives the collision probability."""
+    def __init__(self, n_joint):
+        super().__init__(
+            nn.Linear(n_joint, 256), nn.SiLU(),
+            nn.Linear(256, 256), nn.SiLU(),
+            nn.Linear(256, 256), nn.SiLU(),
+            nn.Linear(256, 1))

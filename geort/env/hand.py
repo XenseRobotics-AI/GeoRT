@@ -121,6 +121,36 @@ class HandKinematicModel:
         '''
         return len(self.joint_lower_limit)
 
+    def self_collision_depth(self, qposes):
+        """Measure maximum self-penetration (m) at each user-ordered pose."""
+        qposes = np.asarray(qposes)
+        if qposes.ndim != 2 or qposes.shape[1] != self.get_n_dof() or not np.isfinite(qposes).all():
+            raise ValueError('Expected finite self-collision poses with shape (N, DOF)')
+        qpos, qvel = self.hand.get_qpos().copy(), self.hand.get_qvel().copy()
+        timestep = self.scene.get_timestep()
+        links = self.hand.get_links()
+        depths = []
+        try:
+            # A tiny step refreshes contacts at the requested pose, before
+            # the solver can substantially move it. No ground is added here.
+            self.scene.set_timestep(1e-6)
+            for pose in tqdm(qposes, desc='Collision labels', unit='pose', dynamic_ncols=True):
+                self.hand.set_qpos(self.convert_user_order_to_sim_order(pose))
+                self.hand.set_qvel(np.zeros(self.get_n_dof()))
+                self.scene.step()
+                depth = 0.0
+                for contact in self.scene.get_contacts():
+                    bodies = contact.bodies if hasattr(contact, 'bodies') else (contact.actor0, contact.actor1)
+                    if all(body in links for body in bodies):
+                        for point in contact.points:
+                            depth = max(depth, -float(point.separation))
+                depths.append(depth)
+        finally:
+            self.scene.set_timestep(timestep)
+            self.hand.set_qpos(qpos)
+            self.hand.set_qvel(qvel)
+        return np.asarray(depths, dtype=np.float32)
+
     def get_joint_limit(self):
         '''
             Get the hand joint limit.

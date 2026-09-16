@@ -14,9 +14,9 @@ import torch.nn.functional as F
 from geort.utils.hand_utils import get_entity_by_name, get_active_joints, get_active_joint_indices
 from geort.utils.path import get_human_data 
 from geort.utils.config_utils import get_config, save_json
-from geort.model import FKModel, IKModel 
+from geort.model import FKModel, IKModel, CollisionModel
 from geort.env.hand import HandKinematicModel
-from geort.loss import chamfer_distance, pinch_distance_loss
+from geort.loss import chamfer_distance, pinch_distance_loss, collision_penalty
 from geort.formatter import HandFormatter
 from geort.dataset import RobotKinematicsDataset, MultiPointDataset
 from datetime import datetime
@@ -26,6 +26,10 @@ from pathlib import Path
 import math
 import csv
 import uuid
+import hashlib
+from importlib.metadata import version
+import json
+import xml.etree.ElementTree as ET
 from torch.utils.tensorboard import SummaryWriter
 
 def _link_checkpoint(source, target):
@@ -120,6 +124,100 @@ class GeoRTTrainer:
     def __init__(self, config):
         self.config = config
         self.hand = HandKinematicModel.build_from_config(self.config)
+
+    def get_collision_model(self, logger):
+        # Cache geometry and simulator provenance, not just the hand name.
+        urdf = Path(self.config['urdf_path'])
+        digest = hashlib.sha256(json.dumps(self.config, sort_keys=True).encode())
+        digest.update(('binary-v1:n32768:seed0:penetration>0:' + version('sapien')).encode())
+        digest.update(urdf.read_bytes())
+        meshes = {urdf.parent / mesh.attrib['filename']
+                  for mesh in ET.parse(urdf).iter('mesh')}
+        for mesh in sorted(meshes):
+            digest.update(mesh.read_bytes())
+        fingerprint = digest.hexdigest()
+        path = Path('checkpoint') / f"collision_model_{self.config['name']}.pth"
+        # Surrogate fitting must not alter the IK random stream.
+        with torch.random.fork_rng(devices=[torch.cuda.current_device()]):
+            torch.manual_seed(0)
+            model = CollisionModel(self.hand.get_n_dof()).cuda()
+            if path.exists():
+                cached = torch.load(path, weights_only=True)
+                if cached['fingerprint'] == fingerprint:
+                    model.load_state_dict(cached['model'])
+                    print(f'Loaded collision surrogate: {path}; validation {cached["validation"]}')
+                    logger.write('collision', 0, cached['validation'])
+                    save_json({'fingerprint': fingerprint, 'validation': cached['validation']},
+                              logger.directory / 'collision.json')
+                    return model.eval().requires_grad_(False)
+
+            lower, upper = self.hand.get_joint_limit()
+            normalized = np.random.default_rng(0).uniform(-1, 1, (32768, len(lower))).astype(np.float32)
+            poses = HandFormatter(lower, upper).unnormalize(normalized)
+            depths = self.hand.self_collision_depth(poses)
+            labels = (depths > 0).astype(np.float32)
+            counts = np.bincount(labels.astype(int), minlength=2)
+            print(f'Collision labels: {counts[0]} free, {counts[1]} colliding')
+            if counts.min() < 10:
+                raise ValueError('Too few examples of both collision classes; inspect collision geometry before training')
+            if counts.min() / len(labels) < .01:
+                print('WARNING: collision labels are extremely imbalanced; inspect geometry and per-class validation before IK training')
+            points = torch.from_numpy(normalized).cuda()
+            targets = torch.from_numpy(labels[:, None]).cuda()
+            # Stratification keeps rare collision-free poses in the holdout.
+            train_indices, valid_indices = [], []
+            rng = np.random.default_rng(1)
+            for label in (0, 1):
+                ids = rng.permutation(np.flatnonzero(labels == label))
+                split = int(len(ids) * .9)
+                train_indices.extend(ids[:split])
+                valid_indices.extend(ids[split:])
+            train_indices = torch.tensor(train_indices, device='cuda')
+            valid_indices = torch.tensor(valid_indices, device='cuda')
+            optimizer = optim.Adam(model.parameters(), lr=1e-3)
+            best_score, best_state, best_metrics = float('inf'), None, None
+            for epoch in tqdm(range(200), desc='Collision surrogate', unit='epoch', dynamic_ncols=True):
+                model.train()
+                indices = train_indices[torch.randperm(len(train_indices), device='cuda')]
+                for batch in indices.split(512):
+                    loss = F.binary_cross_entropy_with_logits(model(points[batch]), targets[batch])
+                    optimizer.zero_grad()
+                    loss.backward()
+                    optimizer.step()
+                model.eval()
+                with torch.no_grad():
+                    logits = model(points[valid_indices])
+                    truth = targets[valid_indices]
+                    losses = F.binary_cross_entropy_with_logits(logits, truth, reduction='none')
+                    positive = truth.bool()
+                    # Select by both classes, not misleading >99% majority accuracy.
+                    score = (losses[positive].mean() + losses[~positive].mean()).item() / 2
+                    metrics = {'validation/bce': losses.mean().item(),
+                               'validation/balanced_bce': score,
+                               'validation/collision_recall': (logits[positive] >= 0).float().mean().item(),
+                               'validation/free_recall': (logits[~positive] < 0).float().mean().item(),
+                               'validation/free_count': int((~positive).sum()),
+                               'validation/collision_count': int(positive.sum()),
+                               'labels/collision_fraction': float(labels.mean())}
+                logger.write('collision', epoch, metrics)
+                if score < best_score:
+                    best_score, best_metrics = score, metrics
+                    best_state = {k: v.detach().clone() for k, v in model.state_dict().items()}
+            if best_state is None:
+                raise RuntimeError('Collision surrogate did not produce finite validation loss')
+            model.load_state_dict(best_state)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            temporary = path.with_name(f'.{uuid.uuid4().hex}.tmp')
+            try:
+                torch.save({'model': best_state, 'fingerprint': fingerprint,
+                            'validation': best_metrics}, temporary)
+                temporary.replace(path)
+            finally:
+                temporary.unlink(missing_ok=True)
+            print(f'Collision surrogate validation: {best_metrics}')
+            save_json({'fingerprint': fingerprint, 'validation': best_metrics},
+                      logger.directory / 'collision.json')
+            return model.eval().requires_grad_(False)
 
     def get_robot_pointcloud(self, keypoint_names):
         '''
@@ -286,6 +384,9 @@ class GeoRTTrainer:
         kwargs.setdefault('w_chamfer', 80.0)
         kwargs.setdefault('w_curvature', 1.0 if kwargs['paper_loss'] else 0.1)
         kwargs.setdefault('w_pinch', 1000.0 if kwargs['paper_loss'] else 1.0)
+        kwargs.setdefault('w_collision', 0.0)
+        if not math.isfinite(kwargs['w_collision']) or kwargs['w_collision'] < 0:
+            raise ValueError('w_collision must be finite and nonnegative')
 
         np.random.seed(kwargs.get('seed', 0))
         torch.manual_seed(kwargs.get('seed', 0))
@@ -328,6 +429,9 @@ class GeoRTTrainer:
         w_collision = kwargs.get("w_collision", 0.0)
         w_pinch = kwargs.get("w_pinch", 1000.0 if paper_loss else 1.0)
         paired_sampling = kwargs.get('paired_sampling', True)
+        if not math.isfinite(w_collision) or w_collision < 0:
+            raise ValueError('w_collision must be finite and nonnegative')
+        collision_model = self.get_collision_model(logger) if w_collision > 0 else None
 
 
 
@@ -442,17 +546,9 @@ class GeoRTTrainer:
                         direction_loss = direction_loss * n_keypoints
                         ik_model.train(training)
 
-                    # [Collision loss]
-                    # if classifier is not None:
-                    #     real_labels = torch.ones(joint.size(0), dtype=torch.long).to(joint.device)
-                    #     # Discriminator's output for generated data
-                    #     safe_logits = classifier(joint)
-                    #     criterion = nn.CrossEntropyLoss()
-                    #     # Generator loss is the cross-entropy loss between the fake outputs and the label 1 (real)
-                    #     collision_loss = criterion(safe_logits, real_labels)
-                
-                    # collision Loss integration pending.
-                    collision_loss = torch.tensor([0.0]).cuda()
+                    # Full geometry gestures, not artificial coverage combinations.
+                    collision_loss = (collision_penalty(collision_model, joint)
+                                      if collision_model is not None else joint.new_zeros(()))
 
                     loss = direction_loss + \
                            chamfer_loss * w_chamfer + \
@@ -485,6 +581,7 @@ class GeoRTTrainer:
                         'dir': format_loss(epoch_sums['raw/direction'] / n_samples),
                         'chamfer': format_loss(epoch_sums['raw/chamfer'] / n_samples),
                         'pinch': format_loss(epoch_sums['raw/pinch'] / n_samples),
+                        'collision': format_loss(epoch_sums['raw/collision'] / n_samples),
                     }, refresh=False)
                     progress.update(1)
 
@@ -531,12 +628,15 @@ if __name__ == '__main__':
 
     parser.add_argument('--w_chamfer', type=float, default=80.0)
     parser.add_argument('--w_curvature', type=float)
-    parser.add_argument('--w_collision', type=float, default=0.0)
+    parser.add_argument('--w_collision', type=float, default=0.0,
+                        help='GeoRT Eq.8 collision weight (paper range 1e-4..1e-2); 0 disables')
     parser.add_argument('--w_pinch', type=float)
 
     args = parser.parse_args()
     if args.epochs <= 0 or args.save_every < 0:
         parser.error('--epochs must be positive and --save-every must be nonnegative')
+    if not math.isfinite(args.w_collision) or args.w_collision < 0:
+        parser.error('--w_collision must be finite and nonnegative')
     if args.w_curvature is None:
         args.w_curvature = 1.0 if args.paper_loss else 0.1
     if args.w_pinch is None:
