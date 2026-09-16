@@ -4,6 +4,15 @@
 
 Welcome! This repository contains the code for the paper "Geometric Retargeting: A Principled, Ultrafast Neural Hand Retargeting Algorithm".
 
+本仓库是 [XenseRobotics-AI/GeoRT](https://github.com/XenseRobotics-AI/GeoRT)，
+基于 [facebookresearch/GeoRT](https://github.com/facebookresearch/GeoRT) 维护，
+包含 Wuji 资产适配、训练与回放诊断。保留上游版权与许可证，见 [LICENSE](LICENSE)。
+
+```bash
+git clone git@github.com:XenseRobotics-AI/GeoRT.git
+cd GeoRT
+```
+
 ## 常用命令速查
 
 所有命令都在仓库根目录、`geort` 环境中运行：
@@ -16,6 +25,18 @@ conda activate geort
 [训练](#训练-allegro--wuji) · [回放](#回放查看模型输出或-pd-效果) ·
 [训练曲线](#查看本地训练曲线) · [资产预览](#不加载模型的资产预览) ·
 [参数与模型文件](#常用参数与模型文件) · [安装](#installation)
+
+### Wuji 姿态实验入口
+
+[问题复盘、各轮方案与最终版本取舍](docs/WUJI_POSTURE.md)。
+候选模型和历史在线修正都不是默认方案；模型权重与原始实验报告不随 Git 分发。
+本机已有候选 checkpoint 时，可直接预览训练结果：
+
+```bash
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag wuji_posture_train_v1_lr1e5 \
+  -data human_alex --weights best --direct-qpos --fps 100
+```
 
 ### 训练 Allegro / Wuji
 
@@ -159,6 +180,10 @@ python -m geort.mocap.replay_evaluation \
 默认 official 每帧推进 0.1 秒；实验性 realtime 在 100 FPS 每帧推进 0.01 秒，不能将两者的跟踪误差直接比较。
 3498 帧 Wuji 对照中，插值没有明显改善碰撞导致的误差；限速 3 rad/s 降低速度但加重目标滞后。
 直接模式 `--direct-qpos` 不受插值、限速或 PD 参数影响。
+
+### 实验性 Wuji 姿态修正
+
+历史在线修正仍默认关闭；参数、对照命令及限制见 [Wuji 姿态实验](docs/WUJI_POSTURE.md)。
 
 ### 实验性碰撞 loss
 
