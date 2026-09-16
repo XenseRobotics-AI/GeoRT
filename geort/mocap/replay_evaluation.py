@@ -177,8 +177,19 @@ def main():
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument('--compare-pd', action='store_true',
                        help='Show human, raw model output and PD result side by side')
+    modes.add_argument('--compare-posture', action='store_true',
+                       help='Show human, raw model output and posture-corrected output without physics')
     modes.add_argument('--direct-qpos', action='store_true',
                         help='Set model joint positions directly without physics/PD steps')
+    parser.add_argument('--posture-correction', action='store_true',
+                        help='Opt-in Wuji little-finger posture correction')
+    parser.add_argument('--posture-budget-mm', type=float, default=2.0)
+    parser.add_argument('--posture-extension-deg', type=float, default=5.0)
+    parser.add_argument('--posture-mcp-extension-deg', type=float, default=15.0)
+    parser.add_argument('--posture-direction-weight', type=float, default=0.05)
+    parser.add_argument('--posture-max-step-deg', type=float, default=8.0,
+                        help='Max little-finger command change per data frame; 0 disables')
+    parser.add_argument('--posture-starts', type=int, choices=[1, 3], default=3)
     parser.add_argument('--fps', type=float, help='Data/playback Hz; default: 100 for replay, 60 for preview')
     parser.add_argument('--pd-timing', choices=['official', 'realtime'], default='official',
                         help='official: 0.1 simulated seconds per frame; realtime: 1/fps (default: official)')
@@ -199,6 +210,22 @@ def main():
     for name in ('kp', 'kd', 'force_limit', 'max_joint_velocity'):
         if not np.isfinite(getattr(args, name)) or getattr(args, name) < 0:
             parser.error(f'--{name.replace("_", "-")} must be finite and nonnegative')
+    corrector = None
+    if args.posture_correction or args.compare_posture:
+        if args.preview:
+            parser.error('Posture correction requires model replay, not asset preview')
+        from geort.posture import WujiPostureCorrector
+        try:
+            corrector = WujiPostureCorrector(
+                get_config(args.hand), tip_budget_mm=args.posture_budget_mm,
+                extension_tolerance_deg=args.posture_extension_deg,
+                direction_weight=args.posture_direction_weight, starts=args.posture_starts,
+                mcp_extension_tolerance_deg=args.posture_mcp_extension_deg,
+                max_joint_step_deg=args.posture_max_step_deg)
+        except ValueError as error:
+            parser.error(str(error))
+    args.direct_qpos = args.direct_qpos or args.compare_posture
+    compare = args.compare_pd or args.compare_posture
     if args.preview:
         if args.hand not in ('taccap_slave', 'wuji_hand2_beta1_right') or not 0 <= args.position <= 1:
             parser.error('Preview requires TacCap/Wuji and --position in [0, 1]')
@@ -245,17 +272,19 @@ def main():
     # the camera and skeleton into its frame instead of rotating the robot.
     robot_pose = hand.hand.get_root_pose()
     direct = (build_direct_comparison(hand, config, robot_pose * sapien.Pose([0, -0.30, 0]))
-              if args.compare_pd else None)
-    center_pose = robot_pose * sapien.Pose([0, -0.30 if args.compare_pd else -0.15, -0.16])
-    camera_distance = 1.05 if args.compare_pd else 0.65
-    human_pose = robot_pose * sapien.Pose([0, -0.60 if args.compare_pd else -0.30, 0])
+              if compare else None)
+    center_pose = robot_pose * sapien.Pose([0, -0.30 if compare else -0.15, -0.16])
+    camera_distance = 1.05 if compare else 0.65
+    human_pose = robot_pose * sapien.Pose([0, -0.60 if compare else -0.30, 0])
     transform = human_pose.to_transformation_matrix()
     human = HumanHandViewer(hand.scene, viewer, [0, 0, 0])
     hand.scene.set_ambient_light([0.7, 0.7, 0.7])
     direction = robot_pose.to_transformation_matrix()[:3, :3] @ np.array([-1, 0, -1])
     hand.scene.add_directional_light(direction, [0.7, 0.7, 0.7], shadow=False)
     reset_camera(viewer, frame_pose=center_pose, distance=camera_distance)
-    if args.direct_qpos:
+    if args.compare_posture:
+        print('Left: human skeleton. Center: raw model output. Right: posture-corrected output (no physics).')
+    elif args.direct_qpos:
         print('Left: recorded human skeleton. Right: model joint positions, without physics/PD.')
     else:
         print('Left: human skeleton. Center: raw model output. Right: PD result.' if args.compare_pd else
@@ -263,9 +292,14 @@ def main():
         print(f'PD timing: {args.pd_timing}; playback {args.fps:g} FPS, simulated frame {1 / simulation_fps:g} s; '
               f'control {args.control_hz:g} Hz, physics {args.physics_hz:g} Hz; '
               f'command limit {args.max_joint_velocity:g} rad/s (0=off).')
+    if corrector is not None:
+        print(f'Posture correction ON: little PIP/DIP, tip budget {args.posture_budget_mm:g} mm; '
+              'display/drive command corrected; center comparison stays raw. No collision guarantee.')
     print('Same input frame and scale. R resets camera.')
     # Initialize visuals with frame zero so no skeleton flashes at the origin.
     human.update(mocap.human_points[0] @ transform[:3, :3].T + transform[:3, 3])
+    relaxed_frames = 0
+    mcp_relaxed_frames = 0
     try:
         while not viewer.closed:
             frame_start = time.monotonic()
@@ -274,7 +308,16 @@ def main():
                 break
             if result['status'] == 'recording' and result['result'] is not None:
                 points = result['result']
-                qpos = model.forward(points)
+                raw_qpos = model.forward(points)
+                if corrector is not None:
+                    correction = corrector.correct(raw_qpos, points)
+                    qpos = correction.qpos
+                    if not correction.tip_budget_satisfied:
+                        relaxed_frames += 1
+                    if not correction.mcp_guard_satisfied:
+                        mcp_relaxed_frames += 1
+                else:
+                    qpos = raw_qpos
                 if args.direct_qpos:
                     hand.hand.set_qpos(hand.convert_user_order_to_sim_order(qpos))
                 else:
@@ -282,7 +325,7 @@ def main():
                 if direct is not None:
                     # Physics may move this collision-free display articulation between
                     # frames; overwrite it only after stepping, with the raw model output.
-                    direct.set_qpos(hand.convert_user_order_to_sim_order(qpos))
+                    direct.set_qpos(hand.convert_user_order_to_sim_order(raw_qpos))
                     direct.set_qvel(np.zeros_like(qpos))
                 human.update(points @ transform[:3, :3].T + transform[:3, 3])
             if viewer.window.key_press('r'):
@@ -294,6 +337,9 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
+        if corrector is not None:
+            print(f'Posture correction: {relaxed_frames} frames exceeded the tip budget; '
+                  f'{mcp_relaxed_frames} frames relaxed the MCP preference to preserve continuity.')
         viewer.close()
 
 
