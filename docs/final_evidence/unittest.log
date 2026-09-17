@@ -1,0 +1,42 @@
+/home/xense-wufan/GeoRT/tests/test_coordination.py:120: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  self.assertLess(float(abs(model(self.points + 1e-6) - q).max()), .01)
+[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], [16, 17, 18, 19]]
+[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], [16, 17, 18, 19]]
+已保存：/tmp/tmp6oaewvj2/interrupted；静态骨骼：/tmp/tmp6oaewvj2/interrupted/keypoints.npy
+[[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], [16, 17, 18, 19]]
+User-to-Sim Joint [0, 5, 10, 15, 1, 6, 11, 16, 2, 7, 12, 17, 3, 8, 13, 18, 4, 9, 14, 19]
+Sim-to-User Joint [0, 4, 8, 12, 16, 1, 5, 9, 13, 17, 2, 6, 10, 14, 18, 3, 7, 11, 15, 19]
+[-1.187 -1.484 -1.047 -1.047 -1.047 -0.698 -1.047 -1.047 -1.047 -0.698
+ -1.047 -1.047 -1.047 -0.698 -1.047 -1.047 -1.047 -0.698 -1.047 -1.047] [1.291 0.698 1.57  1.57  1.57  0.698 2.094 1.57  1.57  0.698 2.094 1.57
+ 1.57  0.698 2.094 1.57  1.57  0.698 2.094 1.57 ]
+0 r_thumb_cmc_flex <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bdb0> -1.187 1.291
+1 r_thumb_cmc_abd <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6ba30> -1.484 0.698
+2 r_thumb_mcp <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b8f0> -1.047 1.57
+3 r_thumb_ip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6beb0> -1.047 1.57
+4 r_index_finger_mcp_flex <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bb70> -1.047 1.57
+5 r_index_finger_mcp_abd <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b9f0> -0.698 0.698
+6 r_index_finger_pip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b8b0> -1.047 2.094
+7 r_index_finger_dip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bfb0> -1.047 1.57
+8 r_middle_finger_mcp_flex <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bbf0> -1.047 1.57
+9 r_middle_finger_mcp_abd <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b9b0> -0.698 0.698
+10 r_middle_finger_pip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b870> -1.047 2.094
+11 r_middle_finger_dip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bf70> -1.047 1.57
+12 r_ring_finger_mcp_flex <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b3b0> -1.047 1.57
+13 r_ring_finger_mcp_abd <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b970> -0.698 0.698
+14 r_ring_finger_pip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bc30> -1.047 2.094
+15 r_ring_finger_dip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bf30> -1.047 1.57
+16 r_pinky_mcp_flex <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b7b0> -1.047 1.57
+17 r_pinky_mcp_abd <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6b930> -0.698 0.698
+18 r_pinky_pip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bab0> -1.047 2.094
+19 r_pinky_dip <sapien.pysapien.physx.PhysxArticulationJoint object at 0x713692b6bef0> -1.047 1.57
+[<sapien.pysapien.physx.PhysxArticulationLinkComponent object at 0x7136aa3c5cf0>, <sapien.pysapien.physx.PhysxArticulationLinkComponent object at 0x7136aaa34970>]
+Loading checkpoint: /tmp/tmp0zs767ha/run2/best.pth
+Collision labels:   0%|          | 0/1 [00:00<?, ?pose/s]Collision labels: 100%|██████████| 1/1 [00:00<00:00, 21399.51pose/s]
+Collision labels:   0%|          | 0/1 [00:00<?, ?pose/s]Collision labels:   0%|          | 0/1 [00:00<?, ?pose/s]
+Traceback (most recent call last):
+  File "/home/xense-wufan/GeoRT/scripts/wuji_sdk_worker.py", line 68, in <module>
+----------------------------------------------------------------------
+Ran 111 tests in 3.475s
+
+OK

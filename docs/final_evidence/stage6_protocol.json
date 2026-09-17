@@ -1,0 +1,68 @@
+{
+  "split": "test",
+  "seed": 42,
+  "checkpoint": "stage5_R2_seed42",
+  "primary": [
+    "R2_lp03",
+    "Wuji",
+    "SDK"
+  ],
+  "additional": [
+    "R2_raw",
+    "Wuji_raw",
+    "Original"
+  ],
+  "robot_signature": "69f33b28d1f785a7e2dfe062c52b1b31a4647bd448da1f0dd83b857f65afaee7",
+  "scope": "all test01 clips and all retained reads in original order; no frame or task selection; full collision evaluation",
+  "state": "reset at every clip; no state carried between clips; R2 and Wuji LP=0.3; SDK internal state unchanged",
+  "metrics": "pooled all-read and equal-task axis/opening; all-read joint limits and full collision; within-clip adjacent displacement, moving>=0.1mm and fine 0.5-10mm; no acquisition-time claims",
+  "opening": "train-derived fixed relation scales; >=15mm human gap for opening proxy; smaller gaps separately described as site distance, not contact truth",
+  "policy": "one frozen test run, no retraining or selection from these results",
+  "files_sha256": {
+    "/home/xense-wufan/GeoRT/data/manus_stage4_v1/manifest.json": "3b7ad28097258be661af9aba0c285b3e82af3f42d6861af797ad707a6f8f7e99",
+    "/home/xense-wufan/GeoRT/checkpoint/stage5_R2_seed42/config.json": "0acc6a081808df99fa30c940537cff0664c8de44d6a17326b8708dd20756bc9c",
+    "/home/xense-wufan/GeoRT/checkpoint/stage5_R2_seed42/best.pth": "fd49cb0f1f9bfbfc490d2ca1b31dd663e3dea11b4f6535276b64c88f5502e5e2",
+    "/home/xense-wufan/GeoRT/checkpoint/wuji_hand2_beta1_right_2026-09-15_18-01-42_std_collision_seed0_w0/last.pth": "7ac4fddd716f890231a7e0f05ed3ab65d739bf534ae49841a1f91a06d98904e4",
+    "/home/xense-wufan/GeoRT/checkpoint/wuji_hand2_beta1_right_2026-09-15_18-01-42_std_collision_seed0_w0/config.json": "96b15a5e50520024988bf34ff9b9a606cffde402f427b301e5f98db50b8d9301",
+    "/home/xense-wufan/GeoRT/geort/baselines/wuji_manus_right.json": "a5691e298c9ad2b4404efa6ef296b3a3e086c5207c7e5722fd756ed0d913f3fb",
+    "/home/xense-wufan/GeoRT/geort/evaluate_full_test.py": "1b9da5ac04ee74649a3cfec902a240d90c8703b753a9f726e647e815db381e84",
+    "/home/xense-wufan/GeoRT/geort/manus_model.py": "5e431e03f568892d9d76a3eeea09a46eb90258456eb067f329551e578e7f5dad",
+    "/home/xense-wufan/GeoRT/geort/coordination_loss.py": "2881a087e0387d2100b90fa15c7ba2fe75bdf2108fb0077f7e6d28b1c5608e8d",
+    "/home/xense-wufan/GeoRT/geort/kinematics.py": "41bba346245c90275f66bc14b49f944df575b6b70a86b9f2f0c84eb05f41e652",
+    "/home/xense-wufan/GeoRT/geort/env/hand.py": "f72a3208449e78f421f9b8d85c65d632d4bc7d54113c56cf23e998b6b34b1ead",
+    "/home/xense-wufan/GeoRT/scripts/cache_wuji_baseline.py": "9c0ed807d8251765bc5d9380ddc90522cc0a666e99ef1915896a68826db6ccac",
+    "/home/xense-wufan/GeoRT/scripts/wuji_sdk_worker.py": "5cfd6c224d4b0b2420968ff9aa2cff003f56287772d24c80eb664dcebe7e6b38"
+  },
+  "sdk_expected": {
+    "ready": true,
+    "version": "2026.8.31",
+    "hand": "WujiHand2",
+    "side": "Right",
+    "native_sha256": "e4afa14c82916a4a5120c3e98789151b6e0b0d1b1f34e0a56a51eac74a50f116",
+    "numpy_version": "2.5.3",
+    "joint_order": [
+      "r_thumb_cmc_flex",
+      "r_thumb_cmc_abd",
+      "r_thumb_mcp",
+      "r_thumb_ip",
+      "r_index_finger_mcp_flex",
+      "r_index_finger_mcp_abd",
+      "r_index_finger_pip",
+      "r_index_finger_dip",
+      "r_middle_finger_mcp_flex",
+      "r_middle_finger_mcp_abd",
+      "r_middle_finger_pip",
+      "r_middle_finger_dip",
+      "r_ring_finger_mcp_flex",
+      "r_ring_finger_mcp_abd",
+      "r_ring_finger_pip",
+      "r_ring_finger_dip",
+      "r_pinky_mcp_flex",
+      "r_pinky_mcp_abd",
+      "r_pinky_pip",
+      "r_pinky_dip"
+    ],
+    "configuration": "SDK builtin; warm start and internal low pass; alpha not exposed",
+    "worker_sha256": "5cfd6c224d4b0b2420968ff9aa2cff003f56287772d24c80eb664dcebe7e6b38"
+  }
+}

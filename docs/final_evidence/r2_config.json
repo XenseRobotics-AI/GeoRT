@@ -1,0 +1,285 @@
+{
+  "name": "wuji_hand2_beta1_right",
+  "urdf_path": "./assets/wuji_hand2_beta1_right/urdf/wuji_hand2_beta1_right.urdf",
+  "base_link": "geort_base",
+  "joint_order": [
+    "r_thumb_cmc_flex",
+    "r_thumb_cmc_abd",
+    "r_thumb_mcp",
+    "r_thumb_ip",
+    "r_index_finger_mcp_flex",
+    "r_index_finger_mcp_abd",
+    "r_index_finger_pip",
+    "r_index_finger_dip",
+    "r_middle_finger_mcp_flex",
+    "r_middle_finger_mcp_abd",
+    "r_middle_finger_pip",
+    "r_middle_finger_dip",
+    "r_ring_finger_mcp_flex",
+    "r_ring_finger_mcp_abd",
+    "r_ring_finger_pip",
+    "r_ring_finger_dip",
+    "r_pinky_mcp_flex",
+    "r_pinky_mcp_abd",
+    "r_pinky_pip",
+    "r_pinky_dip"
+  ],
+  "fingertip_link": [
+    {
+      "name": "thumb",
+      "link": "r_thumb_tip",
+      "joint": [
+        "r_thumb_cmc_flex",
+        "r_thumb_cmc_abd",
+        "r_thumb_mcp",
+        "r_thumb_ip"
+      ],
+      "center_offset": [
+        0,
+        0,
+        0
+      ],
+      "human_hand_id": 4
+    },
+    {
+      "name": "index",
+      "link": "r_index_finger_tip",
+      "joint": [
+        "r_index_finger_mcp_flex",
+        "r_index_finger_mcp_abd",
+        "r_index_finger_pip",
+        "r_index_finger_dip"
+      ],
+      "center_offset": [
+        0,
+        0,
+        0
+      ],
+      "human_hand_id": 8
+    },
+    {
+      "name": "middle",
+      "link": "r_middle_finger_tip",
+      "joint": [
+        "r_middle_finger_mcp_flex",
+        "r_middle_finger_mcp_abd",
+        "r_middle_finger_pip",
+        "r_middle_finger_dip"
+      ],
+      "center_offset": [
+        0,
+        0,
+        0
+      ],
+      "human_hand_id": 12
+    },
+    {
+      "name": "ring",
+      "link": "r_ring_finger_tip",
+      "joint": [
+        "r_ring_finger_mcp_flex",
+        "r_ring_finger_mcp_abd",
+        "r_ring_finger_pip",
+        "r_ring_finger_dip"
+      ],
+      "center_offset": [
+        0,
+        0,
+        0
+      ],
+      "human_hand_id": 16
+    },
+    {
+      "name": "little",
+      "link": "r_pinky_tip",
+      "joint": [
+        "r_pinky_mcp_flex",
+        "r_pinky_mcp_abd",
+        "r_pinky_pip",
+        "r_pinky_dip"
+      ],
+      "center_offset": [
+        0,
+        0,
+        0
+      ],
+      "human_hand_id": 20
+    }
+  ],
+  "collision_exclusions": [
+    [
+      "r_thumb_proximal",
+      "r_wrist"
+    ],
+    [
+      "r_thumb_proximal_abd",
+      "r_wrist"
+    ],
+    [
+      "r_index_finger_proximal",
+      "r_wrist"
+    ],
+    [
+      "r_index_finger_proximal_abd",
+      "r_wrist"
+    ],
+    [
+      "r_middle_finger_proximal",
+      "r_wrist"
+    ],
+    [
+      "r_middle_finger_proximal_abd",
+      "r_wrist"
+    ],
+    [
+      "r_ring_finger_proximal",
+      "r_wrist"
+    ],
+    [
+      "r_ring_finger_proximal_abd",
+      "r_wrist"
+    ],
+    [
+      "r_pinky_proximal",
+      "r_wrist"
+    ],
+    [
+      "r_pinky_proximal_abd",
+      "r_wrist"
+    ]
+  ],
+  "joint": {
+    "lower": [
+      -1.187000036239624,
+      -1.4839999675750732,
+      -1.0470000505447388,
+      -1.0470000505447388,
+      -1.0470000505447388,
+      -0.6980000138282776,
+      -1.0470000505447388,
+      -1.0470000505447388,
+      -1.0470000505447388,
+      -0.6980000138282776,
+      -1.0470000505447388,
+      -1.0470000505447388,
+      -1.0470000505447388,
+      -0.6980000138282776,
+      -1.0470000505447388,
+      -1.0470000505447388,
+      -1.0470000505447388,
+      -0.6980000138282776,
+      -1.0470000505447388,
+      -1.0470000505447388
+    ],
+    "upper": [
+      1.2910000085830688,
+      0.6980000138282776,
+      1.5700000524520874,
+      1.5700000524520874,
+      1.5700000524520874,
+      0.6980000138282776,
+      2.0940001010894775,
+      1.5700000524520874,
+      1.5700000524520874,
+      0.6980000138282776,
+      2.0940001010894775,
+      1.5700000524520874,
+      1.5700000524520874,
+      0.6980000138282776,
+      2.0940001010894775,
+      1.5700000524520874,
+      1.5700000524520874,
+      0.6980000138282776,
+      2.0940001010894775,
+      1.5700000524520874
+    ]
+  },
+  "model_type": "manus_v1",
+  "manus_features": {
+    "version": 1,
+    "mode": "skeleton",
+    "frame": "geort_canonical",
+    "unit": "m",
+    "robot_signature": "69f33b28d1f785a7e2dfe062c52b1b31a4647bd448da1f0dd83b857f65afaee7",
+    "tip_mean": [
+      [
+        0.053421057760715485,
+        0.0568452849984169,
+        0.09144879877567291
+      ],
+      [
+        0.06497180461883545,
+        0.022363319993019104,
+        0.13168346881866455
+      ],
+      [
+        0.06897133588790894,
+        -0.004699345212429762,
+        0.14626675844192505
+      ],
+      [
+        0.0662805363535881,
+        -0.015190462581813335,
+        0.12867237627506256
+      ],
+      [
+        0.04963475465774536,
+        -0.04386457800865173,
+        0.12299613654613495
+      ]
+    ],
+    "tip_scale": [
+      [
+        0.012069220654666424,
+        0.021817998960614204,
+        0.009999999776482582
+      ],
+      [
+        0.012821618467569351,
+        0.009999999776482582,
+        0.02756206877529621
+      ],
+      [
+        0.014149756170809269,
+        0.009999999776482582,
+        0.03264991194009781
+      ],
+      [
+        0.011696967296302319,
+        0.009999999776482582,
+        0.030152374878525734
+      ],
+      [
+        0.01002637017518282,
+        0.012977419421076775,
+        0.02173469588160515
+      ]
+    ],
+    "calibration": "train session only; no validation/test statistics",
+    "context": true
+  },
+  "objectives": {
+    "axis": 1.0,
+    "shape": 0.2,
+    "posture": 0.2,
+    "relation": 0.1,
+    "axis_tolerance_deg": 15.0,
+    "shape_tolerance_cos": 0.2,
+    "posture_tolerance_deg": 15.0,
+    "relation_tolerance_m": 0.01,
+    "relation_min_opening_m": 0.015,
+    "anchor": 0.0,
+    "relation_scale": [
+      1.058000922203064,
+      0.9697228670120239,
+      1.019919753074646,
+      1.12932550907135
+    ],
+    "relation_valid": [
+      true,
+      true,
+      true,
+      true
+    ]
+  }
+}

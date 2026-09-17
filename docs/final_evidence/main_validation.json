@@ -1,0 +1,5425 @@
+{
+  "checkpoint": "/home/xense-wufan/GeoRT/checkpoint/wuji_hand2_beta1_right_2026-09-17_14-13-59_main_manus_train01_seed42",
+  "selection": {
+    "last_epoch": 199,
+    "last_loss": -4.786045010070801,
+    "best_epoch": 196,
+    "best_loss": -4.786134582672119,
+    "selection": "minimum sample-weighted epoch mean of loss/total"
+  },
+  "models": {
+    "OldMain": {
+      "checkpoint": "/home/xense-wufan/GeoRT/checkpoint/wuji_hand2_beta1_right_2026-09-14_17-31-39_wuji_paper/best.pth",
+      "sha256": "b50bbf287e4f2722ef3df0aaa709a7bc6ae807f3ec72348fbefe4a05f6b4b438"
+    },
+    "RetrainedMain": {
+      "checkpoint": "/home/xense-wufan/GeoRT/checkpoint/wuji_hand2_beta1_right_2026-09-17_14-13-59_main_manus_train01_seed42/best.pth",
+      "sha256": "552e8a5ac414393874070e63f97859cb079356803a970cdb5cd3c69574f29d50"
+    },
+    "R2_raw": {
+      "checkpoint": "/home/xense-wufan/GeoRT/checkpoint/stage5_R2_seed42/best.pth",
+      "sha256": "fd49cb0f1f9bfbfc490d2ca1b31dd663e3dea11b4f6535276b64c88f5502e5e2"
+    }
+  },
+  "frames": 20988,
+  "split": "validation",
+  "aggregate": {
+    "OldMain": {
+      "equal_task_axis_deg": 84.55614217122395,
+      "equal_task_opening_mm": 29.830119938527996,
+      "equal_task_saturation_fraction": 0.4579969644546509,
+      "equal_task_little_pip_dip_reverse_fraction": 0.14669058237746962
+    },
+    "RetrainedMain": {
+      "equal_task_axis_deg": 25.05552079942491,
+      "equal_task_opening_mm": 7.896240200799314,
+      "equal_task_saturation_fraction": 0.0009026760623479883,
+      "equal_task_little_pip_dip_reverse_fraction": 0.001544496957340994
+    },
+    "R2_lp03": {
+      "equal_task_axis_deg": 5.377735455830892,
+      "equal_task_opening_mm": 3.1847935188823313,
+      "equal_task_saturation_fraction": 9.263118651385109e-05,
+      "equal_task_little_pip_dip_reverse_fraction": 0.0
+    },
+    "Wuji": {
+      "equal_task_axis_deg": 12.80307780371772,
+      "equal_task_opening_mm": 7.56175580100256,
+      "equal_task_saturation_fraction": 0.0034787445846531126,
+      "equal_task_little_pip_dip_reverse_fraction": 0.0
+    }
+  },
+  "by_task": {
+    "neutral": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 74.532470703125,
+          "index": 99.6323471069336,
+          "middle": 67.80780792236328,
+          "ring": 128.21937561035156,
+          "little": 65.2542953491211
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.9841666666666666,
+          "middle": 0.5625,
+          "ring": 1.0,
+          "little": 0.2475
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.5066666666666667,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.5266666666666666
+        },
+        "saturated_joint_fraction": 0.4726249873638153,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 87.08924102783203,
+            "p05": 18.70915985107422,
+            "p95": 168.33026123046875,
+            "max": 178.8282928466797,
+            "count": 6000
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.44588252902030945,
+            "p05": 0.0249777939170599,
+            "p95": 1.4995805025100708,
+            "max": 1.4996024370193481,
+            "count": 9600
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 29.754775965666227,
+            "p05": 3.8801090769811326,
+            "p95": 63.643709438420395,
+            "max": 64.76201839007337,
+            "count": 4800
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 496,
+            "total_count": 5995,
+            "active_fraction": 0.08273561301084237,
+            "dead_zone_fraction": 0.046370967741935484,
+            "gain": {
+              "mean": 2.5326263904571533,
+              "p05": 0.05473814532160759,
+              "p95": 10.173818588256836,
+              "max": 25.041654586791992,
+              "count": 496
+            },
+            "response_direction_error_deg": {
+              "mean": 68.858154296875,
+              "p05": 11.711726188659668,
+              "p95": 140.9309844970703,
+              "max": 177.87632751464844,
+              "count": 473
+            },
+            "direction_valid_count": 473,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 97,
+            "total_count": 1199,
+            "active_fraction": 0.08090075062552127,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.9808993339538574,
+              "p05": 0.39201346039772034,
+              "p95": 4.787148952484131,
+              "max": 8.8959321975708,
+              "count": 97
+            },
+            "response_direction_error_deg": {
+              "mean": 71.48960876464844,
+              "p05": 11.702136039733887,
+              "p95": 145.90548706054688,
+              "max": 161.62161254882812,
+              "count": 97
+            },
+            "direction_valid_count": 97,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 551,
+            "total_count": 4796,
+            "active_fraction": 0.11488740617180984,
+            "dead_zone_fraction": 0.007259528130671506,
+            "gain": {
+              "mean": 2.387310743331909,
+              "p05": 0.13584843277931213,
+              "p95": 9.448860168457031,
+              "max": 25.035446166992188,
+              "count": 551
+            },
+            "response_direction_error_deg": {
+              "mean": 68.3327407836914,
+              "p05": 11.784469604492188,
+              "p95": 135.65908813476562,
+              "max": 178.11134338378906,
+              "count": 547
+            },
+            "direction_valid_count": 547,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 496,
+            "total_count": 5995,
+            "active_fraction": 0.08273561301084237,
+            "dead_zone_fraction": 0.046370967741935484,
+            "gain": {
+              "mean": 2.5326263904571533,
+              "p05": 0.05473814532160759,
+              "p95": 10.173818588256836,
+              "max": 25.041654586791992,
+              "count": 496
+            },
+            "response_direction_error_deg": {
+              "mean": 68.858154296875,
+              "p05": 11.711726188659668,
+              "p95": 140.9309844970703,
+              "max": 177.87632751464844,
+              "count": 473
+            },
+            "direction_valid_count": 473,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.13605621457099915,
+            "p05": 0.0,
+            "p95": 0.6415066123008728,
+            "max": 2.7070162296295166,
+            "count": 5499
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 30.865205764770508,
+          "index": 17.8053035736084,
+          "middle": 27.669815063476562,
+          "ring": 16.911834716796875,
+          "little": 28.12702751159668
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 24.27583885192871,
+            "p05": 14.75013542175293,
+            "p95": 34.81698226928711,
+            "max": 39.034297943115234,
+            "count": 6000
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.33948802947998047,
+            "p05": 0.02758745849132538,
+            "p95": 1.023254156112671,
+            "max": 1.054788589477539,
+            "count": 9600
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 9.274908402988798,
+            "p05": 2.846833657618952,
+            "p95": 24.10881949065704,
+            "max": 24.729074009110423,
+            "count": 4800
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 496,
+            "total_count": 5995,
+            "active_fraction": 0.08273561301084237,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.2393752336502075,
+              "p05": 0.6240592002868652,
+              "p95": 1.740018606185913,
+              "max": 1.9651819467544556,
+              "count": 496
+            },
+            "response_direction_error_deg": {
+              "mean": 8.172052383422852,
+              "p05": 1.3291383981704712,
+              "p95": 18.326560974121094,
+              "max": 29.76822280883789,
+              "count": 496
+            },
+            "direction_valid_count": 496,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 97,
+            "total_count": 1199,
+            "active_fraction": 0.08090075062552127,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.1714650392532349,
+              "p05": 0.6889349222183228,
+              "p95": 1.5261763334274292,
+              "max": 1.682900309562683,
+              "count": 97
+            },
+            "response_direction_error_deg": {
+              "mean": 6.3675384521484375,
+              "p05": 1.1581206321716309,
+              "p95": 14.349114418029785,
+              "max": 16.571596145629883,
+              "count": 97
+            },
+            "direction_valid_count": 97,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 551,
+            "total_count": 4796,
+            "active_fraction": 0.11488740617180984,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.2820848226547241,
+              "p05": 0.6788896322250366,
+              "p95": 1.7354438304901123,
+              "max": 2.1369309425354004,
+              "count": 551
+            },
+            "response_direction_error_deg": {
+              "mean": 9.306601524353027,
+              "p05": 1.482459545135498,
+              "p95": 24.031028747558594,
+              "max": 41.01655960083008,
+              "count": 551
+            },
+            "direction_valid_count": 551,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.061461735516786575,
+            "p05": 0.0010530133731663227,
+            "p95": 0.17945075035095215,
+            "max": 0.3568529486656189,
+            "count": 5499
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 2.812407970428467,
+          "index": 4.381388187408447,
+          "middle": 5.285111427307129,
+          "ring": 5.127251148223877,
+          "little": 6.338462829589844
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 4.788923740386963,
+            "p05": 0.8566083908081055,
+            "p95": 8.442251205444336,
+            "max": 23.24126434326172,
+            "count": 6000
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.0594717338681221,
+            "p05": 8.185506158042699e-05,
+            "p95": 0.23782721161842346,
+            "max": 0.2527328133583069,
+            "count": 9600
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 3.642420354639803,
+            "p05": 0.36749437056476586,
+            "p95": 9.880475584445618,
+            "max": 11.358782354742011,
+            "count": 4800
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 496,
+            "total_count": 5995,
+            "active_fraction": 0.08273561301084237,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.07785964012146,
+              "p05": 0.2546888589859009,
+              "p95": 2.8765597343444824,
+              "max": 10.721029281616211,
+              "count": 496
+            },
+            "response_direction_error_deg": {
+              "mean": 14.182982444763184,
+              "p05": 2.5156142711639404,
+              "p95": 40.5974235534668,
+              "max": 132.11085510253906,
+              "count": 496
+            },
+            "direction_valid_count": 496,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 97,
+            "total_count": 1199,
+            "active_fraction": 0.08090075062552127,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.1767399311065674,
+              "p05": 0.3584441542625427,
+              "p95": 2.1183671951293945,
+              "max": 4.768203258514404,
+              "count": 97
+            },
+            "response_direction_error_deg": {
+              "mean": 7.374360084533691,
+              "p05": 1.9671506881713867,
+              "p95": 14.606874465942383,
+              "max": 29.335384368896484,
+              "count": 97
+            },
+            "direction_valid_count": 97,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 551,
+            "total_count": 4796,
+            "active_fraction": 0.11488740617180984,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.9786859750747681,
+              "p05": 0.23927566409111023,
+              "p95": 2.6880178451538086,
+              "max": 9.077178955078125,
+              "count": 551
+            },
+            "response_direction_error_deg": {
+              "mean": 14.088872909545898,
+              "p05": 2.428584575653076,
+              "p95": 40.25221252441406,
+              "max": 130.7210235595703,
+              "count": 551
+            },
+            "direction_valid_count": 551,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.04628276079893112,
+            "p05": 0.0032011661678552628,
+            "p95": 0.09179233759641647,
+            "max": 4.259163856506348,
+            "count": 5499
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 10.089714050292969,
+          "index": 6.989348888397217,
+          "middle": 5.233384132385254,
+          "ring": 11.398231506347656,
+          "little": 17.018314361572266
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 10.145794868469238,
+            "p05": 2.2512412071228027,
+            "p95": 18.51889991760254,
+            "max": 46.167015075683594,
+            "count": 6000
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.1565365046262741,
+            "p05": 0.0009999305475503206,
+            "p95": 0.737675130367279,
+            "max": 0.813194990158081,
+            "count": 9600
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 7.161528410793262,
+            "p05": 1.6709567459578107,
+            "p95": 11.744539623140541,
+            "max": 14.258386022047903,
+            "count": 4800
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 496,
+            "total_count": 5995,
+            "active_fraction": 0.08273561301084237,
+            "dead_zone_fraction": 0.008064516129032258,
+            "gain": {
+              "mean": 1.0362335443496704,
+              "p05": 0.21834315359592438,
+              "p95": 2.9187583923339844,
+              "max": 10.308158874511719,
+              "count": 496
+            },
+            "response_direction_error_deg": {
+              "mean": 16.975133895874023,
+              "p05": 3.061221122741699,
+              "p95": 52.20315170288086,
+              "max": 164.378173828125,
+              "count": 492
+            },
+            "direction_valid_count": 492,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 97,
+            "total_count": 1199,
+            "active_fraction": 0.08090075062552127,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.1298071146011353,
+              "p05": 0.349827378988266,
+              "p95": 2.3223655223846436,
+              "max": 4.096404552459717,
+              "count": 97
+            },
+            "response_direction_error_deg": {
+              "mean": 10.304606437683105,
+              "p05": 1.8588871955871582,
+              "p95": 22.1871280670166,
+              "max": 25.385251998901367,
+              "count": 97
+            },
+            "direction_valid_count": 97,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 551,
+            "total_count": 4796,
+            "active_fraction": 0.11488740617180984,
+            "dead_zone_fraction": 0.0018148820326678765,
+            "gain": {
+              "mean": 0.9559474587440491,
+              "p05": 0.2210913598537445,
+              "p95": 2.7020342350006104,
+              "max": 8.985542297363281,
+              "count": 551
+            },
+            "response_direction_error_deg": {
+              "mean": 17.351043701171875,
+              "p05": 3.0158121585845947,
+              "p95": 53.78638458251953,
+              "max": 129.45889282226562,
+              "count": 550
+            },
+            "direction_valid_count": 550,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.04213126748800278,
+            "p05": 0.0024446016177535057,
+            "p95": 0.0871218591928482,
+            "max": 4.012966156005859,
+            "count": 5499
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    },
+    "little_branch": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 69.21244049072266,
+          "index": 82.6801528930664,
+          "middle": 76.16361999511719,
+          "ring": 126.37533569335938,
+          "little": 70.03146362304688
+        },
+        "severe_pip_dip_fraction": {
+          "index": 1.0,
+          "middle": 1.0,
+          "ring": 1.0,
+          "little": 0.26605504587155965
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.007506255212677231,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.5865999443981096
+        },
+        "saturated_joint_fraction": 0.40749236941337585,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 84.89263153076172,
+            "p05": 39.138736724853516,
+            "p95": 141.42869567871094,
+            "max": 170.2301025390625,
+            "count": 17985
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.38017573952674866,
+            "p05": 0.012441769242286682,
+            "p95": 1.484777569770813,
+            "max": 1.4996552467346191,
+            "count": 28776
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 22.877512605501817,
+            "p05": 2.3014947485453803,
+            "p95": 57.58874572164912,
+            "max": 87.66446456771327,
+            "count": 14388
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 6423,
+            "total_count": 17980,
+            "active_fraction": 0.35723025583982204,
+            "dead_zone_fraction": 0.05558150397010743,
+            "gain": {
+              "mean": 2.5737392902374268,
+              "p05": 0.027718188241124153,
+              "p95": 9.916092872619629,
+              "max": 83.69599914550781,
+              "count": 6423
+            },
+            "response_direction_error_deg": {
+              "mean": 72.54947662353516,
+              "p05": 18.150272369384766,
+              "p95": 143.26434326171875,
+              "max": 178.76377868652344,
+              "count": 6066
+            },
+            "direction_valid_count": 6066,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1189,
+            "total_count": 3596,
+            "active_fraction": 0.33064516129032256,
+            "dead_zone_fraction": 0.00336417157275021,
+            "gain": {
+              "mean": 2.728407621383667,
+              "p05": 0.19517263770103455,
+              "p95": 8.503509521484375,
+              "max": 68.29424285888672,
+              "count": 1189
+            },
+            "response_direction_error_deg": {
+              "mean": 80.83830261230469,
+              "p05": 19.746158599853516,
+              "p95": 149.7688751220703,
+              "max": 176.59779357910156,
+              "count": 1185
+            },
+            "direction_valid_count": 1185,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 6444,
+            "total_count": 14384,
+            "active_fraction": 0.44799777530589546,
+            "dead_zone_fraction": 0.015363128491620111,
+            "gain": {
+              "mean": 2.6509835720062256,
+              "p05": 0.1048649400472641,
+              "p95": 9.848518371582031,
+              "max": 127.27527618408203,
+              "count": 6444
+            },
+            "response_direction_error_deg": {
+              "mean": 73.70265197753906,
+              "p05": 19.508108139038086,
+              "p95": 141.80287170410156,
+              "max": 178.68670654296875,
+              "count": 6345
+            },
+            "direction_valid_count": 6345,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 6423,
+            "total_count": 17980,
+            "active_fraction": 0.35723025583982204,
+            "dead_zone_fraction": 0.05558150397010743,
+            "gain": {
+              "mean": 2.5737392902374268,
+              "p05": 0.027718188241124153,
+              "p95": 9.916092872619629,
+              "max": 83.69599914550781,
+              "count": 6423
+            },
+            "response_direction_error_deg": {
+              "mean": 72.54947662353516,
+              "p05": 18.150272369384766,
+              "p95": 143.26434326171875,
+              "max": 178.76377868652344,
+              "count": 6066
+            },
+            "direction_valid_count": 6066,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.23336155712604523,
+            "p05": 4.567031282931566e-05,
+            "p95": 0.965630054473877,
+            "max": 21.483463287353516,
+            "count": 11557
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 35.05540084838867,
+          "index": 18.586679458618164,
+          "middle": 25.112104415893555,
+          "ring": 16.879926681518555,
+          "little": 24.84281349182129
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.013900472616068946
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0831248262440923
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 24.095396041870117,
+            "p05": 14.508353233337402,
+            "p95": 37.366634368896484,
+            "max": 95.47818756103516,
+            "count": 17985
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.24002493917942047,
+            "p05": 0.006936967372894287,
+            "p95": 0.4931058883666992,
+            "max": 0.8274749517440796,
+            "count": 28776
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 5.991840735791231,
+            "p05": 0.5540673425771185,
+            "p95": 14.292353110610707,
+            "max": 24.65590361775774,
+            "count": 14388
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 6423,
+            "total_count": 17980,
+            "active_fraction": 0.35723025583982204,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.504063606262207,
+              "p05": 1.1003977060317993,
+              "p95": 1.8326796293258667,
+              "max": 31.061403274536133,
+              "count": 6423
+            },
+            "response_direction_error_deg": {
+              "mean": 8.088699340820312,
+              "p05": 1.8366533517837524,
+              "p95": 18.225440979003906,
+              "max": 93.05831909179688,
+              "count": 6423
+            },
+            "direction_valid_count": 6423,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1189,
+            "total_count": 3596,
+            "active_fraction": 0.33064516129032256,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.4814190864562988,
+              "p05": 1.1060525178909302,
+              "p95": 1.8359709978103638,
+              "max": 19.47258758544922,
+              "count": 1189
+            },
+            "response_direction_error_deg": {
+              "mean": 9.277979850769043,
+              "p05": 1.92133367061615,
+              "p95": 19.81700897216797,
+              "max": 85.45542907714844,
+              "count": 1189
+            },
+            "direction_valid_count": 1189,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 6444,
+            "total_count": 14384,
+            "active_fraction": 0.44799777530589546,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.5181498527526855,
+              "p05": 1.1101295948028564,
+              "p95": 1.824614405632019,
+              "max": 34.69032287597656,
+              "count": 6444
+            },
+            "response_direction_error_deg": {
+              "mean": 8.468485832214355,
+              "p05": 1.7946213483810425,
+              "p95": 19.485992431640625,
+              "max": 95.39312744140625,
+              "count": 6444
+            },
+            "direction_valid_count": 6444,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.11745316535234451,
+            "p05": 0.01264115795493126,
+            "p95": 0.2605305314064026,
+            "max": 3.598544120788574,
+            "count": 11557
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 1.511187195777893,
+          "index": 6.574062824249268,
+          "middle": 3.284039258956909,
+          "ring": 6.138854503631592,
+          "little": 13.123456001281738
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 6.126317977905273,
+            "p05": 1.1582584381103516,
+            "p95": 18.89171600341797,
+            "max": 25.750242233276367,
+            "count": 17985
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.02147316373884678,
+            "p05": 0.0009153485298156738,
+            "p95": 0.08161130547523499,
+            "max": 0.26121604442596436,
+            "count": 28776
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 2.925078916522923,
+            "p05": 0.26848156504097265,
+            "p95": 6.09827456276733,
+            "max": 13.283085187457369,
+            "count": 14388
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 6423,
+            "total_count": 17980,
+            "active_fraction": 0.35723025583982204,
+            "dead_zone_fraction": 0.0007784524365561264,
+            "gain": {
+              "mean": 0.9435192346572876,
+              "p05": 0.3151533305644989,
+              "p95": 2.217048406600952,
+              "max": 11.357722282409668,
+              "count": 6423
+            },
+            "response_direction_error_deg": {
+              "mean": 18.71360206604004,
+              "p05": 2.7923102378845215,
+              "p95": 53.671775817871094,
+              "max": 170.97608947753906,
+              "count": 6418
+            },
+            "direction_valid_count": 6418,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1189,
+            "total_count": 3596,
+            "active_fraction": 0.33064516129032256,
+            "dead_zone_fraction": 0.001682085786375105,
+            "gain": {
+              "mean": 0.9107856154441833,
+              "p05": 0.3565048277378082,
+              "p95": 1.7953073978424072,
+              "max": 6.838103771209717,
+              "count": 1189
+            },
+            "response_direction_error_deg": {
+              "mean": 17.422624588012695,
+              "p05": 3.1292672157287598,
+              "p95": 52.71390914916992,
+              "max": 154.06878662109375,
+              "count": 1187
+            },
+            "direction_valid_count": 1187,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 6444,
+            "total_count": 14384,
+            "active_fraction": 0.44799777530589546,
+            "dead_zone_fraction": 0.00015518311607697082,
+            "gain": {
+              "mean": 0.9507112503051758,
+              "p05": 0.3286648392677307,
+              "p95": 2.2305655479431152,
+              "max": 12.357402801513672,
+              "count": 6444
+            },
+            "response_direction_error_deg": {
+              "mean": 22.11075782775879,
+              "p05": 3.4940710067749023,
+              "p95": 60.52362823486328,
+              "max": 161.34877014160156,
+              "count": 6443
+            },
+            "direction_valid_count": 6443,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.10999122262001038,
+            "p05": 0.008791157975792885,
+            "p95": 0.3887358605861664,
+            "max": 4.534981727600098,
+            "count": 11557
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 10.874794960021973,
+          "index": 14.026518821716309,
+          "middle": 7.74392557144165,
+          "ring": 19.938278198242188,
+          "little": 27.458280563354492
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 16.00836181640625,
+            "p05": 6.359123229980469,
+            "p95": 36.30698776245117,
+            "max": 46.582611083984375,
+            "count": 17985
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.08781260997056961,
+            "p05": 0.003913700580596924,
+            "p95": 0.32829540967941284,
+            "max": 0.5878201723098755,
+            "count": 28776
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 6.703457656846455,
+            "p05": 2.7432669499156446,
+            "p95": 10.480653943437247,
+            "max": 18.53394294685154,
+            "count": 14388
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 6423,
+            "total_count": 17980,
+            "active_fraction": 0.35723025583982204,
+            "dead_zone_fraction": 0.0026467382842908296,
+            "gain": {
+              "mean": 0.857395589351654,
+              "p05": 0.2424539029598236,
+              "p95": 2.086216926574707,
+              "max": 10.58062744140625,
+              "count": 6423
+            },
+            "response_direction_error_deg": {
+              "mean": 23.760019302368164,
+              "p05": 3.7647969722747803,
+              "p95": 73.0634994506836,
+              "max": 176.3943328857422,
+              "count": 6406
+            },
+            "direction_valid_count": 6406,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1189,
+            "total_count": 3596,
+            "active_fraction": 0.33064516129032256,
+            "dead_zone_fraction": 0.001682085786375105,
+            "gain": {
+              "mean": 0.8472974300384521,
+              "p05": 0.31077316403388977,
+              "p95": 1.7117249965667725,
+              "max": 6.288558006286621,
+              "count": 1189
+            },
+            "response_direction_error_deg": {
+              "mean": 23.307777404785156,
+              "p05": 5.546886444091797,
+              "p95": 58.82764434814453,
+              "max": 167.60983276367188,
+              "count": 1187
+            },
+            "direction_valid_count": 1187,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 6444,
+            "total_count": 14384,
+            "active_fraction": 0.44799777530589546,
+            "dead_zone_fraction": 0.00031036623215394165,
+            "gain": {
+              "mean": 0.9018428921699524,
+              "p05": 0.300371378660202,
+              "p95": 2.1633965969085693,
+              "max": 13.219134330749512,
+              "count": 6444
+            },
+            "response_direction_error_deg": {
+              "mean": 25.575119018554688,
+              "p05": 4.591758728027344,
+              "p95": 68.18685913085938,
+              "max": 170.3507080078125,
+              "count": 6442
+            },
+            "direction_valid_count": 6442,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.10166914016008377,
+            "p05": 0.006690725684165955,
+            "p95": 0.3575975000858307,
+            "max": 5.309393405914307,
+            "count": 11557
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    },
+    "index_branch": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 74.1789779663086,
+          "index": 91.1730728149414,
+          "middle": 67.16753387451172,
+          "ring": 103.3117446899414,
+          "little": 100.3553695678711
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.6819508128386828,
+          "middle": 0.9995831596498541,
+          "ring": 1.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.106294289287203,
+          "middle": 0.0358482701125469,
+          "ring": 0.02417674030846186,
+          "little": 1.0
+        },
+        "saturated_joint_fraction": 0.521675705909729,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 87.23739624023438,
+            "p05": 47.48150634765625,
+            "p95": 118.28366088867188,
+            "max": 175.36822509765625,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.49385130405426025,
+            "p05": 0.015814784914255142,
+            "p95": 1.4995296001434326,
+            "max": 1.4995698928833008,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 38.31653313022845,
+            "p05": 3.5477802824814,
+            "p95": 68.94175594058117,
+            "max": 79.316552555094,
+            "count": 9596
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 3531,
+            "total_count": 11990,
+            "active_fraction": 0.2944954128440367,
+            "dead_zone_fraction": 0.0875106202209006,
+            "gain": {
+              "mean": 4.000936031341553,
+              "p05": 0.0001237638498423621,
+              "p95": 18.004222869873047,
+              "max": 102.3650894165039,
+              "count": 3531
+            },
+            "response_direction_error_deg": {
+              "mean": 66.113037109375,
+              "p05": 9.987150192260742,
+              "p95": 139.06068420410156,
+              "max": 179.14773559570312,
+              "count": 3222
+            },
+            "direction_valid_count": 3222,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 643,
+            "total_count": 2398,
+            "active_fraction": 0.26814011676397,
+            "dead_zone_fraction": 0.0015552099533437014,
+            "gain": {
+              "mean": 4.023339748382568,
+              "p05": 0.7442615628242493,
+              "p95": 14.631477355957031,
+              "max": 60.10328674316406,
+              "count": 643
+            },
+            "response_direction_error_deg": {
+              "mean": 56.555503845214844,
+              "p05": 12.016627311706543,
+              "p95": 120.97232818603516,
+              "max": 170.05938720703125,
+              "count": 642
+            },
+            "direction_valid_count": 642,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 3879,
+            "total_count": 9592,
+            "active_fraction": 0.4043994995829858,
+            "dead_zone_fraction": 0.012889920082495489,
+            "gain": {
+              "mean": 3.681126117706299,
+              "p05": 0.14002352952957153,
+              "p95": 16.647319793701172,
+              "max": 95.48221588134766,
+              "count": 3879
+            },
+            "response_direction_error_deg": {
+              "mean": 70.13203430175781,
+              "p05": 11.710368156433105,
+              "p95": 140.94093322753906,
+              "max": 176.275146484375,
+              "count": 3829
+            },
+            "direction_valid_count": 3829,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 3531,
+            "total_count": 11990,
+            "active_fraction": 0.2944954128440367,
+            "dead_zone_fraction": 0.0875106202209006,
+            "gain": {
+              "mean": 4.000936031341553,
+              "p05": 0.0001237638498423621,
+              "p95": 18.004222869873047,
+              "max": 102.3650894165039,
+              "count": 3531
+            },
+            "response_direction_error_deg": {
+              "mean": 66.113037109375,
+              "p05": 9.987150192260742,
+              "p95": 139.06068420410156,
+              "max": 179.14773559570312,
+              "count": 3222
+            },
+            "direction_valid_count": 3222,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.2682257294654846,
+            "p05": 1.862645149230957e-06,
+            "p95": 1.40933096408844,
+            "max": 13.797769546508789,
+            "count": 8459
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 31.906490325927734,
+          "index": 18.48897361755371,
+          "middle": 26.952220916748047,
+          "ring": 14.828898429870605,
+          "little": 19.328121185302734
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0996248436848687,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 22.30094337463379,
+            "p05": 10.308574676513672,
+            "p95": 36.820777893066406,
+            "max": 58.1587028503418,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.20442242920398712,
+            "p05": 0.019684072583913803,
+            "p95": 0.48483607172966003,
+            "max": 0.9331626296043396,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 6.434716017166535,
+            "p05": 0.4410803716409055,
+            "p95": 19.29938138895773,
+            "max": 28.8291025454039,
+            "count": 9596
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 3531,
+            "total_count": 11990,
+            "active_fraction": 0.2944954128440367,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.5440220832824707,
+              "p05": 0.8922622203826904,
+              "p95": 2.115544557571411,
+              "max": 3.718400716781616,
+              "count": 3531
+            },
+            "response_direction_error_deg": {
+              "mean": 9.369184494018555,
+              "p05": 1.3998304605484009,
+              "p95": 25.448944091796875,
+              "max": 62.9677619934082,
+              "count": 3531
+            },
+            "direction_valid_count": 3531,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 643,
+            "total_count": 2398,
+            "active_fraction": 0.26814011676397,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.4592564105987549,
+              "p05": 0.9506779909133911,
+              "p95": 1.9876755475997925,
+              "max": 3.6450324058532715,
+              "count": 643
+            },
+            "response_direction_error_deg": {
+              "mean": 11.720844268798828,
+              "p05": 2.4625446796417236,
+              "p95": 26.71426010131836,
+              "max": 66.29010009765625,
+              "count": 643
+            },
+            "direction_valid_count": 643,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 3879,
+            "total_count": 9592,
+            "active_fraction": 0.4043994995829858,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.5435744524002075,
+              "p05": 0.9698458313941956,
+              "p95": 2.0399370193481445,
+              "max": 5.6454081535339355,
+              "count": 3879
+            },
+            "response_direction_error_deg": {
+              "mean": 9.119622230529785,
+              "p05": 1.5077598094940186,
+              "p95": 25.292282104492188,
+              "max": 105.61538696289062,
+              "count": 3879
+            },
+            "direction_valid_count": 3879,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.12110040336847305,
+            "p05": 0.017867984250187874,
+            "p95": 0.28451114892959595,
+            "max": 0.6631476283073425,
+            "count": 8459
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 0.8618802428245544,
+          "index": 8.02772331237793,
+          "middle": 2.6231722831726074,
+          "ring": 2.899756669998169,
+          "little": 5.10133695602417
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 3.902773857116699,
+            "p05": 0.6581047177314758,
+            "p95": 10.513946533203125,
+            "max": 22.278579711914062,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.024123258888721466,
+            "p05": 7.302164885913953e-05,
+            "p95": 0.1060061976313591,
+            "max": 0.4085046350955963,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 2.0496825005193577,
+            "p05": 0.13817154764322187,
+            "p95": 4.831831060005082,
+            "max": 8.49103023005244,
+            "count": 9596
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 3531,
+            "total_count": 11990,
+            "active_fraction": 0.2944954128440367,
+            "dead_zone_fraction": 0.0016992353440951572,
+            "gain": {
+              "mean": 0.8672716617584229,
+              "p05": 0.2975519895553589,
+              "p95": 1.948385238647461,
+              "max": 5.167083263397217,
+              "count": 3531
+            },
+            "response_direction_error_deg": {
+              "mean": 17.984943389892578,
+              "p05": 2.606687545776367,
+              "p95": 50.22209548950195,
+              "max": 175.96035766601562,
+              "count": 3525
+            },
+            "direction_valid_count": 3525,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 643,
+            "total_count": 2398,
+            "active_fraction": 0.26814011676397,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.8099914789199829,
+              "p05": 0.3806759715080261,
+              "p95": 1.4410613775253296,
+              "max": 2.7568535804748535,
+              "count": 643
+            },
+            "response_direction_error_deg": {
+              "mean": 16.6178035736084,
+              "p05": 2.9676520824432373,
+              "p95": 43.605377197265625,
+              "max": 141.5143585205078,
+              "count": 643
+            },
+            "direction_valid_count": 643,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 3879,
+            "total_count": 9592,
+            "active_fraction": 0.4043994995829858,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.8980963826179504,
+              "p05": 0.33518901467323303,
+              "p95": 1.9627097845077515,
+              "max": 6.794032573699951,
+              "count": 3879
+            },
+            "response_direction_error_deg": {
+              "mean": 20.180591583251953,
+              "p05": 3.2143540382385254,
+              "p95": 52.70258331298828,
+              "max": 163.84326171875,
+              "count": 3879
+            },
+            "direction_valid_count": 3879,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.08114501088857651,
+            "p05": 0.009015527553856373,
+            "p95": 0.26201263070106506,
+            "max": 1.4802043437957764,
+            "count": 8459
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 8.538058280944824,
+          "index": 22.66147804260254,
+          "middle": 7.365149021148682,
+          "ring": 16.36197280883789,
+          "little": 20.0530948638916
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0026677781715989113,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 14.995945930480957,
+            "p05": 4.565087795257568,
+            "p95": 28.433094024658203,
+            "max": 39.447227478027344,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.09482400119304657,
+            "p05": 0.0009130358812399209,
+            "p95": 0.3518606126308441,
+            "max": 0.6540910005569458,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 8.22005903243487,
+            "p05": 3.6810177346733584,
+            "p95": 12.12616704584671,
+            "max": 16.304889713195713,
+            "count": 9596
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 3531,
+            "total_count": 11990,
+            "active_fraction": 0.2944954128440367,
+            "dead_zone_fraction": 0.0022656471254602095,
+            "gain": {
+              "mean": 0.8348543643951416,
+              "p05": 0.27504658699035645,
+              "p95": 1.9327738285064697,
+              "max": 5.841183662414551,
+              "count": 3531
+            },
+            "response_direction_error_deg": {
+              "mean": 18.43548583984375,
+              "p05": 3.0964298248291016,
+              "p95": 50.39008331298828,
+              "max": 160.0,
+              "count": 3523
+            },
+            "direction_valid_count": 3523,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 643,
+            "total_count": 2398,
+            "active_fraction": 0.26814011676397,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.780081033706665,
+              "p05": 0.3493318557739258,
+              "p95": 1.4257935285568237,
+              "max": 2.62990140914917,
+              "count": 643
+            },
+            "response_direction_error_deg": {
+              "mean": 17.030906677246094,
+              "p05": 2.819164514541626,
+              "p95": 42.08654022216797,
+              "max": 145.64285278320312,
+              "count": 643
+            },
+            "direction_valid_count": 643,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 3879,
+            "total_count": 9592,
+            "active_fraction": 0.4043994995829858,
+            "dead_zone_fraction": 0.0007733952049497294,
+            "gain": {
+              "mean": 0.8852914571762085,
+              "p05": 0.3268113434314728,
+              "p95": 1.9553568363189697,
+              "max": 8.044767379760742,
+              "count": 3879
+            },
+            "response_direction_error_deg": {
+              "mean": 20.963573455810547,
+              "p05": 3.571852207183838,
+              "p95": 53.721702575683594,
+              "max": 159.0962677001953,
+              "count": 3876
+            },
+            "direction_valid_count": 3876,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 158,
+            "total_count": 655,
+            "active_fraction": 0.24122137404580152,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.7438974976539612,
+              "p05": 0.2560710310935974,
+              "p95": 1.6019281148910522,
+              "max": 3.4491238594055176,
+              "count": 158
+            },
+            "response_direction_error_deg": {
+              "mean": 20.07288360595703,
+              "p05": 5.463058948516846,
+              "p95": 44.0859260559082,
+              "max": 90.33734130859375,
+              "count": 158
+            },
+            "direction_valid_count": 158,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.07636027038097382,
+            "p05": 0.007008498068898916,
+            "p95": 0.24809224903583527,
+            "max": 1.690006971359253,
+            "count": 8459
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    },
+    "ring_branch": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 72.89276123046875,
+          "index": 109.1312026977539,
+          "middle": 73.42008972167969,
+          "ring": 94.44288635253906,
+          "little": 98.83365631103516
+        },
+        "severe_pip_dip_fraction": {
+          "index": 1.0,
+          "middle": 0.9916597164303587,
+          "ring": 0.9170141784820683,
+          "little": 0.0016680567139282735
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.40033361134278567,
+          "middle": 0.18932443703085905,
+          "ring": 0.042952460383653045,
+          "little": 0.9553794829024187
+        },
+        "saturated_joint_fraction": 0.5049624443054199,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 89.7441177368164,
+            "p05": 35.79669189453125,
+            "p95": 140.59640502929688,
+            "max": 175.17385864257812,
+            "count": 11990
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.4944271743297577,
+            "p05": 0.01026887632906437,
+            "p95": 1.4996060132980347,
+            "max": 1.4996575117111206,
+            "count": 19184
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 31.92563764481891,
+            "p05": 1.991277626846528,
+            "p95": 75.00243310700212,
+            "max": 82.56569820189961,
+            "count": 9592
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 4500,
+            "total_count": 11985,
+            "active_fraction": 0.37546933667083854,
+            "dead_zone_fraction": 0.15288888888888888,
+            "gain": {
+              "mean": 3.340150833129883,
+              "p05": 3.303657649667002e-05,
+              "p95": 13.496603965759277,
+              "max": 93.28173828125,
+              "count": 4500
+            },
+            "response_direction_error_deg": {
+              "mean": 73.33110809326172,
+              "p05": 19.146377563476562,
+              "p95": 137.47996520996094,
+              "max": 175.73435974121094,
+              "count": 3812
+            },
+            "direction_valid_count": 3812,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 861,
+            "total_count": 2397,
+            "active_fraction": 0.3591989987484355,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 3.353626012802124,
+              "p05": 0.33429720997810364,
+              "p95": 11.137550354003906,
+              "max": 33.11336135864258,
+              "count": 861
+            },
+            "response_direction_error_deg": {
+              "mean": 74.923583984375,
+              "p05": 16.29662322998047,
+              "p95": 141.55250549316406,
+              "max": 175.36602783203125,
+              "count": 861
+            },
+            "direction_valid_count": 861,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 4707,
+            "total_count": 9588,
+            "active_fraction": 0.4909261576971214,
+            "dead_zone_fraction": 0.02910558742298704,
+            "gain": {
+              "mean": 3.2634434700012207,
+              "p05": 0.06386329233646393,
+              "p95": 13.210312843322754,
+              "max": 103.54949951171875,
+              "count": 4707
+            },
+            "response_direction_error_deg": {
+              "mean": 76.27645111083984,
+              "p05": 21.43122100830078,
+              "p95": 141.3743896484375,
+              "max": 175.91546630859375,
+              "count": 4570
+            },
+            "direction_valid_count": 4570,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 4500,
+            "total_count": 11985,
+            "active_fraction": 0.37546933667083854,
+            "dead_zone_fraction": 0.15288888888888888,
+            "gain": {
+              "mean": 3.340150833129883,
+              "p05": 3.303657649667002e-05,
+              "p95": 13.496603965759277,
+              "max": 93.28173828125,
+              "count": 4500
+            },
+            "response_direction_error_deg": {
+              "mean": 73.33110809326172,
+              "p05": 19.146377563476562,
+              "p95": 137.47996520996094,
+              "max": 175.73435974121094,
+              "count": 3812
+            },
+            "direction_valid_count": 3812,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.36977630853652954,
+            "p05": 9.313225746154785e-07,
+            "p95": 1.7934761047363281,
+            "max": 11.979738235473633,
+            "count": 7485
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 32.328739166259766,
+          "index": 17.87919044494629,
+          "middle": 28.746849060058594,
+          "ring": 25.25446891784668,
+          "little": 21.764320373535156
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.030859049207673062,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.025020850708924104,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0019391159294173121,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 25.194719314575195,
+            "p05": 14.071869850158691,
+            "p95": 36.83456802368164,
+            "max": 47.394248962402344,
+            "count": 11990
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.19000962376594543,
+            "p05": 0.010227495804429054,
+            "p95": 0.4281640350818634,
+            "max": 0.836148202419281,
+            "count": 19184
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 6.850060023142381,
+            "p05": 0.834611340513184,
+            "p95": 17.465336775577047,
+            "max": 38.51297083355368,
+            "count": 9592
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 4500,
+            "total_count": 11985,
+            "active_fraction": 0.37546933667083854,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.5715185403823853,
+              "p05": 0.9221908450126648,
+              "p95": 2.2123608589172363,
+              "max": 13.037613868713379,
+              "count": 4500
+            },
+            "response_direction_error_deg": {
+              "mean": 10.034008026123047,
+              "p05": 1.6209206581115723,
+              "p95": 27.061494827270508,
+              "max": 156.93820190429688,
+              "count": 4500
+            },
+            "direction_valid_count": 4500,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 861,
+            "total_count": 2397,
+            "active_fraction": 0.3591989987484355,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.4944472312927246,
+              "p05": 0.8717926740646362,
+              "p95": 2.3192856311798096,
+              "max": 8.981289863586426,
+              "count": 861
+            },
+            "response_direction_error_deg": {
+              "mean": 13.129955291748047,
+              "p05": 1.7943871021270752,
+              "p95": 41.03247833251953,
+              "max": 131.21995544433594,
+              "count": 861
+            },
+            "direction_valid_count": 861,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 4707,
+            "total_count": 9588,
+            "active_fraction": 0.4909261576971214,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.579756736755371,
+              "p05": 0.9510884881019592,
+              "p95": 2.130504608154297,
+              "max": 12.814277648925781,
+              "count": 4707
+            },
+            "response_direction_error_deg": {
+              "mean": 10.331503868103027,
+              "p05": 1.7664666175842285,
+              "p95": 27.35892105102539,
+              "max": 171.8404541015625,
+              "count": 4707
+            },
+            "direction_valid_count": 4707,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 126,
+            "total_count": 485,
+            "active_fraction": 0.2597938144329897,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.8807597160339355,
+              "p05": 0.9674700498580933,
+              "p95": 4.477964401245117,
+              "max": 6.885063171386719,
+              "count": 126
+            },
+            "response_direction_error_deg": {
+              "mean": 35.998008728027344,
+              "p05": 2.4037187099456787,
+              "p95": 141.84561157226562,
+              "max": 156.93820190429688,
+              "count": 126
+            },
+            "direction_valid_count": 126,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.12897883355617523,
+            "p05": 0.01568339765071869,
+            "p95": 0.29290345311164856,
+            "max": 1.5220162868499756,
+            "count": 7485
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 1.3375264406204224,
+          "index": 4.884596824645996,
+          "middle": 2.7003986835479736,
+          "ring": 9.602818489074707,
+          "little": 6.374263286590576
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 4.97991943359375,
+            "p05": 0.9722588658332825,
+            "p95": 14.960494041442871,
+            "max": 29.506914138793945,
+            "count": 11990
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.01783531904220581,
+            "p05": 8.440017700195312e-05,
+            "p95": 0.07418283820152283,
+            "max": 0.4307253062725067,
+            "count": 19184
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 3.1539282618946207,
+            "p05": 0.23376608741497718,
+            "p95": 6.449013758596435,
+            "max": 10.107045326185574,
+            "count": 9592
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 4500,
+            "total_count": 11985,
+            "active_fraction": 0.37546933667083854,
+            "dead_zone_fraction": 0.00044444444444444447,
+            "gain": {
+              "mean": 0.9104809165000916,
+              "p05": 0.3122849762439728,
+              "p95": 2.1427440643310547,
+              "max": 9.394570350646973,
+              "count": 4500
+            },
+            "response_direction_error_deg": {
+              "mean": 17.527624130249023,
+              "p05": 2.467358350753784,
+              "p95": 51.07994842529297,
+              "max": 173.60653686523438,
+              "count": 4498
+            },
+            "direction_valid_count": 4498,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 861,
+            "total_count": 2397,
+            "active_fraction": 0.3591989987484355,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.8332518935203552,
+              "p05": 0.33821287751197815,
+              "p95": 1.7117401361465454,
+              "max": 3.740241765975952,
+              "count": 861
+            },
+            "response_direction_error_deg": {
+              "mean": 17.393749237060547,
+              "p05": 2.7646334171295166,
+              "p95": 46.27801513671875,
+              "max": 133.80760192871094,
+              "count": 861
+            },
+            "direction_valid_count": 861,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 4707,
+            "total_count": 9588,
+            "active_fraction": 0.4909261576971214,
+            "dead_zone_fraction": 0.00021244954323348204,
+            "gain": {
+              "mean": 0.9343461394309998,
+              "p05": 0.3216705322265625,
+              "p95": 2.1320016384124756,
+              "max": 9.759100914001465,
+              "count": 4707
+            },
+            "response_direction_error_deg": {
+              "mean": 19.789072036743164,
+              "p05": 2.8212456703186035,
+              "p95": 57.4433479309082,
+              "max": 175.68551635742188,
+              "count": 4706
+            },
+            "direction_valid_count": 4706,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.11739397794008255,
+            "p05": 0.01143635530024767,
+            "p95": 0.3896566927433014,
+            "max": 2.280195713043213,
+            "count": 7485
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 10.735669136047363,
+          "index": 13.238961219787598,
+          "middle": 6.366150379180908,
+          "ring": 14.803791999816895,
+          "little": 17.49688720703125
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 12.528297424316406,
+            "p05": 2.870035171508789,
+            "p95": 27.49039649963379,
+            "max": 45.483367919921875,
+            "count": 11990
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.06211557239294052,
+            "p05": 0.0004121750534977764,
+            "p95": 0.24125663936138153,
+            "max": 0.6554007530212402,
+            "count": 19184
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 8.512965561021977,
+            "p05": 1.1376330993094839,
+            "p95": 14.746098457391394,
+            "max": 18.70508469722426,
+            "count": 9592
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 4500,
+            "total_count": 11985,
+            "active_fraction": 0.37546933667083854,
+            "dead_zone_fraction": 0.00044444444444444447,
+            "gain": {
+              "mean": 0.8517448306083679,
+              "p05": 0.2886323928833008,
+              "p95": 2.002117156982422,
+              "max": 8.414467811584473,
+              "count": 4500
+            },
+            "response_direction_error_deg": {
+              "mean": 18.727153778076172,
+              "p05": 3.177767515182495,
+              "p95": 51.030616760253906,
+              "max": 172.79226684570312,
+              "count": 4498
+            },
+            "direction_valid_count": 4498,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 861,
+            "total_count": 2397,
+            "active_fraction": 0.3591989987484355,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.7568978071212769,
+              "p05": 0.3049890398979187,
+              "p95": 1.5201388597488403,
+              "max": 3.6196494102478027,
+              "count": 861
+            },
+            "response_direction_error_deg": {
+              "mean": 17.92914390563965,
+              "p05": 3.3647029399871826,
+              "p95": 48.76395034790039,
+              "max": 130.16748046875,
+              "count": 861
+            },
+            "direction_valid_count": 861,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 4707,
+            "total_count": 9588,
+            "active_fraction": 0.4909261576971214,
+            "dead_zone_fraction": 0.0004248990864669641,
+            "gain": {
+              "mean": 0.8837884664535522,
+              "p05": 0.3054291903972626,
+              "p95": 2.0207958221435547,
+              "max": 9.226569175720215,
+              "count": 4707
+            },
+            "response_direction_error_deg": {
+              "mean": 20.97385025024414,
+              "p05": 3.5995752811431885,
+              "p95": 58.77501678466797,
+              "max": 172.2698211669922,
+              "count": 4705
+            },
+            "direction_valid_count": 4705,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.10998363792896271,
+            "p05": 0.00980643555521965,
+            "p95": 0.3662838041782379,
+            "max": 2.0677459239959717,
+            "count": 7485
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    },
+    "pinch_axis": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 44.20695877075195,
+          "index": 95.43717956542969,
+          "middle": 85.46405029296875,
+          "ring": 116.51943969726562,
+          "little": 91.3134765625
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.7047539616346956,
+          "middle": 0.9135390603280511,
+          "ring": 1.0,
+          "little": 0.08868501529051988
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.11426188490408674,
+          "middle": 0.3522379760911871,
+          "ring": 0.006672226855713094,
+          "little": 0.8801779260494856
+        },
+        "saturated_joint_fraction": 0.45889630913734436,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 86.58821105957031,
+            "p05": 28.64080047607422,
+            "p95": 145.53677368164062,
+            "max": 176.79483032226562,
+            "count": 17985
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.5140129327774048,
+            "p05": 0.038833215832710266,
+            "p95": 1.4995357990264893,
+            "max": 1.4996352195739746,
+            "count": 28776
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 28.256713523373737,
+            "p05": 2.2096238143730615,
+            "p95": 88.97288560887067,
+            "max": 140.1307998470514,
+            "count": 14218
+          },
+          "opening_valid_fraction": 0.9881845982763414,
+          "local_response": {
+            "active_count": 7859,
+            "total_count": 17980,
+            "active_fraction": 0.43709677419354837,
+            "dead_zone_fraction": 0.10217584934470034,
+            "gain": {
+              "mean": 2.6745078563690186,
+              "p05": 6.90366214257665e-05,
+              "p95": 11.683334350585938,
+              "max": 46.967002868652344,
+              "count": 7859
+            },
+            "response_direction_error_deg": {
+              "mean": 73.31996154785156,
+              "p05": 9.904491424560547,
+              "p95": 147.6503143310547,
+              "max": 179.05850219726562,
+              "count": 7056
+            },
+            "direction_valid_count": 7056,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1223,
+            "total_count": 3596,
+            "active_fraction": 0.34010011123470524,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 2.8312511444091797,
+              "p05": 0.47296252846717834,
+              "p95": 8.468955993652344,
+              "max": 42.189144134521484,
+              "count": 1223
+            },
+            "response_direction_error_deg": {
+              "mean": 70.39356994628906,
+              "p05": 15.492432594299316,
+              "p95": 151.81346130371094,
+              "max": 179.02783203125,
+              "count": 1223
+            },
+            "direction_valid_count": 1223,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 9574,
+            "total_count": 14384,
+            "active_fraction": 0.6656006674082313,
+            "dead_zone_fraction": 0.0013578441612701066,
+            "gain": {
+              "mean": 3.1519551277160645,
+              "p05": 0.3426148295402527,
+              "p95": 11.243438720703125,
+              "max": 78.29365539550781,
+              "count": 9574
+            },
+            "response_direction_error_deg": {
+              "mean": 71.47347259521484,
+              "p05": 14.30937385559082,
+              "p95": 140.4508819580078,
+              "max": 178.2093048095703,
+              "count": 9561
+            },
+            "direction_valid_count": 9561,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 7859,
+            "total_count": 17980,
+            "active_fraction": 0.43709677419354837,
+            "dead_zone_fraction": 0.10217584934470034,
+            "gain": {
+              "mean": 2.6745078563690186,
+              "p05": 6.90366214257665e-05,
+              "p95": 11.683334350585938,
+              "max": 46.967002868652344,
+              "count": 7859
+            },
+            "response_direction_error_deg": {
+              "mean": 73.31996154785156,
+              "p05": 9.904491424560547,
+              "p95": 147.6503143310547,
+              "max": 179.05850219726562,
+              "count": 7056
+            },
+            "direction_valid_count": 7056,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.26216527819633484,
+            "p05": 0.0,
+            "p95": 1.1895378828048706,
+            "max": 9.061214447021484,
+            "count": 10121
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 42.611419677734375,
+          "index": 12.230687141418457,
+          "middle": 27.82794189453125,
+          "ring": 20.429269790649414,
+          "little": 23.81511688232422
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0008340283569641367,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.03836530442035029,
+          "middle": 0.038087294968028915,
+          "ring": 0.0027800945232137894,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0035168195609003305,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 25.38289451599121,
+            "p05": 10.005308151245117,
+            "p95": 48.719783782958984,
+            "max": 143.17208862304688,
+            "count": 17985
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.22300545871257782,
+            "p05": 0.013737127184867859,
+            "p95": 0.5370856523513794,
+            "max": 0.9053349494934082,
+            "count": 28776
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 12.335703542032524,
+            "p05": 1.2206684393606766,
+            "p95": 26.495535251195772,
+            "max": 62.48948200079496,
+            "count": 14218
+          },
+          "opening_valid_fraction": 0.9881845982763414,
+          "local_response": {
+            "active_count": 7859,
+            "total_count": 17980,
+            "active_fraction": 0.43709677419354837,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.6095796823501587,
+              "p05": 0.9245216846466064,
+              "p95": 2.176111936569214,
+              "max": 26.062828063964844,
+              "count": 7859
+            },
+            "response_direction_error_deg": {
+              "mean": 11.987780570983887,
+              "p05": 2.017728328704834,
+              "p95": 32.035552978515625,
+              "max": 140.88088989257812,
+              "count": 7859
+            },
+            "direction_valid_count": 7859,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1223,
+            "total_count": 3596,
+            "active_fraction": 0.34010011123470524,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.6202696561813354,
+              "p05": 0.9551275968551636,
+              "p95": 2.5992605686187744,
+              "max": 23.39320945739746,
+              "count": 1223
+            },
+            "response_direction_error_deg": {
+              "mean": 14.589064598083496,
+              "p05": 2.2271456718444824,
+              "p95": 47.454620361328125,
+              "max": 154.60406494140625,
+              "count": 1223
+            },
+            "direction_valid_count": 1223,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 9574,
+            "total_count": 14384,
+            "active_fraction": 0.6656006674082313,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.8050569295883179,
+              "p05": 0.9139842391014099,
+              "p95": 3.872983694076538,
+              "max": 31.52497673034668,
+              "count": 9574
+            },
+            "response_direction_error_deg": {
+              "mean": 17.443012237548828,
+              "p05": 2.328218460083008,
+              "p95": 65.18557739257812,
+              "max": 170.60768127441406,
+              "count": 9574
+            },
+            "direction_valid_count": 9574,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 375,
+            "total_count": 1020,
+            "active_fraction": 0.36764705882352944,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 2.778676986694336,
+              "p05": 0.9015969038009644,
+              "p95": 9.531251907348633,
+              "max": 26.062828063964844,
+              "count": 375
+            },
+            "response_direction_error_deg": {
+              "mean": 28.746562957763672,
+              "p05": 3.0240540504455566,
+              "p95": 110.530029296875,
+              "max": 135.38539123535156,
+              "count": 375
+            },
+            "direction_valid_count": 375,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.14701591432094574,
+            "p05": 0.01855066791176796,
+            "p95": 0.30259841680526733,
+            "max": 3.4164693355560303,
+            "count": 10121
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 8.728734970092773,
+          "index": 6.821808338165283,
+          "middle": 3.9767954349517822,
+          "ring": 6.400278091430664,
+          "little": 5.437586784362793
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 6.2730393409729,
+            "p05": 1.2105013132095337,
+            "p95": 16.431339263916016,
+            "max": 39.59269714355469,
+            "count": 17985
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.02900504879653454,
+            "p05": 0.00010511279106140137,
+            "p95": 0.16044802963733673,
+            "max": 0.38705918192863464,
+            "count": 28776
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 2.289623577671674,
+            "p05": 0.12695360814255763,
+            "p95": 6.744980561551643,
+            "max": 22.942385840203944,
+            "count": 14218
+          },
+          "opening_valid_fraction": 0.9881845982763414,
+          "local_response": {
+            "active_count": 7859,
+            "total_count": 17980,
+            "active_fraction": 0.43709677419354837,
+            "dead_zone_fraction": 0.0002544853034737244,
+            "gain": {
+              "mean": 0.9221498966217041,
+              "p05": 0.34056395292282104,
+              "p95": 2.0365726947784424,
+              "max": 9.460610389709473,
+              "count": 7859
+            },
+            "response_direction_error_deg": {
+              "mean": 17.715106964111328,
+              "p05": 2.6125874519348145,
+              "p95": 48.37830352783203,
+              "max": 169.14479064941406,
+              "count": 7857
+            },
+            "direction_valid_count": 7857,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1223,
+            "total_count": 3596,
+            "active_fraction": 0.34010011123470524,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.827950656414032,
+              "p05": 0.34889769554138184,
+              "p95": 1.55689537525177,
+              "max": 3.8040659427642822,
+              "count": 1223
+            },
+            "response_direction_error_deg": {
+              "mean": 17.262950897216797,
+              "p05": 3.134209156036377,
+              "p95": 45.54854965209961,
+              "max": 157.8181915283203,
+              "count": 1223
+            },
+            "direction_valid_count": 1223,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 9574,
+            "total_count": 14384,
+            "active_fraction": 0.6656006674082313,
+            "dead_zone_fraction": 0.00010444955086693127,
+            "gain": {
+              "mean": 0.9993792176246643,
+              "p05": 0.37491485476493835,
+              "p95": 2.1770191192626953,
+              "max": 8.182607650756836,
+              "count": 9574
+            },
+            "response_direction_error_deg": {
+              "mean": 20.86284065246582,
+              "p05": 3.2962894439697266,
+              "p95": 54.54769515991211,
+              "max": 174.3157501220703,
+              "count": 9573
+            },
+            "direction_valid_count": 9573,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.13310906291007996,
+            "p05": 0.018306955695152283,
+            "p95": 0.3836606740951538,
+            "max": 2.5518078804016113,
+            "count": 10121
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 15.453436851501465,
+          "index": 14.085250854492188,
+          "middle": 6.763397693634033,
+          "ring": 17.469425201416016,
+          "little": 16.126516342163086
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.004045037552714348,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 13.97960090637207,
+            "p05": 3.352449655532837,
+            "p95": 26.083114624023438,
+            "max": 41.5255012512207,
+            "count": 17985
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.08913745731115341,
+            "p05": 0.0011443346738815308,
+            "p95": 0.3605310916900635,
+            "max": 0.6156221628189087,
+            "count": 28776
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 6.9734168237050875,
+            "p05": 1.625306810027078,
+            "p95": 12.701890851231717,
+            "max": 30.81294244137714,
+            "count": 14218
+          },
+          "opening_valid_fraction": 0.9881845982763414,
+          "local_response": {
+            "active_count": 7859,
+            "total_count": 17980,
+            "active_fraction": 0.43709677419354837,
+            "dead_zone_fraction": 0.0007634559104211731,
+            "gain": {
+              "mean": 0.9234007596969604,
+              "p05": 0.32243600487709045,
+              "p95": 2.0964460372924805,
+              "max": 9.973821640014648,
+              "count": 7859
+            },
+            "response_direction_error_deg": {
+              "mean": 20.30481719970703,
+              "p05": 3.421583890914917,
+              "p95": 57.1512565612793,
+              "max": 172.5167236328125,
+              "count": 7853
+            },
+            "direction_valid_count": 7853,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1223,
+            "total_count": 3596,
+            "active_fraction": 0.34010011123470524,
+            "dead_zone_fraction": 0.0008176614881439084,
+            "gain": {
+              "mean": 0.8184658885002136,
+              "p05": 0.3383415639400482,
+              "p95": 1.5697922706604004,
+              "max": 4.066977500915527,
+              "count": 1223
+            },
+            "response_direction_error_deg": {
+              "mean": 21.226619720458984,
+              "p05": 4.22924280166626,
+              "p95": 58.38125991821289,
+              "max": 144.54034423828125,
+              "count": 1222
+            },
+            "direction_valid_count": 1222,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 9574,
+            "total_count": 14384,
+            "active_fraction": 0.6656006674082313,
+            "dead_zone_fraction": 0.0003133486526007938,
+            "gain": {
+              "mean": 1.0188409090042114,
+              "p05": 0.37087857723236084,
+              "p95": 2.225740432739258,
+              "max": 9.704614639282227,
+              "count": 9574
+            },
+            "response_direction_error_deg": {
+              "mean": 23.097145080566406,
+              "p05": 4.312501430511475,
+              "p95": 59.299705505371094,
+              "max": 171.01980590820312,
+              "count": 9571
+            },
+            "direction_valid_count": 9571,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 510,
+            "total_count": 1485,
+            "active_fraction": 0.3434343434343434,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.7555128335952759,
+              "p05": 0.3129085898399353,
+              "p95": 1.5697237253189087,
+              "max": 3.767650604248047,
+              "count": 510
+            },
+            "response_direction_error_deg": {
+              "mean": 19.16118049621582,
+              "p05": 3.12575364112854,
+              "p95": 52.04071044921875,
+              "max": 136.62197875976562,
+              "count": 510
+            },
+            "direction_valid_count": 510,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.1304960995912552,
+            "p05": 0.015101584605872631,
+            "p95": 0.391249418258667,
+            "max": 3.063326597213745,
+            "count": 10121
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    },
+    "micro": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 74.32733917236328,
+          "index": 103.4002914428711,
+          "middle": 47.80937194824219,
+          "ring": 109.13761901855469,
+          "little": 82.94628143310547
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.8982909545644019,
+          "middle": 1.0,
+          "ring": 1.0,
+          "little": 0.24468528553563984
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.15172988745310545,
+          "middle": 0.008336807002917883,
+          "ring": 0.010004168403501459,
+          "little": 0.7140475197999167
+        },
+        "saturated_joint_fraction": 0.45921218395233154,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 83.52415466308594,
+            "p05": 27.039392471313477,
+            "p95": 144.13729858398438,
+            "max": 173.25364685058594,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.4402891993522644,
+            "p05": 0.011083426885306835,
+            "p95": 1.499557375907898,
+            "max": 1.4996553659439087,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 36.230399222350265,
+            "p05": 3.2084867660643788,
+            "p95": 68.0595839939216,
+            "max": 80.13813064927963,
+            "count": 9596
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 5249,
+            "total_count": 11990,
+            "active_fraction": 0.4377814845704754,
+            "dead_zone_fraction": 0.09906648885502001,
+            "gain": {
+              "mean": 3.455901861190796,
+              "p05": 4.460696072783321e-05,
+              "p95": 15.013388633728027,
+              "max": 87.14358520507812,
+              "count": 5249
+            },
+            "response_direction_error_deg": {
+              "mean": 72.14981842041016,
+              "p05": 13.42879867553711,
+              "p95": 140.90846252441406,
+              "max": 177.75405883789062,
+              "count": 4729
+            },
+            "direction_valid_count": 4729,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1215,
+            "total_count": 2398,
+            "active_fraction": 0.5066722268557131,
+            "dead_zone_fraction": 0.0008230452674897119,
+            "gain": {
+              "mean": 3.552464246749878,
+              "p05": 0.4907940626144409,
+              "p95": 11.66218090057373,
+              "max": 43.861473083496094,
+              "count": 1215
+            },
+            "response_direction_error_deg": {
+              "mean": 70.19366455078125,
+              "p05": 14.931612968444824,
+              "p95": 145.23683166503906,
+              "max": 176.01487731933594,
+              "count": 1214
+            },
+            "direction_valid_count": 1214,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 5489,
+            "total_count": 9592,
+            "active_fraction": 0.5722477064220184,
+            "dead_zone_fraction": 0.02350154855164875,
+            "gain": {
+              "mean": 3.3140251636505127,
+              "p05": 0.08350125700235367,
+              "p95": 14.117892265319824,
+              "max": 116.55472564697266,
+              "count": 5489
+            },
+            "response_direction_error_deg": {
+              "mean": 73.991455078125,
+              "p05": 15.965438842773438,
+              "p95": 138.88702392578125,
+              "max": 178.00991821289062,
+              "count": 5360
+            },
+            "direction_valid_count": 5360,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 5249,
+            "total_count": 11990,
+            "active_fraction": 0.4377814845704754,
+            "dead_zone_fraction": 0.09906648885502001,
+            "gain": {
+              "mean": 3.455901861190796,
+              "p05": 4.460696072783321e-05,
+              "p95": 15.013388633728027,
+              "max": 87.14358520507812,
+              "count": 5249
+            },
+            "response_direction_error_deg": {
+              "mean": 72.14981842041016,
+              "p05": 13.42879867553711,
+              "p95": 140.90846252441406,
+              "max": 177.75405883789062,
+              "count": 4729
+            },
+            "direction_valid_count": 4729,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.44757089018821716,
+            "p05": 0.0,
+            "p95": 2.275235176086426,
+            "max": 14.330734252929688,
+            "count": 6741
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 31.468059539794922,
+          "index": 17.652965545654297,
+          "middle": 30.175434112548828,
+          "ring": 16.857803344726562,
+          "little": 24.292844772338867
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.004585243851604835,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 24.089414596557617,
+            "p05": 13.535545349121094,
+            "p95": 34.930599212646484,
+            "max": 46.25119400024414,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.22674143314361572,
+            "p05": 0.00998679082840681,
+            "p95": 0.532228410243988,
+            "max": 0.8109854459762573,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 4.924650054115996,
+            "p05": 0.3523998971434982,
+            "p95": 12.4721163274974,
+            "max": 26.66215748277148,
+            "count": 9596
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 5249,
+            "total_count": 11990,
+            "active_fraction": 0.4377814845704754,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.5110859870910645,
+              "p05": 1.1213027238845825,
+              "p95": 1.831475853919983,
+              "max": 3.826631784439087,
+              "count": 5249
+            },
+            "response_direction_error_deg": {
+              "mean": 7.642489910125732,
+              "p05": 1.5779067277908325,
+              "p95": 17.041099548339844,
+              "max": 39.20124816894531,
+              "count": 5249
+            },
+            "direction_valid_count": 5249,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1215,
+            "total_count": 2398,
+            "active_fraction": 0.5066722268557131,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.46713387966156,
+              "p05": 1.0808061361312866,
+              "p95": 1.8276417255401611,
+              "max": 4.418124198913574,
+              "count": 1215
+            },
+            "response_direction_error_deg": {
+              "mean": 8.666043281555176,
+              "p05": 1.7486581802368164,
+              "p95": 21.570598602294922,
+              "max": 61.80214309692383,
+              "count": 1215
+            },
+            "direction_valid_count": 1215,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 5489,
+            "total_count": 9592,
+            "active_fraction": 0.5722477064220184,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.5167468786239624,
+              "p05": 1.1415235996246338,
+              "p95": 1.8038671016693115,
+              "max": 3.366495132446289,
+              "count": 5489
+            },
+            "response_direction_error_deg": {
+              "mean": 7.659822463989258,
+              "p05": 1.5878716707229614,
+              "p95": 17.578414916992188,
+              "max": 60.67930221557617,
+              "count": 5489
+            },
+            "direction_valid_count": 5489,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.13211585581302643,
+            "p05": 0.016114817932248116,
+            "p95": 0.283596009016037,
+            "max": 0.7253089547157288,
+            "count": 6741
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 1.0580334663391113,
+          "index": 8.512187004089355,
+          "middle": 2.415606737136841,
+          "ring": 4.778034687042236,
+          "little": 7.368095397949219
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 4.826393127441406,
+            "p05": 0.7257768511772156,
+            "p95": 15.253743171691895,
+            "max": 32.17192077636719,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.018875477835536003,
+            "p05": 7.164478302001953e-05,
+            "p95": 0.08636893332004547,
+            "max": 0.33560171723365784,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 2.421665295483197,
+            "p05": 0.11218547133890269,
+            "p95": 5.819748579645241,
+            "max": 14.962073717493807,
+            "count": 9596
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 5249,
+            "total_count": 11990,
+            "active_fraction": 0.4377814845704754,
+            "dead_zone_fraction": 0.001143074871404077,
+            "gain": {
+              "mean": 0.9887449741363525,
+              "p05": 0.30950480699539185,
+              "p95": 2.4752602577209473,
+              "max": 12.601489067077637,
+              "count": 5249
+            },
+            "response_direction_error_deg": {
+              "mean": 17.735366821289062,
+              "p05": 2.619410276412964,
+              "p95": 54.00682067871094,
+              "max": 172.39926147460938,
+              "count": 5243
+            },
+            "direction_valid_count": 5243,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1215,
+            "total_count": 2398,
+            "active_fraction": 0.5066722268557131,
+            "dead_zone_fraction": 0.0008230452674897119,
+            "gain": {
+              "mean": 0.9574823379516602,
+              "p05": 0.37978118658065796,
+              "p95": 1.9241944551467896,
+              "max": 6.573260307312012,
+              "count": 1215
+            },
+            "response_direction_error_deg": {
+              "mean": 15.320954322814941,
+              "p05": 2.5814547538757324,
+              "p95": 40.658329010009766,
+              "max": 118.28994750976562,
+              "count": 1214
+            },
+            "direction_valid_count": 1214,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 5489,
+            "total_count": 9592,
+            "active_fraction": 0.5722477064220184,
+            "dead_zone_fraction": 0.00036436509382401167,
+            "gain": {
+              "mean": 1.0247193574905396,
+              "p05": 0.3315199613571167,
+              "p95": 2.456094741821289,
+              "max": 11.254358291625977,
+              "count": 5489
+            },
+            "response_direction_error_deg": {
+              "mean": 20.33959197998047,
+              "p05": 3.1776187419891357,
+              "p95": 57.87887954711914,
+              "max": 167.8340301513672,
+              "count": 5487
+            },
+            "direction_valid_count": 5487,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.14414319396018982,
+            "p05": 0.01420424785465002,
+            "p95": 0.44766610860824585,
+            "max": 4.559115409851074,
+            "count": 6741
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 9.315845489501953,
+          "index": 20.00187873840332,
+          "middle": 3.5310399532318115,
+          "ring": 15.143567085266113,
+          "little": 18.955759048461914
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 13.389604568481445,
+            "p05": 2.1541411876678467,
+            "p95": 31.82001304626465,
+            "max": 38.8602409362793,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.0695333182811737,
+            "p05": 0.0005309611442498863,
+            "p95": 0.3065080940723419,
+            "max": 0.5873047113418579,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 8.112627903480467,
+            "p05": 2.6316522535328386,
+            "p95": 12.845320973823744,
+            "max": 20.36647735404218,
+            "count": 9596
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 5249,
+            "total_count": 11990,
+            "active_fraction": 0.4377814845704754,
+            "dead_zone_fraction": 0.0013335873499714232,
+            "gain": {
+              "mean": 0.9396734237670898,
+              "p05": 0.2896420657634735,
+              "p95": 2.3591458797454834,
+              "max": 11.061354637145996,
+              "count": 5249
+            },
+            "response_direction_error_deg": {
+              "mean": 19.0432071685791,
+              "p05": 3.0787594318389893,
+              "p95": 55.52834701538086,
+              "max": 175.70635986328125,
+              "count": 5242
+            },
+            "direction_valid_count": 5242,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1215,
+            "total_count": 2398,
+            "active_fraction": 0.5066722268557131,
+            "dead_zone_fraction": 0.0008230452674897119,
+            "gain": {
+              "mean": 0.8868598341941833,
+              "p05": 0.34578007459640503,
+              "p95": 1.7447582483291626,
+              "max": 5.756962776184082,
+              "count": 1215
+            },
+            "response_direction_error_deg": {
+              "mean": 17.402250289916992,
+              "p05": 3.5958521366119385,
+              "p95": 44.40118408203125,
+              "max": 139.4992218017578,
+              "count": 1214
+            },
+            "direction_valid_count": 1214,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 5489,
+            "total_count": 9592,
+            "active_fraction": 0.5722477064220184,
+            "dead_zone_fraction": 0.0009109127345600292,
+            "gain": {
+              "mean": 0.9892190098762512,
+              "p05": 0.3158873915672302,
+              "p95": 2.3504526615142822,
+              "max": 10.94660472869873,
+              "count": 5489
+            },
+            "response_direction_error_deg": {
+              "mean": 21.526918411254883,
+              "p05": 3.4392619132995605,
+              "p95": 61.01422882080078,
+              "max": 172.5014190673828,
+              "count": 5484
+            },
+            "direction_valid_count": 5484,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.13699808716773987,
+            "p05": 0.01222576480358839,
+            "p95": 0.42840689420700073,
+            "max": 4.378342151641846,
+            "count": 6741
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    },
+    "context": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 52.43809127807617,
+          "index": 88.65792083740234,
+          "middle": 68.755859375,
+          "ring": 98.68815612792969,
+          "little": 88.98467254638672
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.657357232180075,
+          "middle": 0.701125468945394,
+          "ring": 0.940808670279283,
+          "little": 0.20925385577323885
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.21550646102542725,
+          "middle": 0.019591496456857024,
+          "ring": 0.08086702792830346,
+          "little": 0.6815339724885369
+        },
+        "saturated_joint_fraction": 0.36592331528663635,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 79.5049057006836,
+            "p05": 23.561458587646484,
+            "p95": 144.14801025390625,
+            "max": 179.68101501464844,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.4381251037120819,
+            "p05": 0.013041782192885876,
+            "p95": 1.4993760585784912,
+            "max": 1.4996497631072998,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 26.45759934944696,
+            "p05": 1.776589441264372,
+            "p95": 68.38471125465774,
+            "max": 103.34390462669613,
+            "count": 9520
+          },
+          "opening_valid_fraction": 0.992080033347228,
+          "local_response": {
+            "active_count": 7780,
+            "total_count": 11990,
+            "active_fraction": 0.6488740617180984,
+            "dead_zone_fraction": 0.09318766066838047,
+            "gain": {
+              "mean": 2.3400731086730957,
+              "p05": 0.00012865652388427407,
+              "p95": 8.662569999694824,
+              "max": 81.10625457763672,
+              "count": 7780
+            },
+            "response_direction_error_deg": {
+              "mean": 66.40341186523438,
+              "p05": 11.392247200012207,
+              "p95": 140.18345642089844,
+              "max": 179.15118408203125,
+              "count": 7055
+            },
+            "direction_valid_count": 7055,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1573,
+            "total_count": 2398,
+            "active_fraction": 0.6559633027522935,
+            "dead_zone_fraction": 0.0006357279084551812,
+            "gain": {
+              "mean": 2.0357632637023926,
+              "p05": 0.4087689518928528,
+              "p95": 6.508904457092285,
+              "max": 23.1763916015625,
+              "count": 1573
+            },
+            "response_direction_error_deg": {
+              "mean": 63.5651969909668,
+              "p05": 14.309708595275879,
+              "p95": 134.66824340820312,
+              "max": 172.63941955566406,
+              "count": 1572
+            },
+            "direction_valid_count": 1572,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 7236,
+            "total_count": 9592,
+            "active_fraction": 0.7543786488740617,
+            "dead_zone_fraction": 0.0020729684908789387,
+            "gain": {
+              "mean": 2.7071802616119385,
+              "p05": 0.2654534876346588,
+              "p95": 9.231485366821289,
+              "max": 72.53291320800781,
+              "count": 7236
+            },
+            "response_direction_error_deg": {
+              "mean": 70.50797271728516,
+              "p05": 15.611696243286133,
+              "p95": 139.37501525878906,
+              "max": 178.5877685546875,
+              "count": 7221
+            },
+            "direction_valid_count": 7221,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 7708,
+            "total_count": 11895,
+            "active_fraction": 0.6480033627574611,
+            "dead_zone_fraction": 0.09405812143227815,
+            "gain": {
+              "mean": 2.3475944995880127,
+              "p05": 0.00012228220293764025,
+              "p95": 8.663389205932617,
+              "max": 81.10625457763672,
+              "count": 7708
+            },
+            "response_direction_error_deg": {
+              "mean": 66.76866912841797,
+              "p05": 11.561307907104492,
+              "p95": 140.28065490722656,
+              "max": 179.15118408203125,
+              "count": 6983
+            },
+            "direction_valid_count": 6983,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.23669223487377167,
+            "p05": 0.0,
+            "p95": 0.8973387479782104,
+            "max": 6.0286970138549805,
+            "count": 4210
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 53.74302673339844,
+          "index": 17.129423141479492,
+          "middle": 17.035526275634766,
+          "ring": 19.503599166870117,
+          "little": 21.611589431762695
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.030012505210504376,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.04376823676531888,
+          "middle": 0.0,
+          "ring": 0.008336807002917883,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 25.804637908935547,
+            "p05": 5.727517127990723,
+            "p95": 66.5816879272461,
+            "max": 99.230224609375,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.2710575461387634,
+            "p05": 0.01616811752319336,
+            "p95": 0.6494201421737671,
+            "max": 1.0559666156768799,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 10.154440684266591,
+            "p05": 0.7715426278541986,
+            "p95": 26.718954182496606,
+            "max": 35.261564021397504,
+            "count": 9520
+          },
+          "opening_valid_fraction": 0.992080033347228,
+          "local_response": {
+            "active_count": 7780,
+            "total_count": 11990,
+            "active_fraction": 0.6488740617180984,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.3741188049316406,
+              "p05": 0.6512272953987122,
+              "p95": 2.0378663539886475,
+              "max": 25.166637420654297,
+              "count": 7780
+            },
+            "response_direction_error_deg": {
+              "mean": 10.339961051940918,
+              "p05": 2.0541083812713623,
+              "p95": 24.10079574584961,
+              "max": 100.79975891113281,
+              "count": 7780
+            },
+            "direction_valid_count": 7780,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1573,
+            "total_count": 2398,
+            "active_fraction": 0.6559633027522935,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.301925539970398,
+              "p05": 0.740212082862854,
+              "p95": 2.049832344055176,
+              "max": 5.413187503814697,
+              "count": 1573
+            },
+            "response_direction_error_deg": {
+              "mean": 10.663104057312012,
+              "p05": 2.126730442047119,
+              "p95": 25.662992477416992,
+              "max": 101.07664489746094,
+              "count": 1573
+            },
+            "direction_valid_count": 1573,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 7236,
+            "total_count": 9592,
+            "active_fraction": 0.7543786488740617,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.5288593769073486,
+              "p05": 0.7607036828994751,
+              "p95": 2.282059669494629,
+              "max": 39.30544662475586,
+              "count": 7236
+            },
+            "response_direction_error_deg": {
+              "mean": 13.58276653289795,
+              "p05": 2.2091469764709473,
+              "p95": 36.06226348876953,
+              "max": 163.97207641601562,
+              "count": 7236
+            },
+            "direction_valid_count": 7236,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.12374606728553772,
+            "p05": 0.0,
+            "p95": 0.2972910702228546,
+            "max": 3.3073179721832275,
+            "count": 4210
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 4.186805248260498,
+          "index": 6.029952526092529,
+          "middle": 5.8236165046691895,
+          "ring": 7.877418041229248,
+          "little": 6.9601545333862305
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0008336806786246598,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 6.1755876541137695,
+            "p05": 1.268550157546997,
+            "p95": 13.489664077758789,
+            "max": 38.57213592529297,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.054905906319618225,
+            "p05": 0.0005022913101129234,
+            "p95": 0.18767410516738892,
+            "max": 0.4473237991333008,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 4.930516760216466,
+            "p05": 0.36484907116192145,
+            "p95": 11.935870615465271,
+            "max": 16.995135361213837,
+            "count": 9520
+          },
+          "opening_valid_fraction": 0.992080033347228,
+          "local_response": {
+            "active_count": 7780,
+            "total_count": 11990,
+            "active_fraction": 0.6488740617180984,
+            "dead_zone_fraction": 0.0002570694087403599,
+            "gain": {
+              "mean": 1.1576523780822754,
+              "p05": 0.40435275435447693,
+              "p95": 2.7740981578826904,
+              "max": 11.1449556350708,
+              "count": 7780
+            },
+            "response_direction_error_deg": {
+              "mean": 15.755148887634277,
+              "p05": 2.6288411617279053,
+              "p95": 43.06205368041992,
+              "max": 178.9770050048828,
+              "count": 7778
+            },
+            "direction_valid_count": 7778,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1573,
+            "total_count": 2398,
+            "active_fraction": 0.6559633027522935,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.1079456806182861,
+              "p05": 0.4394948184490204,
+              "p95": 2.3587658405303955,
+              "max": 6.21046781539917,
+              "count": 1573
+            },
+            "response_direction_error_deg": {
+              "mean": 12.707332611083984,
+              "p05": 2.3145718574523926,
+              "p95": 32.45640182495117,
+              "max": 172.53248596191406,
+              "count": 1573
+            },
+            "direction_valid_count": 1573,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 7236,
+            "total_count": 9592,
+            "active_fraction": 0.7543786488740617,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.130454182624817,
+              "p05": 0.40650737285614014,
+              "p95": 2.610537528991699,
+              "max": 13.330869674682617,
+              "count": 7236
+            },
+            "response_direction_error_deg": {
+              "mean": 20.116317749023438,
+              "p05": 3.2331621646881104,
+              "p95": 56.302940368652344,
+              "max": 175.54257202148438,
+              "count": 7236
+            },
+            "direction_valid_count": 7236,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 133,
+            "total_count": 205,
+            "active_fraction": 0.6487804878048781,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.157150149345398,
+              "p05": 0.3348560035228729,
+              "p95": 2.9913926124572754,
+              "max": 4.713070869445801,
+              "count": 133
+            },
+            "response_direction_error_deg": {
+              "mean": 17.99875259399414,
+              "p05": 5.752172470092773,
+              "p95": 41.239501953125,
+              "max": 59.0764274597168,
+              "count": 133
+            },
+            "direction_valid_count": 133,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.2190798819065094,
+            "p05": 0.013698936440050602,
+            "p95": 0.8200859427452087,
+            "max": 3.555907964706421,
+            "count": 4210
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 7.850415229797363,
+          "index": 8.364689826965332,
+          "middle": 7.261520862579346,
+          "ring": 13.651658058166504,
+          "little": 21.474748611450195
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.008003334514796734,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 11.720614433288574,
+            "p05": 2.0760908126831055,
+            "p95": 28.883569717407227,
+            "max": 47.62257766723633,
+            "count": 11995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.10500453412532806,
+            "p05": 0.0012357741361483932,
+            "p95": 0.3386191129684448,
+            "max": 0.7099505662918091,
+            "count": 19192
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 6.47712296529467,
+            "p05": 0.4176497561195959,
+            "p95": 15.919693560764713,
+            "max": 24.58815867198116,
+            "count": 9520
+          },
+          "opening_valid_fraction": 0.992080033347228,
+          "local_response": {
+            "active_count": 7780,
+            "total_count": 11990,
+            "active_fraction": 0.6488740617180984,
+            "dead_zone_fraction": 0.00038560411311053987,
+            "gain": {
+              "mean": 1.1289305686950684,
+              "p05": 0.3967919647693634,
+              "p95": 2.703230381011963,
+              "max": 11.205467224121094,
+              "count": 7780
+            },
+            "response_direction_error_deg": {
+              "mean": 16.92860984802246,
+              "p05": 2.912701368331909,
+              "p95": 44.85124206542969,
+              "max": 176.77120971679688,
+              "count": 7777
+            },
+            "direction_valid_count": 7777,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1573,
+            "total_count": 2398,
+            "active_fraction": 0.6559633027522935,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.0659199953079224,
+              "p05": 0.4323207139968872,
+              "p95": 2.3006093502044678,
+              "max": 5.927453994750977,
+              "count": 1573
+            },
+            "response_direction_error_deg": {
+              "mean": 13.636788368225098,
+              "p05": 2.281132221221924,
+              "p95": 33.033241271972656,
+              "max": 166.74227905273438,
+              "count": 1573
+            },
+            "direction_valid_count": 1573,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 7236,
+            "total_count": 9592,
+            "active_fraction": 0.7543786488740617,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.125410795211792,
+              "p05": 0.40605849027633667,
+              "p95": 2.5890073776245117,
+              "max": 13.75645637512207,
+              "count": 7236
+            },
+            "response_direction_error_deg": {
+              "mean": 21.70166778564453,
+              "p05": 3.5498013496398926,
+              "p95": 58.990177154541016,
+              "max": 169.42559814453125,
+              "count": 7236
+            },
+            "direction_valid_count": 7236,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 1007,
+            "total_count": 1970,
+            "active_fraction": 0.5111675126903553,
+            "dead_zone_fraction": 0.0009930486593843098,
+            "gain": {
+              "mean": 0.9710668921470642,
+              "p05": 0.37071236968040466,
+              "p95": 2.1975011825561523,
+              "max": 6.16791296005249,
+              "count": 1007
+            },
+            "response_direction_error_deg": {
+              "mean": 18.357830047607422,
+              "p05": 3.1435751914978027,
+              "p95": 48.993160247802734,
+              "max": 157.6963653564453,
+              "count": 1006
+            },
+            "direction_valid_count": 1006,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.21626058220863342,
+            "p05": 0.012058702297508717,
+            "p95": 0.8191379904747009,
+            "max": 3.865464925765991,
+            "count": 4210
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    },
+    "open_close": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 52.825496673583984,
+          "index": 84.34972381591797,
+          "middle": 58.77757263183594,
+          "ring": 81.13370513916016,
+          "little": 67.66232299804688
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.565869927737632,
+          "middle": 0.5264035575319622,
+          "ring": 0.7448582545858811,
+          "little": 0.2623679822123402
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.25125069483046136,
+          "middle": 0.0,
+          "ring": 0.09727626459143969,
+          "little": 0.3690939410783769
+        },
+        "saturated_joint_fraction": 0.2836853861808777,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 68.94976043701172,
+            "p05": 26.935752868652344,
+            "p95": 139.67156982421875,
+            "max": 178.7289581298828,
+            "count": 8995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.3808491826057434,
+            "p05": 0.02167632058262825,
+            "p95": 1.4966683387756348,
+            "max": 1.4996345043182373,
+            "count": 14392
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 23.245183244313175,
+            "p05": 2.4266844447361517,
+            "p95": 58.491567517186205,
+            "max": 85.05465870165816,
+            "count": 7179
+          },
+          "opening_valid_fraction": 0.9976375764313508,
+          "local_response": {
+            "active_count": 5257,
+            "total_count": 8990,
+            "active_fraction": 0.5847608453837597,
+            "dead_zone_fraction": 0.05250142666920297,
+            "gain": {
+              "mean": 2.879246473312378,
+              "p05": 0.008796651847660542,
+              "p95": 10.119216918945312,
+              "max": 41.338558197021484,
+              "count": 5257
+            },
+            "response_direction_error_deg": {
+              "mean": 60.451316833496094,
+              "p05": 9.695174217224121,
+              "p95": 132.46951293945312,
+              "max": 173.5074005126953,
+              "count": 4981
+            },
+            "direction_valid_count": 4981,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1049,
+            "total_count": 1798,
+            "active_fraction": 0.5834260289210234,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 2.4180731773376465,
+              "p05": 0.5615765452384949,
+              "p95": 5.969527721405029,
+              "max": 16.477149963378906,
+              "count": 1049
+            },
+            "response_direction_error_deg": {
+              "mean": 60.03820037841797,
+              "p05": 13.630313873291016,
+              "p95": 131.12693786621094,
+              "max": 176.85838317871094,
+              "count": 1049
+            },
+            "direction_valid_count": 1049,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 5113,
+            "total_count": 7192,
+            "active_fraction": 0.710928809788654,
+            "dead_zone_fraction": 0.005671816937218854,
+            "gain": {
+              "mean": 3.3625452518463135,
+              "p05": 0.24355565011501312,
+              "p95": 13.05983829498291,
+              "max": 70.20100402832031,
+              "count": 5113
+            },
+            "response_direction_error_deg": {
+              "mean": 67.00942993164062,
+              "p05": 15.01639175415039,
+              "p95": 134.09158325195312,
+              "max": 176.5505828857422,
+              "count": 5084
+            },
+            "direction_valid_count": 5084,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 4900,
+            "total_count": 8315,
+            "active_fraction": 0.5892964521948286,
+            "dead_zone_fraction": 0.0563265306122449,
+            "gain": {
+              "mean": 2.785593271255493,
+              "p05": 0.0023603758309036493,
+              "p95": 9.76922607421875,
+              "max": 41.338558197021484,
+              "count": 4900
+            },
+            "response_direction_error_deg": {
+              "mean": 61.770965576171875,
+              "p05": 10.20393180847168,
+              "p95": 133.8390350341797,
+              "max": 173.5074005126953,
+              "count": 4624
+            },
+            "direction_valid_count": 4624,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.25743773579597473,
+            "p05": 0.0,
+            "p95": 1.035030484199524,
+            "max": 6.630136966705322,
+            "count": 3733
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 38.093692779541016,
+          "index": 30.553508758544922,
+          "middle": 30.74256134033203,
+          "ring": 22.635730743408203,
+          "little": 24.275890350341797
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.022234574763757644,
+          "middle": 0.0,
+          "ring": 0.019455252918287938,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.002668149070814252,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 29.260284423828125,
+            "p05": 12.16186809539795,
+            "p95": 55.88556671142578,
+            "max": 69.47978210449219,
+            "count": 8995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.281659334897995,
+            "p05": 0.02558525837957859,
+            "p95": 0.6303532719612122,
+            "max": 1.030741810798645,
+            "count": 14392
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 7.724653096963698,
+            "p05": 0.6117439275207887,
+            "p95": 18.4801889448169,
+            "max": 25.656612124514545,
+            "count": 7179
+          },
+          "opening_valid_fraction": 0.9976375764313508,
+          "local_response": {
+            "active_count": 5257,
+            "total_count": 8990,
+            "active_fraction": 0.5847608453837597,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.2554950714111328,
+              "p05": 0.4073886275291443,
+              "p95": 2.0094752311706543,
+              "max": 32.96531677246094,
+              "count": 5257
+            },
+            "response_direction_error_deg": {
+              "mean": 10.43461799621582,
+              "p05": 2.0187950134277344,
+              "p95": 25.218515396118164,
+              "max": 103.53074645996094,
+              "count": 5257
+            },
+            "direction_valid_count": 5257,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1049,
+            "total_count": 1798,
+            "active_fraction": 0.5834260289210234,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.2024402618408203,
+              "p05": 0.5991844534873962,
+              "p95": 2.074209690093994,
+              "max": 7.042034149169922,
+              "count": 1049
+            },
+            "response_direction_error_deg": {
+              "mean": 11.925127983093262,
+              "p05": 2.05064058303833,
+              "p95": 31.535736083984375,
+              "max": 99.39249420166016,
+              "count": 1049
+            },
+            "direction_valid_count": 1049,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 5113,
+            "total_count": 7192,
+            "active_fraction": 0.710928809788654,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.6002885103225708,
+              "p05": 0.7264986634254456,
+              "p95": 2.84660267829895,
+              "max": 42.840789794921875,
+              "count": 5113
+            },
+            "response_direction_error_deg": {
+              "mean": 17.765100479125977,
+              "p05": 2.336521863937378,
+              "p95": 57.45225143432617,
+              "max": 153.6751708984375,
+              "count": 5113
+            },
+            "direction_valid_count": 5113,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 62,
+            "total_count": 490,
+            "active_fraction": 0.12653061224489795,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 4.739892482757568,
+              "p05": 0.36943554878234863,
+              "p95": 11.383161544799805,
+              "max": 32.96531677246094,
+              "count": 62
+            },
+            "response_direction_error_deg": {
+              "mean": 33.90740203857422,
+              "p05": 3.0884454250335693,
+              "p95": 87.1841812133789,
+              "max": 103.53074645996094,
+              "count": 62
+            },
+            "direction_valid_count": 62,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.11894871294498444,
+            "p05": 0.00275589432567358,
+            "p95": 0.3108452260494232,
+            "max": 4.904994487762451,
+            "count": 3733
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 11.968657493591309,
+          "index": 9.931766510009766,
+          "middle": 7.595425605773926,
+          "ring": 6.905014514923096,
+          "little": 6.583651542663574
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 8.596903800964355,
+            "p05": 1.0204638242721558,
+            "p95": 20.732389450073242,
+            "max": 62.39590072631836,
+            "count": 8995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.07913678139448166,
+            "p05": 0.00028038621530868113,
+            "p95": 0.2648879885673523,
+            "max": 0.48074766993522644,
+            "count": 14392
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 5.124520544187542,
+            "p05": 0.285938290160747,
+            "p95": 14.969292480672758,
+            "max": 19.814829429329745,
+            "count": 7179
+          },
+          "opening_valid_fraction": 0.9976375764313508,
+          "local_response": {
+            "active_count": 5257,
+            "total_count": 8990,
+            "active_fraction": 0.5847608453837597,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.1783159971237183,
+              "p05": 0.37816786766052246,
+              "p95": 2.781238317489624,
+              "max": 15.310694694519043,
+              "count": 5257
+            },
+            "response_direction_error_deg": {
+              "mean": 15.884591102600098,
+              "p05": 2.960719108581543,
+              "p95": 42.48139953613281,
+              "max": 171.56918334960938,
+              "count": 5257
+            },
+            "direction_valid_count": 5257,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1049,
+            "total_count": 1798,
+            "active_fraction": 0.5834260289210234,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.1320207118988037,
+              "p05": 0.4055859446525574,
+              "p95": 2.4552998542785645,
+              "max": 11.2465238571167,
+              "count": 1049
+            },
+            "response_direction_error_deg": {
+              "mean": 10.850594520568848,
+              "p05": 2.0870795249938965,
+              "p95": 27.08708953857422,
+              "max": 148.53173828125,
+              "count": 1049
+            },
+            "direction_valid_count": 1049,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 5113,
+            "total_count": 7192,
+            "active_fraction": 0.710928809788654,
+            "dead_zone_fraction": 0.00019557989438685703,
+            "gain": {
+              "mean": 1.1186919212341309,
+              "p05": 0.36692771315574646,
+              "p95": 2.6157960891723633,
+              "max": 11.20591926574707,
+              "count": 5113
+            },
+            "response_direction_error_deg": {
+              "mean": 21.285625457763672,
+              "p05": 3.2805848121643066,
+              "p95": 58.858299255371094,
+              "max": 169.04005432128906,
+              "count": 5112
+            },
+            "direction_valid_count": 5112,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.19230306148529053,
+            "p05": 0.00957384705543518,
+            "p95": 0.6953964829444885,
+            "max": 4.729641437530518,
+            "count": 3733
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 15.372655868530273,
+          "index": 12.06269359588623,
+          "middle": 7.8931450843811035,
+          "ring": 13.656045913696289,
+          "little": 18.43060302734375
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.01659255102276802,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 13.483028411865234,
+            "p05": 2.874805450439453,
+            "p95": 30.13796043395996,
+            "max": 51.145042419433594,
+            "count": 8995
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.19203196465969086,
+            "p05": 0.0018282830715179443,
+            "p95": 0.7276840806007385,
+            "max": 0.959641695022583,
+            "count": 14392
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 6.739266628334403,
+            "p05": 0.5215799791493531,
+            "p95": 14.958132994920575,
+            "max": 24.27820404404532,
+            "count": 7179
+          },
+          "opening_valid_fraction": 0.9976375764313508,
+          "local_response": {
+            "active_count": 5257,
+            "total_count": 8990,
+            "active_fraction": 0.5847608453837597,
+            "dead_zone_fraction": 0.00038044512079132587,
+            "gain": {
+              "mean": 1.1469051837921143,
+              "p05": 0.36452439427375793,
+              "p95": 2.708170175552368,
+              "max": 15.024155616760254,
+              "count": 5257
+            },
+            "response_direction_error_deg": {
+              "mean": 16.17241859436035,
+              "p05": 2.974386692047119,
+              "p95": 41.8994140625,
+              "max": 166.05157470703125,
+              "count": 5255
+            },
+            "direction_valid_count": 5255,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 1049,
+            "total_count": 1798,
+            "active_fraction": 0.5834260289210234,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.1079250574111938,
+              "p05": 0.4051814377307892,
+              "p95": 2.3943305015563965,
+              "max": 10.159585952758789,
+              "count": 1049
+            },
+            "response_direction_error_deg": {
+              "mean": 11.9053373336792,
+              "p05": 2.6147377490997314,
+              "p95": 26.08723258972168,
+              "max": 169.27577209472656,
+              "count": 1049
+            },
+            "direction_valid_count": 1049,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 5113,
+            "total_count": 7192,
+            "active_fraction": 0.710928809788654,
+            "dead_zone_fraction": 0.00019557989438685703,
+            "gain": {
+              "mean": 1.0929858684539795,
+              "p05": 0.3705865144729614,
+              "p95": 2.566396474838257,
+              "max": 10.844096183776855,
+              "count": 5113
+            },
+            "response_direction_error_deg": {
+              "mean": 21.415912628173828,
+              "p05": 3.549161195755005,
+              "p95": 58.42765808105469,
+              "max": 172.69570922851562,
+              "count": 5112
+            },
+            "direction_valid_count": 5112,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 1301,
+            "total_count": 2855,
+            "active_fraction": 0.45569176882662,
+            "dead_zone_fraction": 0.0007686395080707148,
+            "gain": {
+              "mean": 1.0331002473831177,
+              "p05": 0.3276827931404114,
+              "p95": 2.2705280780792236,
+              "max": 15.024155616760254,
+              "count": 1301
+            },
+            "response_direction_error_deg": {
+              "mean": 20.89632225036621,
+              "p05": 3.630903482437134,
+              "p95": 54.56753921508789,
+              "max": 166.05157470703125,
+              "count": 1300
+            },
+            "direction_valid_count": 1300,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.18780499696731567,
+            "p05": 0.008840096183121204,
+            "p95": 0.6861430406570435,
+            "max": 4.797394275665283,
+            "count": 3733
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    },
+    "wrist": {
+      "OldMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 70.88631439208984,
+          "index": 135.38987731933594,
+          "middle": 62.61656951904297,
+          "ring": 96.3370590209961,
+          "little": 102.14460754394531
+        },
+        "severe_pip_dip_fraction": {
+          "index": 1.0,
+          "middle": 1.0,
+          "ring": 1.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.9958333333333333,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 1.0
+        },
+        "saturated_joint_fraction": 0.6474999785423279,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 93.47486114501953,
+            "p05": 54.544464111328125,
+            "p95": 135.74301147460938,
+            "max": 179.4348907470703,
+            "count": 6000
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.5755245685577393,
+            "p05": 0.11349280178546906,
+            "p95": 1.4995694160461426,
+            "max": 1.499619722366333,
+            "count": 9600
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 31.406724761052406,
+            "p05": 8.77933029420029,
+            "p95": 57.065932047793,
+            "max": 65.65746356517585,
+            "count": 4800
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 2568,
+            "total_count": 5995,
+            "active_fraction": 0.42835696413678065,
+            "dead_zone_fraction": 0.17172897196261683,
+            "gain": {
+              "mean": 1.86188805103302,
+              "p05": 1.2026865988445934e-05,
+              "p95": 8.552545547485352,
+              "max": 28.30573081970215,
+              "count": 2568
+            },
+            "response_direction_error_deg": {
+              "mean": 90.60314178466797,
+              "p05": 24.926597595214844,
+              "p95": 157.61810302734375,
+              "max": 179.161376953125,
+              "count": 2127
+            },
+            "direction_valid_count": 2127,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 476,
+            "total_count": 1199,
+            "active_fraction": 0.3969974979149291,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.6263861656188965,
+              "p05": 0.2382865846157074,
+              "p95": 4.871669769287109,
+              "max": 10.486865997314453,
+              "count": 476
+            },
+            "response_direction_error_deg": {
+              "mean": 84.39004516601562,
+              "p05": 18.458606719970703,
+              "p95": 149.94578552246094,
+              "max": 172.79306030273438,
+              "count": 476
+            },
+            "direction_valid_count": 476,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 3047,
+            "total_count": 4796,
+            "active_fraction": 0.6353211009174312,
+            "dead_zone_fraction": 0.039711191335740074,
+            "gain": {
+              "mean": 1.6663886308670044,
+              "p05": 0.0627378299832344,
+              "p95": 7.579988956451416,
+              "max": 31.338232040405273,
+              "count": 3047
+            },
+            "response_direction_error_deg": {
+              "mean": 88.02698516845703,
+              "p05": 24.23409652709961,
+              "p95": 149.2742919921875,
+              "max": 179.0170135498047,
+              "count": 2926
+            },
+            "direction_valid_count": 2926,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 2568,
+            "total_count": 5995,
+            "active_fraction": 0.42835696413678065,
+            "dead_zone_fraction": 0.17172897196261683,
+            "gain": {
+              "mean": 1.86188805103302,
+              "p05": 1.2026865988445934e-05,
+              "p95": 8.552545547485352,
+              "max": 28.30573081970215,
+              "count": 2568
+            },
+            "response_direction_error_deg": {
+              "mean": 90.60314178466797,
+              "p05": 24.926597595214844,
+              "p95": 157.61810302734375,
+              "max": 179.161376953125,
+              "count": 2127
+            },
+            "direction_valid_count": 2127,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.14590975642204285,
+            "p05": 0.0,
+            "p95": 0.7711394429206848,
+            "max": 2.9271018505096436,
+            "count": 3427
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "RetrainedMain": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 34.83476257324219,
+          "index": 20.61174774169922,
+          "middle": 27.934032440185547,
+          "ring": 19.063886642456055,
+          "little": 23.033370971679688
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 25.095558166503906,
+            "p05": 17.777711868286133,
+            "p95": 37.5975341796875,
+            "max": 54.62311553955078,
+            "count": 6000
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.15652887523174286,
+            "p05": 0.020655374974012375,
+            "p95": 0.31707027554512024,
+            "max": 0.37740129232406616,
+            "count": 9600
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 7.375189250726073,
+            "p05": 0.33896679371394206,
+            "p95": 18.82678853488146,
+            "max": 71.61232057653797,
+            "count": 4800
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 2568,
+            "total_count": 5995,
+            "active_fraction": 0.42835696413678065,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.6747491359710693,
+              "p05": 1.3102655410766602,
+              "p95": 1.8431473970413208,
+              "max": 33.21417999267578,
+              "count": 2568
+            },
+            "response_direction_error_deg": {
+              "mean": 6.211859226226807,
+              "p05": 1.479063868522644,
+              "p95": 12.824295997619629,
+              "max": 69.48948669433594,
+              "count": 2568
+            },
+            "direction_valid_count": 2568,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 476,
+            "total_count": 1199,
+            "active_fraction": 0.3969974979149291,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.6411845684051514,
+              "p05": 1.396950125694275,
+              "p95": 1.7794404029846191,
+              "max": 8.32610034942627,
+              "count": 476
+            },
+            "response_direction_error_deg": {
+              "mean": 6.501435279846191,
+              "p05": 1.1683509349822998,
+              "p95": 13.063446044921875,
+              "max": 85.80377197265625,
+              "count": 476
+            },
+            "direction_valid_count": 476,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 3047,
+            "total_count": 4796,
+            "active_fraction": 0.6353211009174312,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 1.9115759134292603,
+              "p05": 1.2722798585891724,
+              "p95": 2.1439249515533447,
+              "max": 32.911865234375,
+              "count": 3047
+            },
+            "response_direction_error_deg": {
+              "mean": 8.952691078186035,
+              "p05": 1.6640617847442627,
+              "p95": 28.728538513183594,
+              "max": 98.74829864501953,
+              "count": 3047
+            },
+            "direction_valid_count": 3047,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.14267641305923462,
+            "p05": 0.0,
+            "p95": 0.29124006628990173,
+            "max": 4.819645404815674,
+            "count": 3427
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "R2_lp03": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 1.8583805561065674,
+          "index": 2.3986408710479736,
+          "middle": 2.6591668128967285,
+          "ring": 3.5025582313537598,
+          "little": 3.23005747795105
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 2.72976016998291,
+            "p05": 1.542815089225769,
+            "p95": 4.0255231857299805,
+            "max": 6.3149094581604,
+            "count": 6000
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.006438238080590963,
+            "p05": 3.0338764190673828e-05,
+            "p95": 0.025894099846482277,
+            "max": 0.035015761852264404,
+            "count": 9600
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 2.125705458805399,
+            "p05": 0.2991850688297292,
+            "p95": 4.801895788261585,
+            "max": 6.62952620079621,
+            "count": 4800
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 2568,
+            "total_count": 5995,
+            "active_fraction": 0.42835696413678065,
+            "dead_zone_fraction": 0.0003894080996884735,
+            "gain": {
+              "mean": 0.8162900805473328,
+              "p05": 0.3232502043247223,
+              "p95": 1.7203744649887085,
+              "max": 4.635448932647705,
+              "count": 2568
+            },
+            "response_direction_error_deg": {
+              "mean": 16.047914505004883,
+              "p05": 2.071368932723999,
+              "p95": 45.38941955566406,
+              "max": 170.25106811523438,
+              "count": 2567
+            },
+            "direction_valid_count": 2567,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 476,
+            "total_count": 1199,
+            "active_fraction": 0.3969974979149291,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.8149162530899048,
+              "p05": 0.3817180395126343,
+              "p95": 1.524005651473999,
+              "max": 2.8085684776306152,
+              "count": 476
+            },
+            "response_direction_error_deg": {
+              "mean": 12.338583946228027,
+              "p05": 1.979506492614746,
+              "p95": 34.442222595214844,
+              "max": 86.89857482910156,
+              "count": 476
+            },
+            "direction_valid_count": 476,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 3047,
+            "total_count": 4796,
+            "active_fraction": 0.6353211009174312,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.8095166087150574,
+              "p05": 0.3177545666694641,
+              "p95": 1.6612248420715332,
+              "max": 4.111851692199707,
+              "count": 3047
+            },
+            "response_direction_error_deg": {
+              "mean": 24.383792877197266,
+              "p05": 3.147942304611206,
+              "p95": 72.29290771484375,
+              "max": 159.4695587158203,
+              "count": 3047
+            },
+            "direction_valid_count": 3047,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.1552107334136963,
+            "p05": 0.022371888160705566,
+            "p95": 0.41825881600379944,
+            "max": 0.9449976086616516,
+            "count": 3427
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      },
+      "Wuji": {
+        "axis_mean_deg_by_finger": {
+          "thumb": 8.9481782913208,
+          "index": 6.007734775543213,
+          "middle": 3.278787136077881,
+          "ring": 10.419198036193848,
+          "little": 16.228364944458008
+        },
+        "severe_pip_dip_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "mcp_below_minus15_fraction": {
+          "index": 0.0,
+          "middle": 0.0,
+          "ring": 0.0,
+          "little": 0.0
+        },
+        "saturated_joint_fraction": 0.0,
+        "operational": {
+          "distal_axis_error_deg": {
+            "mean": 8.976451873779297,
+            "p05": 2.891223430633545,
+            "p95": 16.67877960205078,
+            "max": 19.762317657470703,
+            "count": 6000
+          },
+          "distal_axis_valid_fraction": 1.0,
+          "adjacent_bone_cosine_error": {
+            "mean": 0.023436887189745903,
+            "p05": 0.0008452326292172074,
+            "p95": 0.07194723188877106,
+            "max": 0.08257776498794556,
+            "count": 9600
+          },
+          "shape_valid_fraction_non_thumb": 1.0,
+          "opening_error_mm_open_poses": {
+            "mean": 9.155357227111844,
+            "p05": 6.554537771019547,
+            "p95": 11.093323764366861,
+            "max": 12.898217146075474,
+            "count": 4800
+          },
+          "opening_valid_fraction": 1.0,
+          "local_response": {
+            "active_count": 2568,
+            "total_count": 5995,
+            "active_fraction": 0.42835696413678065,
+            "dead_zone_fraction": 0.0003894080996884735,
+            "gain": {
+              "mean": 0.762184202671051,
+              "p05": 0.30008137226104736,
+              "p95": 1.6187965869903564,
+              "max": 4.355891227722168,
+              "count": 2568
+            },
+            "response_direction_error_deg": {
+              "mean": 17.43755531311035,
+              "p05": 3.3272011280059814,
+              "p95": 47.039634704589844,
+              "max": 172.87124633789062,
+              "count": 2567
+            },
+            "direction_valid_count": 2567,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "common_motion": {
+            "active_count": 476,
+            "total_count": 1199,
+            "active_fraction": 0.3969974979149291,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.7544198036193848,
+              "p05": 0.35548704862594604,
+              "p95": 1.432579517364502,
+              "max": 2.5991384983062744,
+              "count": 476
+            },
+            "response_direction_error_deg": {
+              "mean": 13.836276054382324,
+              "p05": 2.6047725677490234,
+              "p95": 35.65623092651367,
+              "max": 82.4250717163086,
+              "count": 476
+            },
+            "direction_valid_count": 476,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "relative_motion": {
+            "active_count": 3047,
+            "total_count": 4796,
+            "active_fraction": 0.6353211009174312,
+            "dead_zone_fraction": 0.0,
+            "gain": {
+              "mean": 0.7804278135299683,
+              "p05": 0.30038270354270935,
+              "p95": 1.6016173362731934,
+              "max": 4.061776638031006,
+              "count": 3047
+            },
+            "response_direction_error_deg": {
+              "mean": 25.23487663269043,
+              "p05": 3.973153829574585,
+              "p95": 71.38300323486328,
+              "max": 166.4813995361328,
+              "count": 3047
+            },
+            "direction_valid_count": 3047,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "near_limit_response": {
+            "active_count": 0,
+            "total_count": 0,
+            "active_fraction": 0.0,
+            "dead_zone_fraction": null,
+            "gain": null,
+            "response_direction_error_deg": null,
+            "direction_valid_count": 0,
+            "input_threshold_m": 0.0002,
+            "output_dead_threshold_m": 2e-05
+          },
+          "stationary_input_robot_step_mm": {
+            "mean": 0.1436200588941574,
+            "p05": 0.020047327503561974,
+            "p95": 0.3979698121547699,
+            "max": 0.9092732071876526,
+            "count": 3427
+          },
+          "joint_limit_violation_count": 0,
+          "temporal": {
+            "available": false,
+            "reason": "legacy recording has no acquisition timestamps"
+          },
+          "collision": "not measured; no safety claim",
+          "feasible_coverage_fraction": null,
+          "scope": "observed adjacent-frame responses; includes native filter and warm-start effects; no Jacobian claim"
+        }
+      }
+    }
+  },
+  "scope": "complete val01, common exact geometry and fixed R2 relation scales; no collision or hardware quality claim; no test access"
+}

@@ -1,0 +1,52 @@
+{
+  "main_commit": "8e93d0d4e32c00b992bf0346bc74a5e22caeaa5c",
+  "train_session": "train01",
+  "train_frames": 20990,
+  "train_path": "/home/xense-wufan/GeoRT/data/manus_stage4_v1/train.npy",
+  "validation": "val01 after training only",
+  "test": "not read by training or model selection",
+  "weights_selection": "main default minimum training epoch loss, best.pth; validation is a fixed-model audit",
+  "seed": 42,
+  "epochs": 200,
+  "architecture": "main IKModel, five independent fingertip MLPs with BatchNorm",
+  "weights": {
+    "direction": 1,
+    "chamfer": 80,
+    "curvature": 1,
+    "collision": 0,
+    "pinch": 1000
+  },
+  "paper_loss": true,
+  "paired_sampling": true,
+  "no_update_last": true,
+  "from_scratch": true,
+  "input_adapter": false,
+  "files_sha256": {
+    "/home/xense-wufan/GeoRT/data/manus_stage4_v1/train.npy": "6900ce9e7c7e54162b040d57d26b16bf022c1e99cfcd380eb19afc88762d6c81",
+    "/home/xense-wufan/GeoRT/data/wuji_hand2_beta1_right.npz": "f06d9d3c211bb9ffd0236f8a751c3b6a337fd1fcf6d5c6e7181c27c96ba200ce",
+    "/home/xense-wufan/GeoRT/checkpoint/fk_model_wuji_hand2_beta1_right.pth": "b55cc105f9a785ef87c34b781190b684c21891855234fc3210179511f2b0128e"
+  },
+  "source_sha256": {
+    "geort/__init__.py": "0e856a777a2f767360be586ee15ab2697a5063b701d1022f9b1000319f6671cb",
+    "geort/formatter.py": "b0c0b099c66f31ef00a5ba631c3f91c7c16dc1d45cb2800fe9b8eb7cfd9b0a1f",
+    "geort/model.py": "c1fb8831502972219052c83b10aa925b9ae8db5ddfe8416ece1a64aa8bf182b9",
+    "geort/export.py": "c7226261521208f1833461a3149878ffdcb4779057e90adabd85890964e9ea05",
+    "geort/loss.py": "fdce69482bfd04c010d12c1821bf5825e51ac85689356f5752d2580fb399bd32",
+    "geort/dataset.py": "0dca8fa1c99c9b5335751a2fb56f57ea5067f9bf4bdd58ed97bea241e42e5b67",
+    "geort/trainer.py": "bcb988d8377938ad09610f91646e9b954ab13bb1a95f14bca15c55441d6dbba1",
+    "geort/mocap/replay_mocap.py": "309347c4be04546b477dbae75d409d573026f621456a42ab2e5412e2c3f01106",
+    "geort/mocap/manus_evaluation.py": "574e56923e774b0989582a2f9190e15fca246f80a2319ba594a70b20c06de88c",
+    "geort/mocap/mediapipe_evaluation.py": "0d2c5263ed9858f2a51f1a313124befdbdcf6686f558f1ca5c3ea9d3004b0faa",
+    "geort/mocap/manus_mocap.py": "702734d762ec7ec5a817e9a8b2cf3ad63191f1bb7e85e0002efa61cd57faea94",
+    "geort/mocap/replay_evaluation.py": "aa45c36054c7fa48f38258907cec3355360c29993ad6e7117477d3249a7109c9",
+    "geort/mocap/manus_mocap_core.py": "37c17d288adda5c48c72d44619e91e1aa90b52e0fae4a60f3dea0321f6cf53f9",
+    "geort/mocap/mediapipe_mocap.py": "c7f50aca16a55fb3dd2936324c7d409eed05c25916a37064483685535ddd4961",
+    "geort/config/template.py": "5a03c5387daa7c2db455b7df2f8491ace59ef192c81adebbaaf7eea1101b6154",
+    "geort/env/hand.py": "f72a3208449e78f421f9b8d85c65d632d4bc7d54113c56cf23e998b6b34b1ead",
+    "geort/utils/config_utils.py": "e3ec291d779a688779e22d62d558a31f294acb4cf16124c1260da8d86439cd4b",
+    "geort/utils/hand_utils.py": "96cd46ce81cbdf490d44d0cc076a8913e5a51f46780da3b40a0aa7205933c8a9",
+    "geort/utils/path.py": "4d7ca95f2dcbcf6bcbdb493ced61050eedc608e5747284684bf943c8a9a2df27",
+    "geort/mocap/camera/webcam.py": "bd5373e6daf9cca883f7c6b385d3b23eddf3837c850f0eb5506efb9280b40a7b",
+    "geort/mocap/camera/realsense.py": "558ac9d372989f99859c7f2b81e1ab3a77d6f3ee0be25d10fd98054689f4d54f"
+  }
+}

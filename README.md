@@ -13,6 +13,18 @@ git clone git@github.com:XenseRobotics-AI/GeoRT.git
 cd GeoRT
 ```
 
+## 最终结论与验收视频（2026-09-17）
+
+本轮开发已结束，继续使用现用 **wuji-retargeting**。R2 在完整 test01 的几何代理指标上有收益，但未证明有足以替换现用方案的实际操作收益。最终原始对照是 **主分支原始方法用当前 train01 重训的 seed42 模型**，不是此前数据失配的旧权重。
+
+[最终结论及四方法直接输出/PD统计](docs/FINAL_CONCLUSION.md) · [视频来源与校验](docs/final_evidence/video_verification.json) · [归档与复现边界](docs/final_evidence/README.md)
+
+```bash
+xdg-open /home/xense-wufan/GeoRT/videos/final_comparison_test01/00_complete_test.mp4
+```
+
+视频四列：重训主分支 GeoRT → R2 → SDK → wuji-retargeting；上排直接目标，下排统一 PD。视频、权重和采集数据为本地归档，不随 Git 克隆分发。下面各阶段结果保留其历史评估口径，以最终结论为准。
+
 ## 常用命令速查
 
 所有命令都在仓库根目录、`geort` 环境中运行：
@@ -25,6 +37,138 @@ conda activate geort
 [训练](#训练-allegro--wuji) · [回放](#回放查看模型输出或-pd-效果) ·
 [训练曲线](#查看本地训练曲线) · [资产预览](#不加载模型的资产预览) ·
 [参数与模型文件](#常用参数与模型文件) · [安装](#installation)
+
+### Manus 实时遥操对照 Demo
+
+**三方法 PD 完整测试集回放**（人手 → R2 → 生产Wuji → SDK）：
+
+```bash
+python -m geort.mocap.replay_pd_comparison
+```
+
+空格暂停，`D`切换PD实际姿态/模型目标，`R`恢复视角。[PD参数与完整说明](docs/PD_COMPARISON.md)。
+
+同一窗口：人手骨架 → 原始 GeoRT → 现用 Wuji → M1，只驱动仿真显示。
+
+```bash
+conda activate geort
+cd /home/xense-wufan/GeoRT
+python -m geort.mocap.live_comparison
+```
+
+`F` 冻结指尖参考，`T` 轨迹，`L` 切换 M1 滤波，`G` 动态开口标尺，`R` 恢复视角，`Esc` 退出。[完整操作与无手套预览](docs/MANUS_LIVE_DEMO.md)。
+
+加入 SDK 内置版对照（人手 → **Wuji SDK 2026.8.31** → 现用 Wuji → M1）：
+
+```bash
+python -m geort.mocap.live_comparison --sdk-reference
+```
+
+独立环境安装、验证结果与边界见 [SDK 对照](docs/WUJI_SDK_BASELINE.md)。
+
+[SDK/旧Wuji条件对齐核验](docs/SDK_EQUIVALENCE_RESULTS.md) · [最后两轮GeoRT的验收与停止规则](docs/STAGE5_TWO_ROUND_PROTOCOL.md) · [两轮完成结果与R2预览](docs/STAGE5_RESULTS.md)。SDK内部配置未公开，严格内部等价尚未成立。两轮已完成，R2显著减少穿透并改善局部响应，但握拳深穿透仍高于生产Wuji；按约定停止追加训练，尚不替代现用方案。
+
+预览最终候选R2（仅仿真；去掉`--replay`使用真人Manus输入）：
+
+```bash
+python -m geort.mocap.live_comparison --sdk-reference \
+  --checkpoint stage5_R2_seed42 --m1-filter lp03 \
+  --replay data/manus/val01/open_close/keypoints.npy
+```
+
+### Manus专项采集
+
+[完整测试集三方法对比](docs/STAGE6_RESULTS.md)：R2 / 生产Wuji / SDK，test01全部9段、20,989条读取和100%碰撞检测；模型冻结后评估，不根据测试结果继续调参。
+
+[动作清单、录制与检查说明](docs/MANUS_CAPTURE.md)。先做右手试采：基准20秒、小指构型60秒、捏合方向60秒；完整版5分50秒。录制原始手套骨骼，不运行机器人控制。
+
+```bash
+python -m geort.mocap.record_manus --check
+python -m geort.mocap.record_manus \
+  --session pilot01 --operator op01 --plan pilot --split pilot \
+  --calibration-note "右手已在现用Manus环境完成校准"
+python -m geort.mocap.inspect_manus_capture data/manus/pilot01 \
+  --output data/manus/pilot01/quality.json
+python -m geort.mocap.inspect_manus_capture data/manus/pilot01/little_branch --preview
+```
+
+每个动作前按回车开始；Ctrl+C保存后停止。已有会话不覆盖。主机读取时间与SDK采集时间严格区分，当前导出仅用于静态几何训练。
+
+### 最新训练阶段结果
+
+并排对比默认使用正交投影，掌部观察方向一致；按 **R** 恢复视角。
+
+[阶段四：真实 Manus 数据上的基本映射与信息消融](docs/STAGE4_RESULTS.md)：M0/M1 两组 seed42 实际训练完成。新 M1 恢复了基本张合，方向有改善，但中指/无名指碰撞仍明显，未通过实机验收、不替换默认模型。
+
+```bash
+# 当前阶段候选：左人手、中现用 Wuji、右 M1，新验证会话，无 PD。
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag stage4_M1_seed42 --weights best \
+  --compare-wuji-cache reports/stage4/wuji_val01/little_branch.npz \
+  -data /home/xense-wufan/GeoRT/data/manus/val01/little_branch/keypoints.npy --fps 60
+```
+
+[完整技术报告](docs/RETARGETING_TECHNICAL_REPORT.md) 已整合正式 Manus 数据、骨骼信息消融、R1/R2 两轮优化、SDK 条件边界、完整独立测试和 PD 当前状态；以下阶段文档保留实验协议及逐项复现细节。
+
+[阶段三：Wuji统一loss与骨骼分支实测](docs/STAGE3_RESULTS.md)：已完成完整几何loss重算及H0/H1两组seed42训练。骨骼头已学到实际修正，但没有整体验收收益；Wuji的大anchor项是相对原GeoRT的偏好，不能当算法优劣排名。
+
+```bash
+# 阶段三历史 H1 诊断模型与现用 Wuji 同帧预览。
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag stage3_H1_seed42 --weights best \
+  --compare-wuji-cache reports/baselines/wuji_manus_right_human_alex.npz \
+  -data human_alex --fps 100
+
+# 同一套loss量化；包含原GeoRT、候选、Wuji滤波和未滤波输出。
+python -m geort.evaluate_losses \
+  --checkpoints stage2_T1_seed42 stage3_H0_seed42 stage3_H1_seed42 \
+  --wuji-probes reports/baselines/wuji_manus_right_validation_probes_seed42.npz \
+  --output /tmp/geort_common_losses.json
+```
+
+[阶段二实测结果](docs/STAGE2_RESULTS.md)：四组seed42、各2500步训练已完成。T1在348帧开发验证段实现PIP/DIP零严重反弯、最大逐指位置偏移P95为4.40 mm，但小指MCP过伸增加，仍不能替换默认模型。T3加入骨骼输入尚未体现明确收益。
+
+```bash
+# 阶段二诊断对照：左人手、中现用Wuji、右T1；按R恢复视角。
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag stage2_T1_seed42 --weights best \
+  --compare-wuji-cache reports/baselines/wuji_manus_right_human_alex.npz \
+  -data human_alex --fps 100
+```
+
+开发主线：[用户开发目标原文](docs/DEVELOPMENT_GOALS.md)。后续固定加入[现用 wuji-retargeting 对照](docs/WUJI_BASELINE.md)，原始GeoRT与候选GeoRT同时保留。
+
+```bash
+# 上一阶段历史对照：左人手、中现用wuji（原滤波）、右G2。
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag stage1_G2_seed0 --weights best \
+  --compare-wuji-cache reports/baselines/wuji_manus_right_human_alex.npz \
+  -data human_alex --fps 100
+```
+
+
+[实际训练对照与下一阶段任务](docs/STAGE1_RESULTS.md)：反弯与位置保持仍未同时过关，默认模型尚未替换。后续实验使用 `seed=42`。
+
+```bash
+# 本机开发结果同帧对照：左人手、中父模型、右G2；不叠加在线修正。
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag stage1_G2_seed0 --weights best \
+  --compare-checkpoint wuji_hand2_beta1_right_2026-09-15_18-01-42_std_collision_seed0_w0 \
+  --reference-weights last -data human_alex --fps 100
+```
+
+### 可选全手协调与骨骼输入（开发版）
+
+[代码审计](docs/COORDINATION_AUDIT.md) · [配置、B0–B5消融与验证边界](docs/COORDINATION_V1.md)
+
+```bash
+# 本机smoke checkpoint，仅检查接口；4步训练不代表质量已改善
+python -m geort.mocap.replay_evaluation \
+  -hand wuji_hand2_beta1_right -ckpt_tag coordination_B5_smoke_final \
+  -data human_alex --weights best --direct-qpos --fps 100
+```
+
+原训练/推理默认路径保留；新能力需显式使用实验配置。模型权重不随Git分发。
 
 ### Wuji 姿态实验入口
 

@@ -1,0 +1,60 @@
+{
+  "input_cache_sha256": "e760b746ab7023d61802eadf0bdb63fcb1f552a6794f4d1547da3cc7439cb961",
+  "manifest_sha256": "3b7ad28097258be661af9aba0c285b3e82af3f42d6861af797ad707a6f8f7e99",
+  "main_reference": {
+    "main_commit": "8e93d0d4e32c00b992bf0346bc74a5e22caeaa5c",
+    "checkpoint": "/home/xense-wufan/GeoRT/checkpoint/wuji_hand2_beta1_right_2026-09-17_14-13-59_main_manus_train01_seed42/best.pth",
+    "checkpoint_sha256": "552e8a5ac414393874070e63f97859cb079356803a970cdb5cd3c69574f29d50",
+    "config": "/home/xense-wufan/GeoRT/checkpoint/wuji_hand2_beta1_right_2026-09-17_14-13-59_main_manus_train01_seed42/config.json",
+    "config_sha256": "96b15a5e50520024988bf34ff9b9a606cffde402f427b301e5f98db50b8d9301",
+    "selection": "user-requested main GeoRT retraining on train01, seed42, best by training loss; no test selection",
+    "manifest_sha256": "3b7ad28097258be661af9aba0c285b3e82af3f42d6861af797ad707a6f8f7e99",
+    "frames": 20989,
+    "outputs_sha256": "b7897b264a9e9118604badaf42790f0ed6772046d6c56236110cf6e4da67808b",
+    "source_sha256": {
+      "main_model.py": "c1fb8831502972219052c83b10aa925b9ae8db5ddfe8416ece1a64aa8bf182b9",
+      "main_formatter.py": "b0c0b099c66f31ef00a5ba631c3f91c7c16dc1d45cb2800fe9b8eb7cfd9b0a1f",
+      "main_README.md": "b925511fe1ab2d1307827f83071f03f7dd0b2c0f92e23ea930062433e2bfcd7d"
+    },
+    "inference": "Unmodified main IKModel.eval, select configured fingertip IDs, main HandFormatter. CPU device; no training, BN recalibration, posture correction or filtering.",
+    "single_vs_batch_max_abs_rad": 1.3887882232666016e-05,
+    "other_methods": "Unchanged stage6/test_full frozen R2 LP0.3, Wuji LP0.3 and SDK outputs"
+  },
+  "methods": {
+    "Original": "主分支 GeoRT（重训）",
+    "R2_lp03": "最终 GeoRT R2",
+    "SDK": "Wuji SDK 2026.8.31",
+    "Wuji": "wuji-retargeting"
+  },
+  "filters": {
+    "Original": "train01 · seed42 · best · 无滤波",
+    "R2_lp03": "固定 R2 checkpoint · LP=0.3",
+    "SDK": "内置状态 / 滤波参数未公开",
+    "Wuji": "生产配置 · LP=0.3"
+  },
+  "test_frames": 20989,
+  "input_fps_assumption": 60,
+  "video_fps": 60,
+  "video_resolution": [
+    1920,
+    1080
+  ],
+  "pd": {
+    "kp": 400,
+    "kd": 10,
+    "force_limit_nm": 10,
+    "control_hz": 600,
+    "physics_hz": 1200
+  },
+  "reset": "all hands same clipped-zero state at clip start; no omitted startup frames",
+  "layout": "columns Original/R2/SDK/Wuji; top targets, bottom independent PD actual states; identical assets and orthographic camera",
+  "scope": "full static test recordings; no glove/robot connections; frozen models; no training",
+  "subset_for_check": null,
+  "frame_limit_for_check": 0,
+  "source_sha256": {
+    "/home/xense-wufan/GeoRT/geort/mocap/record_final_comparison.py": "4d84ed7b1f183c1595ad492b14fa97c4bfb7730ef4a51d08899833005e3973dc",
+    "/home/xense-wufan/GeoRT/geort/mocap/replay_pd_comparison.py": "5a18bf73a34bae567e173502c4866ff455d252e1108227e25b0140462b152fc3",
+    "/home/xense-wufan/GeoRT/geort/mocap/replay_evaluation.py": "17929c0b6a2ed192e158f640235c15d4354f8b6ba051b1c3a04f594ebfc25862",
+    "/home/xense-wufan/GeoRT/geort/env/hand.py": "f72a3208449e78f421f9b8d85c65d632d4bc7d54113c56cf23e998b6b34b1ead"
+  }
+}

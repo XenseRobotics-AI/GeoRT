@@ -1,0 +1,99 @@
+{
+  "complete": true,
+  "clips": [
+    {
+      "video": "01_neutral.mp4",
+      "frames": 1200,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "c918ac12fe839b8758663f4ac5705e84cd8a520822f1f9024c9faa069dda84d6"
+    },
+    {
+      "video": "02_little_branch.mp4",
+      "frames": 3598,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "8db29e941ce5390a8f444081c5142648284f647148de65ee7db4af4415a3f54a"
+    },
+    {
+      "video": "03_index_branch.mp4",
+      "frames": 2399,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "8625fa7c0ef8da2e1d29c61b10c98db7d01e93e2b5492404ba4dfb9c5fb49f7c"
+    },
+    {
+      "video": "04_ring_branch.mp4",
+      "frames": 2399,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "b4b233f55c2724de54f095207f335fd36584f2235221aca0b96e96ca94539e40"
+    },
+    {
+      "video": "05_pinch_axis.mp4",
+      "frames": 3597,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "689b8fc515e335fde2b43a3f56b3a5d0bb4d72d75a733d490bb485b2150aefb9"
+    },
+    {
+      "video": "06_micro.mp4",
+      "frames": 2399,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "527930dfe00d517ddd23dd0da0ad2d45e51bb7133335c3a54c29fa83b6a11f55"
+    },
+    {
+      "video": "07_context.mp4",
+      "frames": 2398,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "36770daa9dc09dc6ea3b623f2b5a642b051fed89978b051520a7867ffb407805"
+    },
+    {
+      "video": "08_open_close.mp4",
+      "frames": 1799,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "6b4ab48b7fd97d43ffd095604791bc888877a1fc925a05abc4db0a2b0857e53e"
+    },
+    {
+      "video": "09_wrist.mp4",
+      "frames": 1200,
+      "width": 1920,
+      "height": 1080,
+      "fps": "60/1",
+      "sha256": "8c81c9c7f16b082b715cfe48cde7c60b96bf0aa4177995aff72afe61c7b2e2c3"
+    }
+  ],
+  "total_source_frames": 20989,
+  "source_ids_complete_and_ordered": true,
+  "pd_arrays_finite_and_complete": true,
+  "combined": {
+    "video": "00_complete_test.mp4",
+    "width": 1920,
+    "height": 1080,
+    "r_frame_rate": "60/1",
+    "duration": "349.816667",
+    "nb_read_frames": "20989",
+    "sha256": "a76ccd90397f125f651c01a01b4f3b43a9b3e8c1ffeb9c611a455b8291b18178",
+    "decode_errors": ""
+  },
+  "scope": "Encoded-frame count and full concat decode; saved PD state shape/finite/source-order validation. Visual checks are documented separately.",
+  "visual_checks": {
+    "all_nine_middle_frames": "overview.jpg; consistent layout and no hand clipping observed",
+    "full_resolution_checks": [
+      "01_neutral_frame00000.jpg",
+      "04_ring_branch_frame01199.jpg"
+    ],
+    "encoded_concat_frame_checked_seconds": 175
+  }
+}

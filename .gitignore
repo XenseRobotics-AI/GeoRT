@@ -24,3 +24,8 @@ __pycache__/
 /reports/
 
 # Robot assets, source code, scripts and tests are intentionally NOT ignored.
+
+# Local final/superseded videos and transient training console output.
+# Small closing protocols and metrics are versioned in docs/final_evidence/.
+/videos/
+/log.txt
