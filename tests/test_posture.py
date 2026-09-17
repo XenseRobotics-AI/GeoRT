@@ -92,6 +92,7 @@ class PostureTest(unittest.TestCase):
             viewer = hand.get_viewer_env.return_value.viewer
             viewer.closed = False
             viewer.window.key_press.return_value = False
+            viewer.window.camera_mode = "orthographic"
             hand.hand.get_root_pose.return_value = sapien.Pose()
             hand.convert_user_order_to_sim_order.side_effect = lambda x: x
             direct = MagicMock()

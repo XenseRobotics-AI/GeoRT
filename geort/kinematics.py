@@ -86,19 +86,30 @@ class TorchFingerKinematics:
                                torch.tensor(skew, device=device, dtype=dtype)))
         self.offset = torch.tensor(kinematics.offset, device=device, dtype=dtype)
 
-    def __call__(self, q):
+    def __call__(self, q, return_bones=False):
         import torch
         rotation = torch.eye(3, device=q.device, dtype=q.dtype).expand(len(q), 3, 3)
         translation = q.new_zeros((len(q), 3))
         eye = torch.eye(3, device=q.device, dtype=q.dtype)
         distal_origin = None
+        origins = {}
         for fixed, idx, skew in self.chain:
             translation = translation + rotation @ fixed[:3, 3]
             rotation = rotation @ fixed[:3, :3]
             if idx is not None:
                 distal_origin = translation
+                origins[idx] = translation
                 angle = q[:, idx, None, None]
                 rotation = rotation @ (eye + angle.sin() * skew + (1 - angle.cos()) * (skew @ skew))
         tip = translation + rotation @ self.offset
         direction = torch.nn.functional.normalize(tip - distal_origin, dim=-1)
+        if return_bones:
+            if len(origins) != 4:
+                raise ValueError('Bone correspondence requires an explicit four-joint chain')
+            nodes = torch.stack([origins[1], origins[2], origins[3], tip], dim=1)
+            bones = nodes[:, 1:] - nodes[:, :-1]
+            lengths = bones.norm(dim=-1)
+            if torch.any(lengths < 1e-7):
+                raise ValueError('Degenerate robot bone axis')
+            return tip, direction, torch.nn.functional.normalize(bones, dim=-1), lengths
         return tip, direction

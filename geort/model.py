@@ -133,6 +133,12 @@ def build_ik_model(config):
     from geort.utils.config_utils import parse_config_keypoint_info
     info = parse_config_keypoint_info(config)
     kind = config.get('model_type', 'fingertip_v1')
+    if kind == 'manus_v1':
+        from geort.manus_model import ManusIKModel
+        return ManusIKModel(config)
+    if kind == 'coordination_v1':
+        from geort.coordination import CoordinationIKModel
+        return CoordinationIKModel(config)
     if kind == 'fingertip_v1':
         return IKModel(info['joint'])
     if kind == 'wuji_posture_v1' and config['name'] == 'wuji_hand2_beta1_right':
@@ -144,6 +150,6 @@ def ik_input(config, human):
     from geort.utils.config_utils import parse_config_keypoint_info
     if config.get('model_type', 'fingertip_v1') == 'fingertip_v1':
         return human[:, parse_config_keypoint_info(config)['human_id']]
-    if config.get('model_type') == 'wuji_posture_v1':
+    if config.get('model_type') in ('wuji_posture_v1', 'coordination_v1', 'manus_v1'):
         return human
     raise ValueError('Unsupported model input format')

@@ -107,7 +107,7 @@ class HumanHandViewer:
             self.viewer.renderer_context.create_line_set(vertices, colors))
 
 
-def reset_camera(viewer, frame_pose=None, distance=0.65):
+def reset_camera(viewer, frame_pose=None, distance=0.65, orthographic=False):
     # SAPIEN camera axes: +X forward, +Y left, +Z up. Keep world +Z upright.
     position = np.array([distance, 0, 0.36])
     target = np.array([0, 0, 0.20])
@@ -119,7 +119,31 @@ def reset_camera(viewer, frame_pose=None, distance=0.65):
     quat = Rotation.from_matrix(np.column_stack([forward, left, up])).as_quat()
     pose = sapien.Pose(position, quat[[3, 0, 1, 2]])
     viewer.set_camera_pose(pose if frame_pose is None else frame_pose * pose)
-    viewer.window.set_camera_parameters(near=0.01, far=10, fovy=0.8)
+    if orthographic:
+        # A shared perspective camera views side-by-side palms from different
+        # directions. Parallel rays keep identical poses visually comparable.
+        viewer.window.set_camera_orthographic_parameters(0.01, 10, distance * np.tan(0.8 / 2))
+    else:
+        viewer.window.set_camera_parameters(near=0.01, far=10, fovy=0.8)
+
+
+def render_frame(viewer, orthographic_distance=None):
+    """Keep comparison projection after RenderWindow initialization/resizing.
+
+    SAPIEN can recreate its camera as perspective during the first render (and
+    after resizing). An offscreen camera does not exercise this window lifecycle.
+    Restore projection and redraw without resetting the user's camera pose.
+    """
+    viewer.render()
+    if orthographic_distance is None or viewer.closed:
+        return
+    if viewer.window.camera_mode != 'orthographic':
+        viewer.window.set_camera_orthographic_parameters(
+            0.01, 10, orthographic_distance * np.tan(0.8 / 2))
+        viewer.notify_render_update()
+        viewer.render()
+        if not viewer.closed and viewer.window.camera_mode != 'orthographic':
+            raise RuntimeError('Comparison window failed to retain orthographic projection')
 
 
 def build_hand(name):
@@ -177,6 +201,11 @@ def main():
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument('--compare-pd', action='store_true',
                        help='Show human, raw model output and PD result side by side')
+    modes.add_argument('--compare-wuji-cache', help='Show cached production Wuji output and model output on identical frames')
+    parser.add_argument('--wuji-output', choices=['filtered', 'unfiltered'], default='filtered')
+    modes.add_argument('--compare-checkpoint', metavar='REFERENCE_TAG',
+                       help='Show human, reference checkpoint and selected checkpoint without physics')
+    parser.add_argument('--reference-weights', choices=['last', 'best'], default='last')
     modes.add_argument('--compare-posture', action='store_true',
                        help='Show human, raw model output and posture-corrected output without physics')
     modes.add_argument('--direct-qpos', action='store_true',
@@ -210,6 +239,8 @@ def main():
     for name in ('kp', 'kd', 'force_limit', 'max_joint_velocity'):
         if not np.isfinite(getattr(args, name)) or getattr(args, name) < 0:
             parser.error(f'--{name.replace("_", "-")} must be finite and nonnegative')
+    if (args.compare_checkpoint or args.compare_wuji_cache) and (args.preview or args.posture_correction):
+        parser.error('Checkpoint comparison requires raw model replay without posture correction')
     corrector = None
     if args.posture_correction or args.compare_posture:
         if args.preview:
@@ -224,8 +255,8 @@ def main():
                 max_joint_step_deg=args.posture_max_step_deg)
         except ValueError as error:
             parser.error(str(error))
-    args.direct_qpos = args.direct_qpos or args.compare_posture
-    compare = args.compare_pd or args.compare_posture
+    args.direct_qpos = args.direct_qpos or args.compare_posture or bool(args.compare_checkpoint or args.compare_wuji_cache)
+    compare = args.compare_pd or args.compare_posture or bool(args.compare_checkpoint or args.compare_wuji_cache)
     if args.preview:
         if args.hand not in ('taccap_slave', 'wuji_hand2_beta1_right') or not 0 <= args.position <= 1:
             parser.error('Preview requires TacCap/Wuji and --position in [0, 1]')
@@ -249,6 +280,7 @@ def main():
         except ValueError as error:
             parser.error(str(error))
     model = load_model(args.ckpt_tag, weights=args.weights)
+    reference = load_model(args.compare_checkpoint, weights=args.reference_weights) if args.compare_checkpoint else None
     mocap = ReplayMocap(args.data)
     if mocap.human_points.shape[1:] != (21, 3) or not mocap.T:
         parser.error('Human skeleton requires nonempty (T, 21, 3) data')
@@ -259,6 +291,13 @@ def main():
     if any(model.config.get(key) != value for key, value in config.items()
            if key != 'collision_exclusions'):
         parser.error('Checkpoint and -hand configuration differ')
+    if reference is not None:
+        if any(reference.config.get(key) != value for key, value in config.items() if key != 'collision_exclusions') or reference.config['joint'] != model.config['joint']:
+            parser.error('Reference checkpoint and selected hand kinematics differ')
+    cached_wuji = None
+    if args.compare_wuji_cache:
+        from geort.wuji_baseline import load_wuji_cache
+        cached_wuji = load_wuji_cache(args.compare_wuji_cache, mocap.data_path, config['joint_order'])[args.wuji_output]
     hand = HandKinematicModel.build_from_config(config, render=True)
     env = hand.get_viewer_env()
     viewer = env.viewer
@@ -281,8 +320,12 @@ def main():
     hand.scene.set_ambient_light([0.7, 0.7, 0.7])
     direction = robot_pose.to_transformation_matrix()[:3, :3] @ np.array([-1, 0, -1])
     hand.scene.add_directional_light(direction, [0.7, 0.7, 0.7], shadow=False)
-    reset_camera(viewer, frame_pose=center_pose, distance=camera_distance)
-    if args.compare_posture:
+    reset_camera(viewer, frame_pose=center_pose, distance=camera_distance, orthographic=compare)
+    if args.compare_wuji_cache:
+        print(f'Left: human. Center: Wuji reference ({args.wuji_output}). Right: {args.ckpt_tag}. Common GeoRT geometry, no physics.')
+    elif args.compare_checkpoint:
+        print(f'Left: human. Center: {args.compare_checkpoint} ({args.reference_weights}). Right: {args.ckpt_tag} ({args.weights}). No physics or correction.')
+    elif args.compare_posture:
         print('Left: human skeleton. Center: raw model output. Right: posture-corrected output (no physics).')
     elif args.direct_qpos:
         print('Left: recorded human skeleton. Right: model joint positions, without physics/PD.')
@@ -295,7 +338,8 @@ def main():
     if corrector is not None:
         print(f'Posture correction ON: little PIP/DIP, tip budget {args.posture_budget_mm:g} mm; '
               'display/drive command corrected; center comparison stays raw. No collision guarantee.')
-    print('Same input frame and scale. R resets camera.')
+    print('Same input frame and scale. R resets camera.' +
+          (' Orthographic comparison: parallel palm views.' if compare else ''))
     # Initialize visuals with frame zero so no skeleton flashes at the origin.
     human.update(mocap.human_points[0] @ transform[:3, :3].T + transform[:3, 3])
     relaxed_frames = 0
@@ -303,6 +347,7 @@ def main():
     try:
         while not viewer.closed:
             frame_start = time.monotonic()
+            frame_index = mocap.t
             result = mocap.get()
             if result['status'] == 'quit':
                 break
@@ -325,13 +370,15 @@ def main():
                 if direct is not None:
                     # Physics may move this collision-free display articulation between
                     # frames; overwrite it only after stepping, with the raw model output.
-                    direct.set_qpos(hand.convert_user_order_to_sim_order(raw_qpos))
+                    comparison_qpos = (cached_wuji[frame_index] if cached_wuji is not None else
+                                       reference.forward(points) if reference is not None else raw_qpos)
+                    direct.set_qpos(hand.convert_user_order_to_sim_order(comparison_qpos))
                     direct.set_qvel(np.zeros_like(qpos))
                 human.update(points @ transform[:3, :3].T + transform[:3, 3])
             if viewer.window.key_press('r'):
-                reset_camera(viewer, frame_pose=center_pose, distance=camera_distance)
+                reset_camera(viewer, frame_pose=center_pose, distance=camera_distance, orthographic=compare)
             hand.scene.update_render()
-            viewer.render()
+            render_frame(viewer, camera_distance if compare else None)
             if args.fps is not None:
                 time.sleep(max(0, 1 / args.fps - (time.monotonic() - frame_start)))
     except KeyboardInterrupt:

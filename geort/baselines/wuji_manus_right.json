@@ -1,0 +1,13 @@
+{
+  "name": "wuji-retargeting_manus_hand2_right",
+  "source_commit": "6eafdb22085f0e29c1d58c62f88f77ae1e971d8c",
+  "config_sha256": "d9f0f6738bd47ba5730daffe143eeb0b27e10ce37c8150d755fb3cf622012aa0",
+  "config_name": "adaptive_analytical_manus_wuji_hand_2_right.yaml",
+  "hand_side": "right",
+  "seed": 42,
+  "primary_output": "filtered",
+  "diagnostic_output": "unfiltered",
+  "lp_alpha": 0.3,
+  "confirmation": "User confirmed the current LeRobot default config on 2026-09-16",
+  "native_urdf_sha256": "f890b6f12931be6e526869f569f94049ed931a03878099478933b1d27f1afd1d"
+}

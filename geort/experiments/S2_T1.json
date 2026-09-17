@@ -1,0 +1,42 @@
+{
+  "name": "S2_T1",
+  "mode": "tip_only",
+  "context": false,
+  "seed": 42,
+  "steps": 2500,
+  "batch_size": 64,
+  "lr": 1e-05,
+  "split": {
+    "train": [
+      0,
+      2000
+    ],
+    "validation": [
+      2100,
+      2448
+    ],
+    "test": [
+      2548,
+      3498
+    ]
+  },
+  "baseline": {
+    "coverage": 80.0,
+    "response_direction": 1.0,
+    "flatness": 1.0,
+    "pinch": 1000.0
+  },
+  "task": {
+    "axis": 0.05,
+    "shape": 0.02,
+    "posture": 10.0,
+    "relation": 0.0,
+    "axis_tolerance_deg": 15.0,
+    "shape_tolerance_cos": 0.2,
+    "posture_tolerance_deg": 15.0,
+    "relation_tolerance_m": 0.01,
+    "relation_min_opening_m": 0.015,
+    "anchor": 3.0,
+    "anchor_tolerance_m": 0.005
+  }
+}
